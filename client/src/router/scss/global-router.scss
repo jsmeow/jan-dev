@@ -1,0 +1,29 @@
+.fade-enter {
+  opacity: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 400ms linear;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 400ms linear;
+}
+
+div.router--transition-group--div {
+  position: relative;
+}
+
+section.router--route-section--section {
+  height: calc(100vh - 8rem - 16px);
+  left: 0;
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+}

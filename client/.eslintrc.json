@@ -1,0 +1,96 @@
+{
+  "extends": [
+    "eslint:all",
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:react/all",
+    "plugin:react-redux/all",
+    "plugin:prettier/recommended",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "plugins": [
+    "import",
+    "standard",
+    "react",
+    "react-hooks",
+    "react-redux",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6":     true,
+    "browser": true,
+    "node":    true,
+    "mocha":   true
+  },
+  "rules": {
+    // prettier
+    "prettier/prettier": ["error", {
+      "printWidth": 80,
+      "singleQuote": true
+    }, {
+      "usePrettierrc": false
+    }],
+    // eslint
+    "max-len": ["error", {
+      "code": 120,
+      "comments": 90,
+      "ignoreComments": false,
+      "ignoreTrailingComments": false,
+      "ignoreStrings": false,
+      "ignoreTemplateLiterals": false,
+      "ignoreRegExpLiterals": false,
+      "ignoreUrls": true
+    }],
+    "lines-around-comment": ["error", {
+      "beforeBlockComment": false,
+      "afterBlockComment": false,
+      "beforeLineComment": false,
+      "afterLineComment": false,
+      "allowBlockStart": false,
+      "allowBlockEnd": false,
+      "allowObjectStart": false,
+      "allowObjectEnd": false,
+      "allowArrayStart": false,
+      "allowArrayEnd": false,
+      "allowClassStart": false,
+      "allowClassEnd": false
+    }],
+    "no-unused-expressions": "off",
+    "func-names": "off",
+    "no-console": "off",
+    "no-prototype-builtins": "off",
+    "no-param-reassign": "off",
+    "no-new": "off",
+    // react
+    "react/jsx-filename-extension": "off",
+    "react/static-property-placement": "off",
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+    "react/require-optimization": "off",
+    "react/prefer-stateless-function": "off",
+    "react/no-set-state": "off",
+    "react/state-in-constructor": "off",
+    "react/destructuring-assignment": "off",
+    "react/boolean-prop-naming": "off",
+    "react/jsx-fragments": "off",
+    "react/no-children-prop":"off",
+    "react/jsx-max-depth": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-literals": "off",
+    "react/no-danger": "off",
+    // react-redux
+    "react-redux/connect-prefer-minimum-two-arguments": "off",
+    // import
+    "import/default": "off",
+    "import/prefer-default-export": "off"
+  }
+}

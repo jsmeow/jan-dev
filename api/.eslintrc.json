@@ -1,0 +1,64 @@
+{
+  "plugins": [
+    "import",
+    "standard",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6":     true,
+    "browser": true,
+    "node":    true,
+    "mocha":   true
+  },
+  "extends": [
+    "eslint:all",
+    "plugin:node/recommended",
+    "plugin:prettier/recommended",
+    "prettier/standard"
+  ],
+  "rules": {
+    // prettier
+    "prettier/prettier": ["error", {
+      "printWidth": 80,
+      "singleQuote": true
+    }, {
+      "usePrettierrc": false
+    }],
+    // eslint
+    "max-len": ["error", {
+      "code": 120,
+      "comments": 80,
+      "ignoreComments": false,
+      "ignoreTrailingComments": false,
+      "ignoreStrings": false,
+      "ignoreTemplateLiterals": false,
+      "ignoreRegExpLiterals": false,
+      "ignoreUrls": true
+    }],
+    "lines-around-comment": ["error", {
+      "beforeBlockComment": false,
+      "afterBlockComment": false,
+      "beforeLineComment": false,
+      "afterLineComment": false,
+      "allowBlockStart": false,
+      "allowBlockEnd": false,
+      "allowObjectStart": false,
+      "allowObjectEnd": false,
+      "allowArrayStart": false,
+      "allowArrayEnd": false,
+      "allowClassStart": false,
+      "allowClassEnd": false
+    }],
+    "one-var": "off",
+    "no-unused-expressions": "off",
+    "func-names": "off",
+    "no-console": "off",
+    "no-magic-numbers": "off",
+    "id-length": "off"
+  }
+}

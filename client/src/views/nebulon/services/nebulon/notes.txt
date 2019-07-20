@@ -1,0 +1,4 @@
+https://www.pixilart.com/
+pixel size = 16;
+sprite size = 125;
+export size = 375;

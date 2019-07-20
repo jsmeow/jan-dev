@@ -1,0 +1,72 @@
+@keyframes shootingStarsAnimation {
+  from {
+    right: 0;
+  }
+
+  to {
+    right: calc(100% + 100px);
+  }
+}
+
+.p {
+  animation-iteration-count: infinite;
+  animation-name: shootingStarsAnimation;
+  animation-timing-function: linear;
+  background-color: white;
+  height: 1px;
+  position: fixed;
+  right: 0;
+  top: 50px;
+  width: 1px;
+}
+
+.p::before {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.4) 100%);
+  content: "";
+  display: block;
+  height: 1px;
+  left: 1px;
+  position: absolute;
+  top: 0;
+  width: 100px;
+}
+
+.p-0 {
+  animation-delay: 0s;
+  animation-duration: 12s;
+  top: 6%;
+}
+
+.p-1 {
+  animation-delay: 2s;
+  animation-duration: 16s;
+  top: 12%;
+}
+
+.p-2 {
+  animation-delay: 1s;
+  animation-duration: 20s;
+  top: 16%;
+}
+
+.p-3 {
+  animation-delay: 1.5s;
+  animation-duration: 14s;
+  top: 20%;
+}
+
+.p-4 {
+  animation-delay: 0s;
+  animation-duration: 10s;
+  top: 24%;
+}
+
+.p-5 {
+  animation-delay: 0.5s;
+  animation-duration: 18s;
+  top: 28%;
+}
+
+div {
+
+}

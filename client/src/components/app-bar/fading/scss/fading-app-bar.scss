@@ -1,0 +1,19 @@
+header.fading-app-bar {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  z-index: -1;
+}
+
+.fading-app-bar--bg__solid {
+  transition-delay: 0.5s;
+  transition-duration: 0.5s;
+  transition-property: background;
+}
+
+.fading-app-bar--bg__transparent {
+  background: transparent;
+  transition-delay: 0.5s;
+  transition-duration: 0.5s;
+  transition-property: background;
+}

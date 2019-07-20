@@ -1,0 +1,91 @@
+MongoDB Notes:
+- Mongo repository:
+  [mongodb-org-4.0]
+  name=MongoDB Repository
+  baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
+  gpgcheck=1
+  enabled=1
+  gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
+- Mongo package:
+  sudo yum install -y mongodb-org
+- Default mongodb port:
+  27017
+- Status mongodb:
+  sudo service mongod status
+- Start mongodb:
+  sudo service mongod start
+- Stop mongodb:
+  sudo service mongod stop
+- Start mongo console:
+  mongo
+
+Docker Notes:
+- Start docker:
+  sudo systemctl start docker
+- Restart docker:
+  service docker restart
+- Find containers and images
+  docker container ls
+  docker ps -a
+- Run docker container:
+  sudo docker run hello-world
+- Build docker image from Dockerfile in current dir:
+  docker build .
+- Build docker image from Dockerfile from dir:
+  docker build -f /path/to/a/Dockerfile .
+- Build docker images from docker-compose.yml:
+  sudo docker-compose build
+- Start docker containers from docker-compose.yml:
+  sudo docker-compose up
+
+Nginx Notes:
+- Start nginx:
+  systemctl enable nginx
+
+Node Notes:
+- Install nodejs:
+  sudo yum install nodejs
+- Upgrading to the latest stable version:
+  sudo npm cache clean -f
+  sudo npm install -g n
+  sudo n stable
+  sudo ln -sf /usr/local/n/versions/node/11.8.0/bin/node /usr/bin/node
+
+Gcloud Notes:
+- SSH into instance:
+  gcloud compute --project "norfair-io" ssh --zone us-east1-b backend
+  gcloud compute --project "norfair-io" ssh --zone us-east1-b frontend
+- Create a directory for MongoDB and then run the MongoDB service in the background on port 80:
+  sudo mkdir $HOME/db
+  sudo mongod --dbpath $HOME/db --port 80 --fork --logpath /var/tmp/mongodb
+
+Git Notes:
+- Git init:
+  git init
+- Git add:
+  git add */**
+- Git commit
+  git commit -m "commit msg"
+- Git push
+  git push -u origin master
+
+IP Address Notes:
+- Find ipv6:
+  ifconfig
+- Port redirection:
+  sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
+- Reset iptables:
+  iptables -F
+- List iptables rules as table:
+  sudo iptables -L
+  sudo iptables -t nat -L
+
+Local Resources:
+- SSH:
+  scp -r hibiscus@73.253.254.117:/homeController/hibiscus/IdeaProjects/norfair-io .
+
+
+Resources:
+- https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb
+- https://medium.freecodecamp.org/create-a-react-frontend-a-node-express-backend-and-connect-them-together-c5798926047c
+- https://medium.freecodecamp.org/create-a-fullstack-react-express-mongodb-app-using-docker-c3e3e21c4074\

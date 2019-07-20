@@ -1,0 +1,15 @@
+const express = require('express');
+
+const app = express();
+
+app.use('/product', (request, response, next) => {
+  console.log('product');
+  response.send('<h1>product</h1>');
+});
+
+app.use('/', (request, response, next) => {
+  console.log('homeController');
+  response.send('<h1>homeController</h1>');
+});
+
+app.listen(3000);

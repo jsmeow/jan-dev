@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../../shared/assets/fonts/press-start-2p/eot/press-start-2p-v7-latin-regular.eot');
+  src:
+    local('Press Start 2P Regular'),
+    local('PressStart2P-Regular'),
+    url('../../../shared/assets/fonts/press-start-2p/eot/press-start-2p-v7-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('../../../shared/assets/fonts/press-start-2p/woff2/press-start-2p-v7-latin-regular.woff2') format('woff2'),
+    url('../../../shared/assets/fonts/press-start-2p/woff/press-start-2p-v7-latin-regular.woff') format('woff'),
+    url('../../../shared/assets/fonts/press-start-2p/ttf/press-start-2p-v7-latin-regular.ttf') format('truetype'),
+    url('../../../shared/assets/fonts/press-start-2p/svg/press-start-2p-v7-latin-regular.svg#PressStart2P') format('svg');
+}
+
+.tetris--canvas {
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: high-quality;
+  margin: 0 auto;
+  shape-rendering: auto;
+}
+
+.tetris--player-name--form {
+  left: calc(50% + 8rem);
+  position: absolute;
+  top: calc(50% + 8rem);
+  width: 18rem;
+}
+
+input.tetris--player-name--form--input {
+  font-family: "Press Start 2P", monospace;
+  font-size: 3rem;
+}

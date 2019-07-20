@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9b13e046-33dc-4e4e-bc3d-694135caf56a" name="Default Changelist" comment="corrected mongoose connect method signature">
+      <change afterPath="$PROJECT_DIR$/client/src/images/githubCorners/githubCorners.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/githubCorners/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/githubCorners/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/githubCorners/license.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/githubCorners/svg/github-corner-left.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/images/githubCorners/svg/github-corner-right.svg" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/git-notes.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>moveStepSize</find>
+      <find>moveInterval</find>
+      <find>Intervalss</find>
+      <find>GamePlayHitPointScore</find>
+      <find>Life</find>
+      <find>Shield</find>
+      <find>GamePlayPowerPointScore</find>
+      <find>heartImage</find>
+      <find>ExplosionDestroy</find>
+      <find>this.explosionImage1.src = this.explosionImage1Src;</find>
+      <find>1</find>
+      <find>Clear</find>
+      <find>shield</find>
+      <find>draw</find>
+      <find>onDrawTick</find>
+      <find>explosionImage</find>
+      <find>explosionDestroy3</find>
+      <find>explosionDestroy4</find>
+      <find>Bullet</find>
+      <find>ship</find>
+      <find>create</find>
+      <find>this.entities</find>
+      <find>game.player</find>
+      <find>console</find>
+      <find>pause</find>
+      <find>isGameRunningStatus</find>
+      <find>* 2,</find>
+      <find>narrowbill</find>
+      <find>bentclaw</find>
+      <find>Wave101</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>moveInterval</replace>
+      <replace>GamePlayEntity</replace>
+      <replace>factionStatus</replace>
+      <replace>moveIntervalDelay</replace>
+      <replace>right</replace>
+      <replace>down</replace>
+      <replace>dispose</replace>
+      <replace>damagedImage</replace>
+      <replace>speed</replace>
+      <replace>moveIntervals</replace>
+      <replace>Intervals</replace>
+      <replace>GamePlayLifeScore</replace>
+      <replace>HitPoint</replace>
+      <replace>Shield</replace>
+      <replace>GamePlayPowerScore</replace>
+      <replace>ExplosionEntity</replace>
+      <replace>2</replace>
+      <replace>Dispose</replace>
+      <replace>power</replace>
+      <replace>image</replace>
+      <replace>explosionImage3Src</replace>
+      <replace>explosionImage4Src</replace>
+      <replace>Bomb</replace>
+      <replace>player</replace>
+      <replace>this.gameEntities</replace>
+      <replace>game.gamePlayer</replace>
+      <replace>* 3,</replace>
+      <replace>bentclaw</replace>
+      <replace>hookneck</replace>
+      <replace>Wave102</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/client/node_modules</dir>
+      <dir>$PROJECT_DIR$/client/src/pages</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="jan" />
+        <option value="janjav" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/client/src/images/githubCorners" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/ships/1/sideroost/Sideroost.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/ships/player/Player.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/bullets/DirectionalBullet.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/bullets/Bullet.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/ships/boss/hookneck/Hookneck.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave103.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/explosions/damage/ExplosionDamage.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/ships/Ship.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/Entity.java" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bullets/Bullet.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bullets/allied/BulletAllied1.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/canvas/GameCanvas.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/title/GameTitle.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/life-score/GamePlayShieldScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/bombs-score/GamePlayShieldScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/power-point-score/GamePlayPowerPointScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/power-score/GamePlayPowerPointScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/background/space/blinking-star/SpaceBackgroundBlinkingStars.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/background/space/comet/SpaceBackgroundComets.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/damage/ExplosionDamage.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/destroy/ExplosionDestroy.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/BombSmall.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/DisplayEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/shield-score/GamePlayShieldScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/GamePlayEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/BombEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/point-score/GamePlayPointScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/hit-point-score/GamePlayHitPointScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/bomb-score/GamePlayBombScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/life-score/GamePlayLifeScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/power-score/GamePlayPowerScore.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/Entity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/ExplosionEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/GamePaused.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/key-handler/GameKeyHandler.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/loop/GameLoop.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/Game.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/ready-screen/GamePlayReadyScreen.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/ShipEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/difficulty-easy/bentclaw/Bentclaw.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/difficulty-easy/narrowbill/Narrowbill.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/levels/level1/Level1.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/Wave.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/levels/Level.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/player/Player.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bullets/BulletEntity.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave102.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/Hookneck.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave101.js" />
+        <option value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/GamePlay.js" />
+        <option value="$PROJECT_DIR$/git-notes.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2560" />
+    <option name="y" value="28" />
+    <option name="width" value="2560" />
+    <option name="height" value="1382" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="jan-dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jan-dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553750470748" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.16.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/assets" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/client/node_modules/eslint" />
+    <property name="node.js.selected.package.standard" value="$PROJECT_DIR$/client/node_modules/eslint" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettier.import.notification.dismissed" value="true" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/paused" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/assets/pixil" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/assets/images" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/light" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/assets" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/bomb-score/assets/pixil" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/bomb-score/assets/images" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/player/assets/pixil" />
+      <recent name="$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/player/assets/images" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="npm.client start">
+    <configuration name="client build" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/client/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="client install" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/client/package.json" />
+      <command value="install" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="client start" type="js.build_tools.npm" temporary="true">
+      <package-json value="$PROJECT_DIR$/client/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="server install" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/api/package.json" />
+      <command value="install" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="server start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/api/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.api start bin/www" />
+      <item itemvalue="npm.server install" />
+      <item itemvalue="npm.server start" />
+      <item itemvalue="npm.client install" />
+      <item itemvalue="npm.client build" />
+      <item itemvalue="npm.client start" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.client start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9b13e046-33dc-4e4e-bc3d-694135caf56a" name="Default Changelist" comment="" />
+      <created>1552746521710</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552746521710</updated>
+      <workItem from="1552746525446" duration="6222000" />
+      <workItem from="1552755649243" duration="12191000" />
+      <workItem from="1552767865006" duration="97000" />
+      <workItem from="1552768087751" duration="19932000" />
+      <workItem from="1552841043631" duration="2635000" />
+      <workItem from="1552844620410" duration="19784000" />
+      <workItem from="1552953426469" duration="53000" />
+      <workItem from="1552954542406" duration="604000" />
+      <workItem from="1552956745864" duration="79222000" />
+      <workItem from="1553352505351" duration="1479000" />
+      <workItem from="1553360171538" duration="41747000" />
+      <workItem from="1553408311176" duration="96030000" />
+      <workItem from="1553655563383" duration="34724000" />
+      <workItem from="1553750898415" duration="19602000" />
+      <workItem from="1553967223269" duration="57000" />
+      <workItem from="1553967296820" duration="59174000" />
+      <workItem from="1554150788328" duration="31584000" />
+      <workItem from="1554243840420" duration="815000" />
+      <workItem from="1554245330353" duration="51996000" />
+      <workItem from="1554575234317" duration="30000" />
+      <workItem from="1554575317810" duration="11030000" />
+      <workItem from="1554666162993" duration="25395000" />
+      <workItem from="1554759584654" duration="6412000" />
+      <workItem from="1554846887902" duration="60000" />
+      <workItem from="1554846975000" duration="10076000" />
+      <workItem from="1555536228048" duration="68003000" />
+      <workItem from="1555713823269" duration="10000" />
+      <workItem from="1555713852094" duration="32593000" />
+      <workItem from="1555806249116" duration="13624000" />
+      <workItem from="1555820262572" duration="7255000" />
+      <workItem from="1555855084489" duration="94865000" />
+      <workItem from="1556244139860" duration="13667000" />
+      <workItem from="1556406889083" duration="18370000" />
+      <workItem from="1556471956589" duration="19969000" />
+      <workItem from="1560294511370" duration="167000" />
+      <workItem from="1560294697151" duration="2655000" />
+      <workItem from="1560304613482" duration="71000" />
+      <workItem from="1560304715313" duration="15571000" />
+      <workItem from="1560704670971" duration="25000" />
+      <workItem from="1560704709786" duration="1742000" />
+      <workItem from="1560975888330" duration="1288000" />
+      <workItem from="1561078920327" duration="2448000" />
+      <workItem from="1561085204245" duration="642000" />
+      <workItem from="1561139606290" duration="13402000" />
+      <workItem from="1561160031003" duration="2268000" />
+      <workItem from="1561171387853" duration="19053000" />
+      <workItem from="1561219742027" duration="5567000" />
+      <workItem from="1561226791523" duration="1361000" />
+      <workItem from="1561228994246" duration="16067000" />
+      <workItem from="1561250692164" duration="1269000" />
+      <workItem from="1561299183712" duration="23991000" />
+      <workItem from="1561415078347" duration="5989000" />
+      <workItem from="1561423205437" duration="22244000" />
+      <workItem from="1561582169794" duration="26181000" />
+      <workItem from="1561678569784" duration="1293000" />
+      <workItem from="1561680402768" duration="3888000" />
+      <workItem from="1561686258283" duration="3303000" />
+      <workItem from="1561751556710" duration="9979000" />
+      <workItem from="1561761559426" duration="1004000" />
+      <workItem from="1561766275137" duration="7181000" />
+      <workItem from="1561833247812" duration="20459000" />
+      <workItem from="1561855973769" duration="520000" />
+      <workItem from="1561921950685" duration="7000" />
+      <workItem from="1561922192597" duration="9427000" />
+      <workItem from="1561932340733" duration="8244000" />
+      <workItem from="1561951906061" duration="645000" />
+      <workItem from="1562017878784" duration="3546000" />
+      <workItem from="1562101261330" duration="995000" />
+      <workItem from="1562104433524" duration="3875000" />
+      <workItem from="1562108324067" duration="32000" />
+      <workItem from="1562108370352" duration="8484000" />
+      <workItem from="1562192115504" duration="43000" />
+      <workItem from="1562192174552" duration="41000" />
+      <workItem from="1562192229856" duration="1022000" />
+      <workItem from="1562203118041" duration="18946000" />
+      <workItem from="1562257792964" duration="52278000" />
+      <workItem from="1562355671559" duration="27125000" />
+      <workItem from="1562426032644" duration="2572000" />
+      <workItem from="1562428623355" duration="11745000" />
+      <workItem from="1562442687670" duration="3670000" />
+      <workItem from="1562447263831" duration="26435000" />
+      <workItem from="1562508638814" duration="30341000" />
+      <workItem from="1562551262278" duration="13451000" />
+      <workItem from="1562610732096" duration="12798000" />
+      <workItem from="1562873628055" duration="20396000" />
+      <workItem from="1563110946511" duration="387000" />
+      <workItem from="1563222206532" duration="4401000" />
+      <workItem from="1563227013256" duration="56362000" />
+      <workItem from="1563463242676" duration="12891000" />
+      <workItem from="1563482729769" duration="64610000" />
+      <workItem from="1563564637955" duration="4196000" />
+      <workItem from="1563568848862" duration="662000" />
+      <workItem from="1563569529415" duration="18787000" />
+      <workItem from="1563589749690" duration="455000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1427804000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="2560" y="28" width="2560" height="1382" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49763033" visible="true" weight="0.27609563" />
+      <window_info id="Structure" order="1" sideWeight="0.50236964" side_tool="true" weight="0.21075697" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="npm" order="7" sideWeight="0.50058895" side_tool="true" weight="0.25219125" />
+      <window_info id="Learn" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.327405" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.39968404" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" weight="0.32938388" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.32938388" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" weight="0.32938388" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32659662" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32938388" />
+      <window_info anchor="bottom" id="TypeScript" order="11" />
+      <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32902184" />
+      <window_info anchor="bottom" id="Run with VisualVM" order="13" />
+      <window_info anchor="bottom" id="Debug with VisualVM" order="14" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.2498008" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32988048" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32988048" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Run" order="9" sideWeight="0.4672595" weight="0.23187251" />
+      <window_info anchor="right" x="0" y="0" width="590" height="1211" id="Documentation" order="10" sideWeight="0.5327405" side_tool="true" visible="true" weight="0.23187251" />
+      <window_info anchor="right" id="Mongo Explorer" order="11" sideWeight="0.4995958" weight="0.32988048" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49763033" visible="true" weight="0.2764706" />
+      <window_info id="Structure" order="1" sideWeight="0.50236964" side_tool="true" weight="0.21075697" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="npm" order="7" sideWeight="0.50058895" side_tool="true" weight="0.25219125" />
+      <window_info id="Learn" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.327405" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.39968404" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="5" weight="0.32938388" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.32938388" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" weight="0.32938388" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32659662" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32938388" />
+      <window_info anchor="bottom" id="TypeScript" order="11" />
+      <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32938388" />
+      <window_info anchor="bottom" id="Run with VisualVM" order="13" />
+      <window_info anchor="bottom" id="Debug with VisualVM" order="14" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.2498008" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32988048" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32988048" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Run" order="9" sideWeight="0.495585" visible="true" weight="0.23101604" />
+      <window_info anchor="right" x="0" y="0" width="590" height="1211" id="Documentation" order="10" sideWeight="0.50441504" side_tool="true" visible="true" weight="0.23101604" />
+      <window_info anchor="right" id="Mongo Explorer" order="11" sideWeight="0.4995958" weight="0.32988048" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/frontend" />
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/client/src/images/github-corners" />
+      <path value="$PROJECT_DIR$/client/src/images/githubCorners" />
+    </ignored-roots>
+    <MESSAGE value="changing express static directory from public to build" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing express static directory from public to build" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/assets/pixil/allied-hookneck.pixil" />
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/assets/pixil/damaged-hookneck.pixil" />
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/bullets/DirectionalBullet.js" />
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave103.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/Entity.java" />
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bullets/allied/BulletAllied1.js" />
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/player/assets/images/damaged-player.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/title/GameTitle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/shield-score/assets/images/shield.png.bak" />
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="3054" column="4" selection-start-line="3054" selection-start-column="4" selection-end-line="3054" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/background/space/SpaceBackground.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-578">
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/background/space/blinking-star/SpaceBackgroundBlinkingStars.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/background/space/comet/SpaceBackgroundComets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="53" column="24" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/damage-small/BombSmall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/destroy/ExplosionDestroy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/shield-score/GamePlayShieldScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="81" column="48" selection-start-line="81" selection-start-column="38" selection-end-line="81" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/GamePlayEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="164" column="5" lean-forward="true" selection-start-line="164" selection-start-column="5" selection-end-line="164" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bombs/BombEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/point-score/GamePlayPointScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/hit-point-score/GamePlayHitPointScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="36" column="17" lean-forward="true" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/power-score/GamePlayPowerScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/damage/ExplosionDamage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/bomb-score/GamePlayBombScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="808">
+          <caret line="92" selection-start-line="92" selection-end-line="102" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/canvas/GameCanvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2376">
+          <caret line="132" column="22" selection-start-line="132" selection-start-column="22" selection-end-line="132" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/life-score/GamePlayLifeScore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-182">
+          <caret line="37" column="6" lean-forward="true" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/DisplayEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="36" column="32" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/display/explosions/ExplosionEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="205" column="61" selection-start-line="205" selection-start-column="61" selection-end-line="205" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/tetris/services/tetris/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="324" column="5" lean-forward="true" selection-start-line="324" selection-start-column="5" selection-end-line="324" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/paused/GamePaused.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/key-handler/GameKeyHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="74" column="38" lean-forward="true" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/loop/GameLoop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="826">
+          <caret line="123" column="5" selection-start-line="123" selection-start-column="5" selection-end-line="123" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="147" column="19" lean-forward="true" selection-start-line="147" selection-start-column="19" selection-end-line="147" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/ready-screen/GamePlayReadyScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/ShipEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/difficulty-easy/narrowbill/Narrowbill.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/levels/level1/Level1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/Wave.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="100" column="28" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/levels/Level.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="826">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/assets/images/enemy-hookneck.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/player/Player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="77" column="52" selection-start-line="77" selection-start-column="52" selection-end-line="77" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/assets/images/allied-hookneck.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/assets/images/damaged-hookneck.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/Entity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="433" column="29" lean-forward="true" selection-start-line="433" selection-start-column="29" selection-end-line="433" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/bullets/BulletEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1078">
+          <caret line="77" column="47" selection-start-line="77" selection-start-column="47" selection-end-line="77" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/difficulty-easy/bentclaw/Bentclaw.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="52" selection-start-line="52" selection-end-line="60" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/entities/gameplay/ships/boss/hookneck/Hookneck.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave102.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="37" column="59" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/game/gameplay/GamePlay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="785">
+          <caret line="143" column="7" selection-start-line="143" selection-start-column="7" selection-end-line="143" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/views/nebulon/services/nebulon/waves/1/Wave101.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="182" column="7" selection-start-line="182" selection-start-column="7" selection-end-line="182" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/git-notes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>jan-dev</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8 (2)</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
