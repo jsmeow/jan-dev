@@ -27,7 +27,7 @@ const Nebulon = () => {
   useEffect(() => {
     nebulonRef.current = new Game(canvasRef.current);
     return () => {
-      nebulonRef.current.dispose();
+      nebulonRef.current.disposeGame();
       nebulonRef.current = null;
     };
   }, [canvasRef]);

@@ -1,5 +1,5 @@
 import Wave from '../Wave';
-import Hookneck from '../../entities/gameplay/ships/boss/hookneck/Hookneck';
+import Bloodbird from '../../entities/gameplay/ships/boss/bloodbird/Bloodbird';
 
 class Wave102 extends Wave {
   // ==========================================================================
@@ -21,8 +21,8 @@ class Wave102 extends Wave {
    */
   init = () => {
     this.setEnemyEntities([
-      // Hookneck 1
-      new Hookneck(
+      // Bloodbird 1
+      new Bloodbird(
         this.game,
         {
           x: this.util.defaultEntityCanvasCenterX - 27 / 2,
@@ -32,7 +32,7 @@ class Wave102 extends Wave {
       )
     ]);
     this.setEnemyEntityPaths([
-      // Hookneck 1
+      // Bloodbird 1
       [
         {
           x: this.util.defaultEntityCanvasCenterX - 27 / 2,
