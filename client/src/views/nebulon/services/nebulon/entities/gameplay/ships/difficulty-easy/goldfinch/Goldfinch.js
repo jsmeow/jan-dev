@@ -1,12 +1,10 @@
+import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import alliedShipImage from './assets/images/allied-goldfinch.png';
-import enemyShipImage from './assets/images/enemy-goldfinch.png';
-import damagedShipImage from './assets/images/damaged-goldfinch.png';
-import BulletEntity from '../../../bullets/BulletEntity';
+import BulletStandard from '../../../bullets/standard/BulletStandard';
+import enemyImageSrc from './assets/images/enemy-goldfinch.png';
+import alliedImageSrc from './assets/images/allied-goldfinch.png';
+import damagedImageSrc from './assets/images/damaged-goldfinch.png';
 
-/**
- * A weak enemy.
- */
 class Goldfinch extends ShipEntity {
   // ==========================================================================
   // Constructor and init methods
@@ -14,94 +12,142 @@ class Goldfinch extends ShipEntity {
 
   /**
    * @param game
-   * @param {number=} x
-   * @param {number=} y
-   * @param {number=} faction
+   * @param {number} x
+   * @param {number} y
+   * @param {number} factionStatus
    * @constructor
    */
-  constructor(game, x, y, faction) {
-    super(game, x, y, faction);
+  constructor(game, { x, y }, factionStatus) {
+    super(game, { x, y }, factionStatus);
     /**
-     * @see ShipEntity.alliedShipImage
      * @override
      */
-    this.alliedShipImage = alliedShipImage;
+    this.enemyImageSrc = enemyImageSrc;
     /**
-     * @see ShipEntity.enemyShipImage
      * @override
      */
-    this.enemyShipImage = enemyShipImage;
+    this.alliedImageSrc = alliedImageSrc;
     /**
-     * @see ShipEntity.damagedShipImage
      * @override
      */
-    this.damagedShipImage = damagedShipImage;
-    /**
-     * @see ShipEntity.hitPoints
-     * @override
-     */
-    this.hitPoints = 2;
-    /**
-     * @see ShipEntity.fireBulletIntervalSize
-     * @override
-     */
-    this.fireBulletIntervalSize = 2000;
+    this.damagedImageSrc = damagedImageSrc;
     this.init();
   }
+
+  /**
+   * @override
+   */
+  init = () => {
+    this.setImageSource();
+    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setHitPoints(2);
+    this.setFiringStatus(true);
+  };
 
   // ==========================================================================
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  /**
+   * @override
+   */
+  roamWildly = () => {
     const { x, y } = this.position;
-    return new Promise(resolve => {
-      this.moveTo(x + 20, y + 20)
-        .then(() => this.moveTo(x, y))
-        .then(() => this.moveTo(x - 20, y + 20))
-        .then(() => this.moveTo(x, y))
-        .then(() => resolve());
+    const originalSpeed = this.speed;
+    this.setSpeed(this.speed / 2);
+    return this.movePath([
+      { x: x + 25, y: y + 25 },
+      { x: x - 25, y: y + 25 },
+      { x: x + 25, y: y - 25 },
+      { x: x - 25, y: y - 25 },
+      { x, y }
+    ]).then(() => {
+      this.setSpeed(originalSpeed);
+      return Promise.resolve();
     });
   };
 
   // ==========================================================================
-  // BulletEntity methods
+  // Bullet methods
   // ==========================================================================
 
   /**
-   * Fire a bullet.
    * @override
    */
-  fireBullet = () => {
-    if (!this.fireBulletInterval) {
-      // Fires an enemy bullet.
-      const fireEnemyBullet1 = () => {
-        this.game.addEntity(
-          new BulletEntity(
+  createBullets = () => {
+    if (this.factionStatus === 0) {
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y + this.size.height + 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxLeft: this.fireStandardBulletMagnitude,
+            dyDown: this.fireStandardBulletMagnitude
+          }
+        )
+      );
+      setTimeout(() => {
+        this.createStandardBullet();
+      }, this.fireBulletIntervalDelay / 3);
+      setTimeout(() => {
+        this.game.addToGameEntities(
+          new BulletStandard(
             this.game,
-            this.position.x + this.size.width / 2 - this.size.width / 16,
-            this.position.y + this.size.width,
-            this.faction,
-            'downLeft'
+            {
+              x: this.position.x + this.size.width / 2 - this.size.width / 16,
+              y: this.position.y + this.size.height + 1
+            },
+            this.factionStatus,
+            this.attackPoints,
+            {
+              dxRight: this.fireStandardBulletMagnitude,
+              dyDown: this.fireStandardBulletMagnitude
+            }
           )
         );
-      };
-      const fireEnemyBullet2 = () => {
-        this.game.addEntity(
-          new BulletEntity(
+      }, (this.fireBulletIntervalDelay * 2) / 3);
+    }
+    if (this.factionStatus === 1) {
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y + this.size.height + 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxLeft: this.fireStandardBulletMagnitude,
+            dyUp: this.fireStandardBulletMagnitude
+          }
+        )
+      );
+      setTimeout(() => {
+        this.createStandardBullet();
+      }, this.fireBulletIntervalDelay / 3);
+      setTimeout(() => {
+        this.game.addToGameEntities(
+          new BulletStandard(
             this.game,
-            this.position.x + this.size.width / 2 - this.size.width / 16,
-            this.position.y + this.size.width,
-            this.faction,
-            'downRight'
+            {
+              x: this.position.x + this.size.width / 2 - this.size.width / 16,
+              y: this.position.y + this.size.height + 1
+            },
+            this.factionStatus,
+            this.attackPoints,
+            {
+              dxRight: this.fireStandardBulletMagnitude,
+              dyUp: this.fireStandardBulletMagnitude
+            }
           )
         );
-      };
-      // Start fire bullet setInterval.
-      this.fireBulletInterval = setInterval(() => {
-        fireEnemyBullet1();
-        fireEnemyBullet2();
-      }, this.fireBulletIntervalSize);
+      }, (this.fireBulletIntervalDelay * 2) / 3);
     }
   };
 }

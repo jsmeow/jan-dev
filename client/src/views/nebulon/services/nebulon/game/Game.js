@@ -3,9 +3,11 @@ import GameCanvas from './canvas/GameCanvas';
 import GameTitle from './title/GameTitle';
 import GameKeyHandler from './key-handler/GameKeyHandler';
 import Player from '../entities/gameplay/ships/player/Player';
+import Level from '../levels/Level';
 import Level1 from '../levels/level1/Level1';
 import GamePlay from './gameplay/GamePlay';
 import GamePlayEntity from '../entities/gameplay/GamePlayEntity';
+import ShipEntity from '../entities/gameplay/ships/ShipEntity';
 
 /**
  * The main game logic.
@@ -49,6 +51,11 @@ class Game {
      * @see Level objects.
      */
     this.gameLevel = null;
+    /**
+     * Game level action to be taken.
+     * @type {number|*}
+     */
+    this.gameLevelAction = Level.levels.unset;
     /**
      * Game current score.
      */
@@ -123,6 +130,28 @@ class Game {
     this.gameState = newGameState;
   };
 
+  /**
+   * Game level action setter.
+   * @param {number|*} newGameLevelAction
+   */
+  setGameLevelAction = newGameLevelAction => {
+    this.gameLevelAction = newGameLevelAction;
+  };
+
+  /**
+   * Entities idle status setter.
+   * @param {boolean} newEntitiesIdleStatus
+   */
+  setEntitiesIdleStatus = newEntitiesIdleStatus => {
+    // Cycle through entity collection.
+    this.gameEntities.forEach(entity => {
+      if (entity instanceof ShipEntity) {
+        console.log(entity);
+        entity.setIdleStatus(newEntitiesIdleStatus);
+      }
+    });
+  };
+
   // ==========================================================================
   // Create methods
   // ==========================================================================
@@ -131,10 +160,7 @@ class Game {
    * Game player creator.
    */
   createNewGamePlayer = () => {
-    this.gamePlayer = new Player(this, {
-      x: GameCanvas.size.width * 0.5 - GamePlayEntity.defaultSize.width / 2,
-      y: GameCanvas.size.height - GamePlayEntity.defaultSize.height * 2
-    });
+    this.gamePlayer = new Player(this, { ...Player.defaultSpawnPosition });
     this.addToGameEntities(this.gamePlayer);
   };
 
@@ -143,14 +169,15 @@ class Game {
    * @param {number} newLevel
    */
   createNewGameLevel = newLevel => {
+    // Create the level.
     switch (newLevel) {
-      case 1:
+      case Level.levels.createLevel1:
         this.gameLevel = new Level1(this);
         break;
-      case 2:
+      case Level.levels.createLevel2:
         // this.gameLevel = new Level2(this);
         break;
-      case 3:
+      case Level.levels.createLevel3:
         // this.gameLevel = new Level3(this);
         break;
       default:
@@ -181,7 +208,7 @@ class Game {
    * @param score
    */
   addToGameScore = score => {
-    this.score = this.score + score;
+    this.gameScore = this.gameScore + score;
   };
 
   // ==========================================================================

@@ -1,3 +1,5 @@
+import Level from '../../levels/Level';
+import Player from '../../entities/gameplay/ships/player/Player';
 import GamePlayHitPointScore from './hit-point-score/GamePlayHitPointScore';
 import GamePlayShieldScore from './shield-score/GamePlayShieldScore';
 import GamePlayPointScore from './point-score/GamePlayPointScore';
@@ -17,7 +19,8 @@ class GamePlay {
    */
   static gamePlayStates = {
     ready: 0,
-    level1: 1
+    handleLevel: 1,
+    running: 2
   };
 
   // ==========================================================================
@@ -65,12 +68,20 @@ class GamePlay {
      * @see GamePlayPointScore
      */
     this.gamePlayPointScore = new GamePlayPointScore(this.game);
+    /**
+     * GamePlay timeout before moving to the ready state.
+     */
+    this.readyStateTimeoutDelay = 3000;
     this.init();
   }
 
   init = () => {
+    // Create the game player entity.
     this.game.createNewGamePlayer(this.game);
-    this.setGamePlayState(0);
+    // Set the level to be created to level 1.
+    this.game.setGameLevelAction(Level.levels.createLevel1);
+    // Begin gameplay.
+    this.setGamePlayState(GamePlay.gamePlayStates.ready);
   };
 
   // ==========================================================================
@@ -80,23 +91,60 @@ class GamePlay {
   /**
    * GamePlay state setter.
    * State 0 = Ready screen
-   * State 2 = Level 1
+   * State 1 = Create the current level
+   * State 2 = Running the current level
    * @param {number} newGamePlayState
    */
   setGamePlayState = newGamePlayState => {
     switch (newGamePlayState) {
-      // Ready screen state
+      // Ready screen state.
       case GamePlay.gamePlayStates.ready:
-        this.gamePlayReadyScreen.blinkTextLabel();
+        this.onReadyGameState();
         break;
-      // Level 1 state
-      case GamePlay.gamePlayStates.level1:
-        this.game.createNewGameLevel(1);
-        this.game.gamePlayer.setFiringStatus(true);
+      // Handle the current level state.
+      case GamePlay.gamePlayStates.handleLevel:
+        this.onHandleLevelGameState();
+        break;
+      // Run the current level state.
+      case GamePlay.gamePlayStates.running:
+        this.onRunningGameState();
         break;
       default:
     }
     this.gamePlayState = newGamePlayState;
+  };
+
+  // ==========================================================================
+  // On state methods
+  // ==========================================================================
+
+  onReadyGameState = () => {
+    this.gamePlayReadyScreen.blinkTextLabel();
+  };
+
+  onHandleLevelGameState = () => {
+    switch (this.game.gameLevelAction) {
+      case Level.levels.unset:
+        this.setGamePlayState(GamePlay.gamePlayStates.running);
+        break;
+      case Level.levels.createLevel1:
+        this.game.createNewGameLevel(Level.levels.createLevel1);
+        break;
+      case Level.levels.createLevel2:
+        this.game.createNewGameLevel(Level.levels.createLevel2);
+        break;
+      case Level.levels.createLevel3:
+        this.game.createNewGameLevel(Level.levels.createLevel3);
+        break;
+      default:
+    }
+    // Unset the game level action to take.
+    this.game.setGameLevelAction(Level.levels.unset);
+  };
+
+  onRunningGameState = () => {
+    this.game.gamePlayer.respawn();
+    this.game.setEntitiesIdleStatus(false);
   };
 
   // ==========================================================================
@@ -142,21 +190,26 @@ class GamePlay {
     this.game.gameEntities.forEach((entity, entIdx) => {
       entity.onTick(entIdx);
     });
+    if (
+      !this.game.gamePlayer.aliveStatus &&
+      !this.game.gamePlayer.respawnStatus
+    ) {
+      this.game.setEntitiesIdleStatus(true);
+      setTimeout(() => {
+        if (this.game.gamePlayer.lifePoints === 0) {
+          this.game.resetGame();
+          this.game.setGameState(0);
+        } else {
+          this.setGamePlayState(GamePlay.gamePlayStates.ready);
+        }
+      }, this.readyStateTimeoutDelay);
+    }
   };
 
   /**
    * Playing actions taken on game tick.
    */
   onTick = () => {
-    switch (this.gamePlayState) {
-      case 0:
-        this.onGamePlayReadyScreenTick();
-        break;
-      case 1:
-        this.onLevelTick();
-        break;
-      default:
-    }
     this.onGamePlayHitPointScoreTick();
     this.onGamePlayShieldScoreTick();
     this.onGamePlayBombScoreTick();
@@ -164,6 +217,17 @@ class GamePlay {
     this.onGamePlayLifeScoreTick();
     this.onGamePlayPointScoreTick();
     this.onEntityTick();
+    switch (this.gamePlayState) {
+      case GamePlay.gamePlayStates.ready:
+        this.onGamePlayReadyScreenTick();
+        break;
+      case GamePlay.gamePlayStates.handleLevel:
+        break;
+      case GamePlay.gamePlayStates.running:
+        this.onLevelTick();
+        break;
+      default:
+    }
   };
 }
 

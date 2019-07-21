@@ -12,7 +12,6 @@ class Wave102 extends Wave {
    */
   constructor(game) {
     super(game);
-    console.log('Wave102 constructor');
     this.init();
   }
 

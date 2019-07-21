@@ -1,10 +1,9 @@
-import Game from '../../../../../game/Game';
 import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
+import BulletStandard from '../../../bullets/standard/BulletStandard';
 import enemyImageSrc from './assets/images/enemy-bentclaw.png';
 import alliedImageSrc from './assets/images/allied-bentclaw.png';
 import damagedImageSrc from './assets/images/damaged-bentclaw.png';
-import BulletEntity from '../../../bullets/BulletEntity';
 
 class Bentclaw extends ShipEntity {
   // ==========================================================================
@@ -39,10 +38,9 @@ class Bentclaw extends ShipEntity {
    * @override
    */
   init = () => {
+    this.setImageSource();
     this.setSize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
-    this.setImageSource();
-    this.setDamagedImageSource();
     this.setFiringStatus(true);
   };
 
@@ -50,14 +48,23 @@ class Bentclaw extends ShipEntity {
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  /**
+   * @override
+   */
+  roamWildly = () => {
     const { x, y } = this.position;
+    const originalSpeed = this.speed;
+    this.setSpeed(this.speed / 2);
     return this.movePath([
-      { x: x + 20, y: y + 20 },
-      { x, y },
-      { x: x - 20, y: y - 20 },
+      { x: x + 25, y: y + 25 },
+      { x: x - 25, y: y + 25 },
+      { x: x + 25, y: y - 25 },
+      { x: x - 25, y: y - 25 },
       { x, y }
-    ]);
+    ]).then(() => {
+      this.setSpeed(originalSpeed);
+      return Promise.resolve();
+    });
   };
 
   // ==========================================================================
@@ -67,10 +74,10 @@ class Bentclaw extends ShipEntity {
   /**
    * @override
    */
-  createBullet = () => {
+  createBullets = () => {
     if (this.factionStatus === 0) {
       this.game.addToGameEntities(
-        new BulletEntity(
+        new BulletStandard(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -78,11 +85,14 @@ class Bentclaw extends ShipEntity {
           },
           this.factionStatus,
           this.attackPoints,
-          { dxLeft: this.fireBulletMagnitude, dyDown: this.fireBulletMagnitude }
+          {
+            dxLeft: this.fireStandardBulletMagnitude,
+            dyDown: this.fireStandardBulletMagnitude
+          }
         )
       );
       this.game.addToGameEntities(
-        new BulletEntity(
+        new BulletStandard(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -91,15 +101,15 @@ class Bentclaw extends ShipEntity {
           this.factionStatus,
           this.attackPoints,
           {
-            dxRight: this.fireBulletMagnitude,
-            dyDown: this.fireBulletMagnitude
+            dxRight: this.fireStandardBulletMagnitude,
+            dyDown: this.fireStandardBulletMagnitude
           }
         )
       );
     }
     if (this.factionStatus === 1) {
       this.game.addToGameEntities(
-        new BulletEntity(
+        new BulletStandard(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -107,11 +117,14 @@ class Bentclaw extends ShipEntity {
           },
           this.factionStatus,
           this.attackPoints,
-          { dxLeft: this.fireBulletMagnitude, dyUp: this.fireBulletMagnitude }
+          {
+            dxLeft: this.fireStandardBulletMagnitude,
+            dyUp: this.fireStandardBulletMagnitude
+          }
         )
       );
       this.game.addToGameEntities(
-        new BulletEntity(
+        new BulletStandard(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -120,8 +133,8 @@ class Bentclaw extends ShipEntity {
           this.factionStatus,
           this.attackPoints,
           {
-            dxRight: this.fireBulletMagnitude,
-            dyUp: this.fireBulletMagnitude
+            dxRight: this.fireStandardBulletMagnitude,
+            dyUp: this.fireStandardBulletMagnitude
           }
         )
       );

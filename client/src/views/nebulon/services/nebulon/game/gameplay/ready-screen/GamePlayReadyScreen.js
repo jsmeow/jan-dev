@@ -2,6 +2,7 @@ import Game from '../../Game';
 import GameCanvas from '../../canvas/GameCanvas';
 import { grey } from '../../../../../../../services/color/muiColors';
 import GamePlay from '../GamePlay';
+import Level from '../../../levels/Level';
 
 class GamePlayReadyScreen {
   // ==========================================================================
@@ -32,7 +33,6 @@ class GamePlayReadyScreen {
     /**
      * GamePlayReadyScreen blinking text label setInterval delay relative to
      * the game speed.
-     * Defaults to game speed * 500ms.
      * @type {number}
      */
     this.blinkTextLabelIntervalDelay = Game.speed * 750;
@@ -43,9 +43,10 @@ class GamePlayReadyScreen {
     this.drawTextLabelStatus = true;
     /**
      * GamePlayReadyScreen number the text label will blink.
+     * Must be an odd number.
      * @type {number}
      */
-    this.blinkTextLabelCount = 3;
+    this.blinkTextLabelCount = 5;
     /**
      * GamePlayReadyScreen blink amount reference.
      * @type {number}
@@ -68,6 +69,14 @@ class GamePlayReadyScreen {
    */
   setDrawTextLabelStatus = newDrawTextLabelStatus => {
     this.drawTextLabelStatus = newDrawTextLabelStatus;
+  };
+
+  /**
+   * Blink text label counter setter.
+   * @param {number} newNewBlinkTextLabelCounter
+   */
+  setNewBlinkTextLabelCounter = newNewBlinkTextLabelCounter => {
+    this.blinkTextLabelCounter = newNewBlinkTextLabelCounter;
   };
 
   /**
@@ -126,10 +135,10 @@ class GamePlayReadyScreen {
       this.drawReadyLabel();
     }
     if (this.doneBlinkingTextLabelStatus) {
-      this.blinkTextLabelCount = 0;
+      this.setNewBlinkTextLabelCounter(0);
       this.disposeBlinkTextLabelInterval();
       this.setDoneBlinkingTextLabelStatus(false);
-      this.game.gamePlay.setGamePlayState(GamePlay.gamePlayStates.level1);
+      this.game.gamePlay.setGamePlayState(GamePlay.gamePlayStates.handleLevel);
     }
   };
 

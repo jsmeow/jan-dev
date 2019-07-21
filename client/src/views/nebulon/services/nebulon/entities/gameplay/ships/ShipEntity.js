@@ -1,6 +1,7 @@
 import Game from '../../../game/Game';
 import GamePlayEntity from '../GamePlayEntity';
-import BulletEntity from '../bullets/BulletEntity';
+import BulletStandard from '../bullets/standard/BulletStandard';
+import BulletHoming from '../bullets/homing/BulletHoming';
 import ExplosionDestroy from '../../display/explosions/destroy/ExplosionDestroy';
 import ExplosionDamage from '../../display/explosions/damage/ExplosionDamage';
 import GameCanvas from '../../../game/canvas/GameCanvas';
@@ -86,21 +87,37 @@ class ShipEntity extends GamePlayEntity {
      */
     this.firingStatus = false;
     /**
-     * ShipEntity fire bullet timeout reference.
+     * ShipEntity fire standard bullet timeout reference.
      * @type {number}
      */
-    this.fireBulletInterval = 0;
+    this.fireStandardBulletInterval = 0;
     /**
-     * ShipEntity fire bullet setTimeout delay relative to the game speed.
+     * ShipEntity fire standard bullet setTimeout delay relative to the game speed.
      * Defaults to game speed * 1000ms.
      * @type {number}
      */
-    this.fireBulletIntervalDelay = Game.speed * 1000;
+    this.fireStandardBulletIntervalDelay = Game.speed * 500;
     /**
-     * Bullet dx dy vector magnitude.
+     * ShipEntity standard bullet dx dy vector magnitude.
      * @type {number}
      */
-    this.fireBulletMagnitude = Game.speed * 0.15;
+    this.fireStandardBulletMagnitude = Game.speed * 0.15;
+    /**
+     * ShipEntity fire homing bullet timeout reference.
+     * @type {number}
+     */
+    this.fireHomingBulletInterval = 0;
+    /**
+     * ShipEntity fire homing bullet setTimeout delay relative to the game speed.
+     * Defaults to game speed * 1000ms.
+     * @type {number}
+     */
+    this.fireHomingBulletIntervalDelay = Game.speed * 500;
+    /**
+     * ShipEntity homing bullet dx dy vector magnitude.
+     * @type {number}
+     */
+    this.fireHomingBulletMagnitude = Game.speed * 0.15;
     /**
      * ShipEntity status flag if roaming.
      * This flag is reserved for cpu entities.
@@ -124,7 +141,11 @@ class ShipEntity extends GamePlayEntity {
      * Defaults to game speed * 500ms.
      * @type {number}
      */
-    this.roamingTimeoutDelay = Game.speed * 500;
+    this.roamingTimeoutDelay = Game.speed * 1500;
+    /**
+     * ShipEntity status flag if idle.
+     */
+    this.idleStatus = false;
     this.init();
   }
 
@@ -132,23 +153,15 @@ class ShipEntity extends GamePlayEntity {
    * @override
    */
   init = () => {
+    this.setImageSource();
     this.setSize({ ...GamePlayEntity.defaultSize });
     this.setEntityType('ship');
-    this.setImageSource();
-    this.setDamagedImageSource();
     this.setFiringStatus(true);
   };
 
   // ==========================================================================
   // Setter methods
   // ==========================================================================
-
-  /**
-   * Damaged image source setter.
-   */
-  setDamagedImageSource = () => {
-    this.damagedImage.src = this.damagedImageSrc;
-  };
 
   /**
    * Firing status setter.
@@ -159,68 +172,141 @@ class ShipEntity extends GamePlayEntity {
   };
 
   /**
-   * Fire bullet interval delay setter.
-   * @param {number} newFireBulletIntervalDelay
+   * Fire standard bullet interval delay setter.
+   * @param {number} newFireStandardBulletIntervalDelay
    */
-  setFireBulletIntervalDelay = newFireBulletIntervalDelay => {
-    this.fireBulletIntervalDelay = newFireBulletIntervalDelay;
+  setFireStandardBulletIntervalDelay = newFireStandardBulletIntervalDelay => {
+    this.fireStandardBulletIntervalDelay = newFireStandardBulletIntervalDelay;
   };
 
   /**
-   * Roaming status setter.
+   * Fire standard bullet magnitude setter.
+   * @param {number} newFireStandardBulletMagnitude
+   */
+  setFireStandardBulletMagnitude = newFireStandardBulletMagnitude => {
+    this.fireStandardBulletMagnitude = newFireStandardBulletMagnitude;
+  };
+
+  /**
+   * Fire homing bullet interval delay setter.
+   * @param {number} newFireHomingBulletIntervalDelay
+   */
+  setFireHomingBulletIntervalDelay = newFireHomingBulletIntervalDelay => {
+    this.fireHomingBulletIntervalDelay = newFireHomingBulletIntervalDelay;
+  };
+
+  /**
+   * Fire homing bullet magnitude setter.
+   * @param {number} newFireHomingBulletMagnitude
+   */
+  setFireHomingBulletMagnitude = newFireHomingBulletMagnitude => {
+    this.fireHomingBulletMagnitude = newFireHomingBulletMagnitude;
+  };
+
+  /**
+   * Roaming status flag setter.
    * @param {boolean} newRoamingStatus
    */
   setRoamingStatus = newRoamingStatus => {
     this.roamingStatus = newRoamingStatus;
   };
 
+  /**
+   * Roaming speed setter.
+   * @param {number} newRoamSpeed
+   */
+  setRoamSpeed = newRoamSpeed => {
+    this.roamSpeed = newRoamSpeed;
+  };
+
+  /**
+   * Idle status flag setter.
+   * @param {boolean} newIdleStatus
+   */
+  setIdleStatus = newIdleStatus => {
+    this.idleStatus = newIdleStatus;
+  };
+
   // ==========================================================================
-  // Bullet methods
+  // Create bullet methods
   // ==========================================================================
 
   /**
-   * Create a bullet.
+   * Create standard bullet(s).
+   * To be implemented by the extending class.
    */
-  createBullet = () => {
-    if (this.factionStatus === 0) {
-      this.game.addToGameEntities(
-        new BulletEntity(
-          this.game,
-          {
-            x: this.position.x + this.size.width / 2 - this.size.width / 16,
-            y: this.position.y + this.size.height + 1
-          },
-          this.factionStatus,
-          this.attackPoints,
-          { dyDown: this.fireBulletMagnitude }
-        )
-      );
-    }
-    if (this.factionStatus === 1) {
-      this.game.addToGameEntities(
-        new BulletEntity(
-          this.game,
-          {
-            x: this.position.x + this.size.width / 2 - this.size.width / 16,
-            y: this.position.y - 1
-          },
-          this.factionStatus,
-          this.attackPoints,
-          { dyUp: this.fireBulletMagnitude }
-        )
-      );
+  createStandardBullets = () => {};
+
+  /**
+   * Create homing bullet(s).
+   * To be implemented by the extending class.
+   */
+  createHomingBullets = () => {};
+
+  /**
+   * Create a standard bullet and add to the game entities collection.
+   * @param {{x: number, y: number}} standardBulletSpawnPosition
+   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
+   */
+  addStandardBulletToGameEntities = (standardBulletSpawnPosition, step) => {
+    this.game.addToGameEntities(
+      new BulletStandard(
+        this.game,
+        standardBulletSpawnPosition,
+        this.factionStatus,
+        this.attackPoints,
+        step
+      )
+    );
+  };
+
+  /**
+   * Create a homing bullet and add to the game entities collection.
+   * @param {{x: number, y: number}} homingBulletSpawnPosition
+   */
+  addHomingBulletToGameEntities = homingBulletSpawnPosition => {
+    this.game.addToGameEntities(
+      new BulletHoming(
+        this.game,
+        homingBulletSpawnPosition,
+        this.factionStatus,
+        this.attackPoints,
+        this.fireHomingBulletMagnitude
+      )
+    );
+  };
+
+  // ==========================================================================
+  // Fire bullet methods
+  // ==========================================================================
+
+  /**
+   * Fire a standard bullet(s) at a set interval.
+   */
+  fireStandardBullets = () => {
+    if (!this.fireStandardBulletInterval) {
+      // Start fire standard bullet setInterval.
+      this.fireStandardBulletInterval = setInterval(() => {
+        // Only fire standard bullets if not idle.
+        if (!this.idleStatus) {
+          this.createStandardBullets();
+        }
+      }, this.fireStandardBulletIntervalDelay);
     }
   };
 
   /**
-   * Fire a bullet at a set interval.
+   * Fire a homing bullet(s) at a set interval.
    */
-  fireBullet = () => {
-    if (!this.fireBulletInterval) {
-      // Start fire bullet setInterval.
-      this.fireBulletInterval = setInterval(() => {
-        this.createBullet();
-      }, this.fireBulletIntervalDelay);
+  fireHomingBullets = () => {
+    if (!this.fireHomingBulletInterval) {
+      // Start fire standard bullet setInterval.
+      this.fireHomingBulletInterval = setInterval(() => {
+        // Only fire standard bullets if not idle.
+        if (!this.idleStatus) {
+          this.createHomingBullets();
+        }
+      }, this.fireHomingBulletIntervalDelay);
     }
   };
 
@@ -312,6 +398,40 @@ class ShipEntity extends GamePlayEntity {
   };
 
   /**
+   * Roam slightly up.
+   * @returns {Promise<any>|*}
+   */
+  roamUp = () => {
+    // Adjust to roaming speed.
+    const originalSpeed = this.speed;
+    this.setSpeed(this.roamSpeed);
+    return this.moveTo({ x: this.position.x, y: this.position.y - 15 }).then(
+      () => {
+        // Restore speed.
+        this.setSpeed(originalSpeed);
+        return Promise.resolve();
+      }
+    );
+  };
+
+  /**
+   * Roam slightly down.
+   * @returns {Promise<any>|*}
+   */
+  roamDown = () => {
+    // Adjust to roaming speed.
+    const originalSpeed = this.speed;
+    this.setSpeed(this.roamSpeed);
+    return this.moveTo({ x: this.position.x, y: this.position.y + 15 }).then(
+      () => {
+        // Restore speed.
+        this.setSpeed(originalSpeed);
+        return Promise.resolve();
+      }
+    );
+  };
+
+  /**
    * Roam in place action.
    * @returns {Promise<any>|*}
    */
@@ -334,7 +454,7 @@ class ShipEntity extends GamePlayEntity {
    * To be implemented by the extending class.
    * @return {Promise<void>}
    */
-  roamWild = () => {
+  roamWildly = () => {
     return Promise.resolve();
   };
 
@@ -347,8 +467,18 @@ class ShipEntity extends GamePlayEntity {
    */
   roamLoop = () => {
     if (!this.roamingTimeout) {
+      // Roam in place.
       this.roamInPlace()
-        .then(() => this.roamWild())
+        // Roam wildly.
+        .then(() => {
+          // Only roam wildly if not in idle status.
+          console.log(this.idleStatus);
+          if (!this.idleStatus) {
+            return this.roamWildly();
+          }
+          return Promise.resolve();
+        })
+        // Repeat.
         .then(() => {
           this.disposeRoamingTimeout();
           return this.roamLoop();
@@ -411,11 +541,12 @@ class ShipEntity extends GamePlayEntity {
   };
 
   /**
-   * BulletEntity actions taken on a game tick.
+   * Bullet actions taken on a game tick.
    */
   onBulletTick = () => {
     if (this.firingStatus) {
-      this.fireBullet();
+      this.fireStandardBullets();
+      this.fireHomingBullets();
     }
   };
 
@@ -440,7 +571,8 @@ class ShipEntity extends GamePlayEntity {
       this.setFiringStatus(false);
       this.disposeMoveInterval();
       this.disposeDamagedImageTimeout();
-      this.disposeFireBulletInterval();
+      this.disposeFireStandardBulletInterval();
+      this.disposeFireHomingBulletInterval();
       this.disposeRoamingTimeout();
       // Create the destroy explosion.
       this.createDestroyExplosion();
@@ -461,11 +593,19 @@ class ShipEntity extends GamePlayEntity {
   };
 
   /**
-   * Dispose the fire bullet interval.
+   * Dispose the fire standard bullet interval.
    */
-  disposeFireBulletInterval = () => {
-    clearInterval(this.fireBulletInterval);
-    this.fireBulletInterval = 0;
+  disposeFireStandardBulletInterval = () => {
+    clearInterval(this.fireStandardBulletInterval);
+    this.fireStandardBulletInterval = 0;
+  };
+
+  /**
+   * Dispose the fire homing bullet interval.
+   */
+  disposeFireHomingBulletInterval = () => {
+    clearInterval(this.fireHomingBulletInterval);
+    this.fireHomingBulletInterval = 0;
   };
 
   /**

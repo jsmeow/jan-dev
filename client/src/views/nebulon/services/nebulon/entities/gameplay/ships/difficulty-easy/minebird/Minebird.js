@@ -1,12 +1,12 @@
+import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import alliedShipImage from './assets/images/allied-minebird.png';
-import enemyShipImage from './assets/images/enemy-minebird.png';
-import damagedShipImage from './assets/images/damaged-minebird.png';
 import BulletEntity from '../../../bullets/BulletEntity';
+import MineSmall from '../../../mines/small/MineSmall';
+import enemyImageSrc from './assets/images/enemy-minebird.png';
+import alliedImageSrc from './assets/images/allied-minebird.png';
+import damagedImageSrc from './assets/images/damaged-minebird.png';
+import BulletStandard from '../../../bullets/standard/BulletStandard';
 
-/**
- * A weak enemy.
- */
 class Minebird extends ShipEntity {
   // ==========================================================================
   // Constructor and init methods
@@ -14,95 +14,103 @@ class Minebird extends ShipEntity {
 
   /**
    * @param game
-   * @param {number=} x
-   * @param {number=} y
-   * @param {number=} faction
+   * @param {number} x
+   * @param {number} y
+   * @param {number} factionStatus
    * @constructor
    */
-  constructor(game, x, y, faction) {
-    super(game, x, y, faction);
+  constructor(game, { x, y }, factionStatus) {
+    super(game, { x, y }, factionStatus);
     /**
-     * @see ShipEntity.alliedShipImage
      * @override
      */
-    this.alliedShipImage = alliedShipImage;
+    this.enemyImageSrc = enemyImageSrc;
     /**
-     * @see ShipEntity.enemyShipImage
      * @override
      */
-    this.enemyShipImage = enemyShipImage;
+    this.alliedImageSrc = alliedImageSrc;
     /**
-     * @see ShipEntity.damagedShipImage
      * @override
      */
-    this.damagedShipImage = damagedShipImage;
-    /**
-     * @see ShipEntity.hitPoints
-     * @override
-     */
-    this.hitPoints = 2;
-    /**
-     * @see ShipEntity.fireBulletIntervalSize
-     * @override
-     */
-    this.fireBulletIntervalSize = 2000;
+    this.damagedImageSrc = damagedImageSrc;
     this.init();
   }
+
+  /**
+   * @override
+   */
+  init = () => {
+    this.setImageSource();
+    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setHitPoints(5);
+    this.setFiringStatus(true);
+  };
 
   // ==========================================================================
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  /**
+   * @override
+   */
+  roamWildly = () => {
     const { x, y } = this.position;
-    return new Promise(resolve => {
-      this.moveTo(x + 20, y + 20)
-        .then(() => this.moveTo(x, y))
-        .then(() => this.moveTo(x - 20, y + 20))
-        .then(() => this.moveTo(x, y))
-        .then(() => resolve());
-    });
+    return this.moveTo({
+      x: x + 25,
+      y: y + 25
+    })
+      .then(() => {
+        this.createMine();
+        return Promise.resolve();
+      })
+      .then(() => {
+        return this.moveTo({
+          x: x - 25,
+          y: y + 25
+        });
+      })
+      .then(() => {
+        this.createMine();
+        return Promise.resolve();
+      })
+      .then(() => {
+        return this.moveTo({
+          x,
+          y
+        });
+      });
   };
 
   // ==========================================================================
-  // BulletEntity methods
+  // Mine methods
   // ==========================================================================
 
   /**
-   * Fire a bullet.
+   * Create a mine at the current position.
+   */
+  createMine = () => {
+    this.game.addToGameEntities(
+      new MineSmall(
+        this.game,
+        {
+          x: this.position.x + this.size.width / 2 - this.size.width / 16,
+          y: this.position.y + this.size.height + 1
+        },
+        this.factionStatus,
+        this.attackPoints
+      )
+    );
+  };
+
+  // ==========================================================================
+  // Bullet methods
+  // ==========================================================================
+
+  /**
    * @override
    */
-  fireBullet = () => {
-    if (!this.fireBulletInterval) {
-      // Fires an enemy bullet.
-      const fireEnemyBullet1 = () => {
-        this.game.addEntity(
-          new BulletEntity(
-            this.game,
-            this.position.x + this.size.width / 2 - this.size.width / 16,
-            this.position.y + this.size.width,
-            this.faction,
-            'downLeft'
-          )
-        );
-      };
-      const fireEnemyBullet2 = () => {
-        this.game.addEntity(
-          new BulletEntity(
-            this.game,
-            this.position.x + this.size.width / 2 - this.size.width / 16,
-            this.position.y + this.size.width,
-            this.faction,
-            'downRight'
-          )
-        );
-      };
-      // Start fire bullet setInterval.
-      this.fireBulletInterval = setInterval(() => {
-        fireEnemyBullet1();
-        fireEnemyBullet2();
-      }, this.fireBulletIntervalSize);
-    }
+  createBullets = () => {
+    this.createStandardBullet();
   };
 }
 

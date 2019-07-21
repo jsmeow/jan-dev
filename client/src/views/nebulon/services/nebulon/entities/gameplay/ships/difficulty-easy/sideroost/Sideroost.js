@@ -1,13 +1,11 @@
 import GameCanvas from '../../../../../game/canvas/GameCanvas';
+import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import BulletEntity from '../../../bullets/BulletEntity';
-import alliedShipImage from './assets/images/allied-sideroost.png';
-import enemyShipImage from './assets/images/enemy-sideroost.png';
-import damagedShipImage from './assets/images/damaged-sideroost.png';
+import BulletStandard from '../../../bullets/standard/BulletStandard';
+import enemyImageSrc from './assets/images/enemy-sideroost.png';
+import alliedImageSrc from './assets/images/allied-sideroost.png';
+import damagedImageSrc from './assets/images/damaged-sideroost.png';
 
-/**
- * A weak enemy.
- */
 class Sideroost extends ShipEntity {
   // ==========================================================================
   // Constructor and init methods
@@ -15,104 +13,137 @@ class Sideroost extends ShipEntity {
 
   /**
    * @param game
-   * @param {number=} x
-   * @param {number=} y
-   * @param {number=} faction
+   * @param {number} x
+   * @param {number} y
+   * @param {number} factionStatus
    * @constructor
    */
-  constructor(game, x, y, faction) {
-    super(game, x, y, faction);
+  constructor(game, { x, y }, factionStatus) {
+    super(game, { x, y }, factionStatus);
     /**
-     * @see ShipEntity.alliedShipImage
      * @override
      */
-    this.alliedShipImage = alliedShipImage;
+    this.enemyImageSrc = enemyImageSrc;
     /**
-     * @see ShipEntity.enemyShipImage
      * @override
      */
-    this.enemyShipImage = enemyShipImage;
+    this.alliedImageSrc = alliedImageSrc;
     /**
-     * @see ShipEntity.damagedShipImage
      * @override
      */
-    this.damagedShipImage = damagedShipImage;
-    /**
-     * @see ShipEntity.hitPoints
-     * @override
-     */
-    this.hitPoints = 2;
-    /**
-     * @see ShipEntity.fireBulletIntervalSize
-     * @override
-     */
-    this.fireBulletIntervalSize = 2000;
+    this.damagedImageSrc = damagedImageSrc;
     this.init();
   }
+
+  /**
+   * @override
+   */
+  init = () => {
+    this.setImageSource();
+    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setHitPoints(2);
+    this.setFiringStatus(true);
+  };
 
   // ==========================================================================
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  /**
+   * @override
+   */
+  roamWildly = () => {
     const { x, y } = this.position;
+    return this.movePath([
+      { x, y: this.size.height },
+      { x, y: GameCanvas.size.height - this.size.height },
+      { x, y: this.size.height },
+      { x, y: GameCanvas.size.height - this.size.height },
+      { x, y }
+    ]);
+  };
+
+  /**
+   * @override
+   */
+  roamInPlace = () => {
     return new Promise(resolve => {
-      this.moveTo(x, GameCanvas.size.height - this.size.height)
-        .then(() => this.moveTo(x, y))
-        .then(() => resolve());
+      // Start roaming.
+      this.roamUp()
+        .then(() => this.roamPromise(this.roamDown))
+        .then(() => {
+          resolve();
+        });
     });
   };
 
   // ==========================================================================
-  // BulletEntity methods
+  // Bullet methods
   // ==========================================================================
 
   /**
-   * Fire a bullet.
    * @override
    */
-  fireBullet = () => {
-    if (!this.fireBulletInterval) {
-      // Fires an enemy bullet.
-      const fireEnemyBullet1 = () => {
-        this.game.addEntity(
-          new BulletEntity(
-            this.game,
-            this.position.x + this.size.width / 2 - this.size.width / 16,
-            this.position.y + this.size.width,
-            this.faction,
-            'down'
-          )
-        );
-      };
-      const fireEnemyBullet2 = () => {
-        this.game.addEntity(
-          new BulletEntity(
-            this.game,
-            this.position.x,
-            this.position.y + this.size.width / 2,
-            this.faction,
-            'left'
-          )
-        );
-      };
-      const fireEnemyBullet3 = () => {
-        this.game.addEntity(
-          new BulletEntity(
-            this.game,
-            this.position.x + this.size.width,
-            this.position.y + this.size.width / 2,
-            this.faction,
-            'right'
-          )
-        );
-      };
-      // Start fire bullet setInterval.
-      this.fireBulletInterval = setInterval(() => {
-        fireEnemyBullet1();
-        fireEnemyBullet2();
-        fireEnemyBullet3();
-      }, this.fireBulletIntervalSize);
+  createBullets = () => {
+    if (this.factionStatus === 0) {
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y + this.size.height + 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxLeft: this.fireStandardBulletMagnitude
+          }
+        )
+      );
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y + this.size.height + 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxRight: this.fireStandardBulletMagnitude
+          }
+        )
+      );
+    }
+    if (this.factionStatus === 1) {
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y - 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxLeft: this.fireStandardBulletMagnitude
+          }
+        )
+      );
+      this.game.addToGameEntities(
+        new BulletStandard(
+          this.game,
+          {
+            x: this.position.x + this.size.width / 2 - this.size.width / 16,
+            y: this.position.y + this.size.height + 1
+          },
+          this.factionStatus,
+          this.attackPoints,
+          {
+            dxRight: this.fireStandardBulletMagnitude
+          }
+        )
+      );
     }
   };
 }

@@ -1,11 +1,8 @@
 import Game from '../../../game/Game';
 import GamePlayEntity from '../GamePlayEntity';
-import enemyImageSrc from './assets/images/enemy-bullet.png';
-import alliedImageSrc from './assets/images/allied-bullet.png';
+import enemyImageSrc from './standard/assets/images/enemy-standard-bullet.png';
+import alliedImageSrc from './standard/assets/images/allied-standard-bullet.png';
 
-/**
- * A bullet entity.
- */
 class BulletEntity extends GamePlayEntity {
   // ==========================================================================
   // Constructor and init methods
@@ -43,7 +40,7 @@ class BulletEntity extends GamePlayEntity {
       height: 1
     });
     this.setEntityType('bullet');
-    this.setSpeed(Game.speed / 3.125);
+    this.setSpeed(Game.speed / 30);
     this.setHitPoints(1);
     this.setAttackPoints(attackPoints);
     this.moveDirection(step);
@@ -77,7 +74,6 @@ class BulletEntity extends GamePlayEntity {
       this.hasCollidedTopBoundary(this.speed) ||
       this.hasCollidedBottomBoundary(this.speed)
     ) {
-      console.log('asd');
       this.setAliveStatus(false);
     }
   };
@@ -90,6 +86,7 @@ class BulletEntity extends GamePlayEntity {
       this.onDrawImageTick();
       this.onCollisionTick(entIdx);
     } else {
+      this.disposeMoveInterval();
       this.disposeEntity(entIdx);
     }
   };

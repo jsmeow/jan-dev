@@ -50,7 +50,7 @@ class Hookneck extends ShipEntity {
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  roamWildly = () => {
     const { x, y } = this.position;
     return this.movePath([
       { x: x + 20, y: y + 20 },

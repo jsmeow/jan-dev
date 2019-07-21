@@ -1,5 +1,20 @@
 class Level {
   // ==========================================================================
+  // Static properties
+  // ==========================================================================
+
+  /**
+   * Level levels.
+   * @type {*}
+   */
+  static levels = {
+    unset: -1,
+    createLevel1: 1,
+    createLevel2: 2,
+    createLevel3: 3
+  };
+
+  // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
 
@@ -75,7 +90,6 @@ class Level {
       const currentWave = this.waves.shift();
       this.setCurrentWave(currentWave);
       // Begin the new current wave.
-      console.log(currentWave);
       this.currentWave.begin();
     } else {
       this.setIsLevelClearedStatus(true);

@@ -79,7 +79,7 @@ class GamePlayShieldScore {
    * Draw shield images.
    */
   drawShieldImages = () => {
-    for (let idx = 0; idx < this.game.gamePlayer.hitPoints; idx += 1) {
+    for (let idx = 0; idx < this.game.gamePlayer.shieldPoints; idx += 1) {
       this.game.gameCanvas.context.drawImage(
         this.image,
         (this.imagePosition.x + idx * 6) * this.game.gameCanvas.unit,

@@ -38,11 +38,10 @@ class Bloodbird extends ShipEntity {
    * @override
    */
   init = () => {
+    this.setImageSource();
     this.setSize({ width: 27, height: 18 });
     this.setHitPoints(50);
     this.setFireBulletIntervalDelay(Game.speed * 500);
-    this.setImageSource();
-    this.setDamagedImageSource();
     this.setFiringStatus(true);
   };
 
@@ -50,7 +49,7 @@ class Bloodbird extends ShipEntity {
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  roamWildly = () => {
     const { x, y } = this.position;
     return this.movePath([
       { x: x + 20, y: y + 20 },

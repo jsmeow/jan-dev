@@ -38,11 +38,10 @@ class Narrowbill extends ShipEntity {
    * @override
    */
   init = () => {
+    this.setImageSource();
     this.setSize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFireBulletIntervalDelay(Game.speed * 2000);
-    this.setImageSource();
-    this.setDamagedImageSource();
     this.setFiringStatus(true);
   };
 
@@ -50,7 +49,10 @@ class Narrowbill extends ShipEntity {
   // Roaming methods
   // ==========================================================================
 
-  roamWild = () => {
+  /**
+   * @override
+   */
+  roamWildly = () => {
     const { x, y } = this.position;
     return this.movePath([
       { x: x + 30, y },
@@ -58,6 +60,17 @@ class Narrowbill extends ShipEntity {
       { x, y: y + 30 },
       { x, y }
     ]);
+  };
+
+  // ==========================================================================
+  // Bullet methods
+  // ==========================================================================
+
+  /**
+   * @override
+   */
+  createBullets = () => {
+    this.createStandardBullet();
   };
 }
 

@@ -170,6 +170,7 @@ class GamePlayEntity extends Entity {
       // Skip if it references itself.
       if (
         thisEntIdx !== entIdx &&
+        !entity.respawnStatus &&
         !this.invincibleStatus &&
         entity.entityType &&
         this.entityType !== 'bullet' &&

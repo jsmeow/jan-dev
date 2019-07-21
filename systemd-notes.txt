@@ -1,0 +1,49 @@
+Start node as a systemd service
+
+1. Create /etc/systemd/system/nodeserver.service
+
+[Unit]
+Description=nodejs jan-dev application
+After=network-online.target
+
+[Service]
+WorkingDirectory=/home/jan/jan-dev/
+ExecStart=/usr/bin/node /home/jan/jan-dev/api/sudo npm run start
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=propanel
+User=root
+Group=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+
+2. Reload daemon
+
+systemctl daemon-reload
+
+3. Enable service
+
+systemctl enable nodeserver.service
+
+3. Start the service
+
+systemctl start nodeserver.service
+or
+systemctl restart nodeserver.service
+
+4. Verify it is running
+
+systemctl status nodeserver.service -l
+
+5. If you make any changes to the service file, you will need to do a
+
+systemctl daemon-reload
+
+Optional:
+
+1. To disable the service (prevent it from loading on boot)
+
+systemctl disable nodeserver.service

@@ -1,15 +1,25 @@
 import GamePlayEntity from '../../GamePlayEntity';
 import ShipEntity from '../ShipEntity';
-import BombSmall from '../../bombs/damage-small/BombSmall';
+import BombSmall from '../../bombs/small/BombSmall';
 import alliedImageSrc from './assets/images/player.png';
 import damagedImageSrc from './assets/images/damaged-player.png';
 import shieldedImageSrc from './assets/images/shielded-player.png';
 import Game from '../../../../game/Game';
+import GameCanvas from '../../../../game/canvas/GameCanvas';
 
 /**
  * The player ship.
  */
 class Player extends ShipEntity {
+  // ==========================================================================
+  // Static properties
+  // ==========================================================================
+
+  static defaultSpawnPosition = {
+    x: GameCanvas.size.width * 0.5 - GamePlayEntity.defaultSize.width / 2,
+    y: GameCanvas.size.height - GamePlayEntity.defaultSize.height * 2
+  };
+
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +42,7 @@ class Player extends ShipEntity {
      */
     this.damagedImageSrc = damagedImageSrc;
     /**
-     * Shielded plaer image source.
+     * Shielded player image source.
      * @type {HTMLElement}
      */
     this.shieldedImageSrc = shieldedImageSrc;
@@ -48,6 +58,10 @@ class Player extends ShipEntity {
      * Player power points amount.
      */
     this.powerPoints = 3;
+    /**
+     * Player life points amount.
+     */
+    this.lifePoints = 3;
     /**
      * Duration a player can use power relative to the game speed.
      */
@@ -67,6 +81,11 @@ class Player extends ShipEntity {
       up: 0,
       down: 0
     };
+    /**
+     * Player respawn status flag.
+     * @type {boolean}
+     */
+    this.respawnStatus = false;
     this.init();
   }
 
@@ -75,11 +94,9 @@ class Player extends ShipEntity {
    */
   init = () => {
     this.setSize({ ...GamePlayEntity.defaultSize });
-    this.setFireBulletIntervalDelay(Game.speed * 250);
+    this.setFireStandardBulletIntervalDelay(Game.speed * 2000);
     this.setImageSource();
-    this.setDamagedImageSource();
     this.setHitPoints(3);
-    this.setFiringStatus(false);
   };
 
   // ==========================================================================
@@ -88,6 +105,7 @@ class Player extends ShipEntity {
 
   /**
    * Shield points setter.
+   * @param {number} newShieldPoints
    */
   setShieldPoints = newShieldPoints => {
     this.shieldPoints = newShieldPoints;
@@ -95,6 +113,7 @@ class Player extends ShipEntity {
 
   /**
    * Bomb points setter.
+   * @param {number} newBombPoints
    */
   setBombPoints = newBombPoints => {
     this.bombPoints = newBombPoints;
@@ -102,9 +121,26 @@ class Player extends ShipEntity {
 
   /**
    * Power points setter.
+   * @param {number} newPowerPoints
    */
   setPowerPoints = newPowerPoints => {
     this.powerPoints = newPowerPoints;
+  };
+
+  /**
+   * Life points setter.
+   * @param {number} newLifePoints
+   */
+  setLifePoints = newLifePoints => {
+    this.powerPoints = newLifePoints;
+  };
+
+  /**
+   * Respawn status flag setter.
+   * @param {boolean} newRespawnStatus
+   */
+  setRespawnStatus = newRespawnStatus => {
+    this.respawnStatus = newRespawnStatus;
   };
 
   // ==========================================================================
@@ -151,6 +187,51 @@ class Player extends ShipEntity {
    */
   consumePowerPoint = () => {
     this.powerPoints = this.powerPoints - 1;
+  };
+
+  /**
+   * Consume a life point.
+   */
+  consumeLifePoint = () => {
+    this.lifePoints = this.lifePoints - 1;
+  };
+
+  // ==========================================================================
+  // Spawn methods
+  // ==========================================================================
+
+  /**
+   * Actions taken on player entity respawn.
+   */
+  respawn = () => {
+    this.setImageSource();
+    this.setHitPoints(3);
+    this.setBombPoints(3);
+    this.setPowerPoints(3);
+    this.setAliveStatus(true);
+    this.setFiringStatus(true);
+    this.setRespawnStatus(false);
+  };
+
+  /**
+   * Actions taken on player entity unspawn/player entity death.
+   */
+  unSpawn = () => {
+    this.createDestroyExplosion();
+    this.consumeLifePoint();
+    this.setHitPoints(0);
+    this.disposeDamagedImageTimeout();
+    this.disposeFireStandardBulletInterval();
+    this.disposeFireHomingBulletInterval();
+    this.disposeRoamingTimeout();
+    this.disposeMoveInterval();
+    this.disposeMoveLeftInterval();
+    this.disposeMoveRightInterval();
+    this.disposeMoveUpInterval();
+    this.disposeMoveDownInterval();
+    this.setAliveStatus(false);
+    this.setFiringStatus(false);
+    this.setRespawnStatus(true);
   };
 
   // ==========================================================================
@@ -203,6 +284,25 @@ class Player extends ShipEntity {
       // Consume a point.
       this.consumePowerPoint();
     }
+  };
+
+  // ==========================================================================
+  // Bullet methods
+  // ==========================================================================
+
+  /**
+   * @override
+   */
+  createStandardBullets = () => {
+    this.addStandardBulletToGameEntities(
+      {
+        x: this.position.x + this.size.width / 2 - this.size.width / 16,
+        y: this.position.y - 1
+      },
+      {
+        dyUp: this.fireStandardBulletMagnitude
+      }
+    );
   };
 
   // ==========================================================================
@@ -273,6 +373,24 @@ class Player extends ShipEntity {
           break;
         default:
       }
+    }
+  };
+
+  // ==========================================================================
+  // Tick methods
+  // ==========================================================================
+
+  /**
+   * @override
+   */
+  onTick = entIdx => {
+    if (this.aliveStatus) {
+      this.onDrawImageTick();
+      this.onRoamingTick();
+      this.onBulletTick();
+      this.onCollisionTick(entIdx);
+    } else if (!this.respawnStatus) {
+      this.unSpawn();
     }
   };
 

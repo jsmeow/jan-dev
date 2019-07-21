@@ -109,6 +109,7 @@ class BombEntity extends GamePlayEntity {
       // Skip if it references itself.
       if (
         thisEntIdx !== entIdx &&
+        !entity.respawnStatus &&
         !entity.invincibleStatus &&
         entity.entityType &&
         entity.entityType !== 'bullet' &&

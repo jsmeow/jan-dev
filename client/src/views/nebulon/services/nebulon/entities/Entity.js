@@ -59,10 +59,9 @@ class Entity {
 
   /**
    * Initializer.
+   * To be implemented by the extending class.
    */
-  init = () => {
-    this.setImageSource(this.image);
-  };
+  init = () => {};
 
   // ==========================================================================
   // Setter methods
@@ -70,11 +69,9 @@ class Entity {
 
   /**
    * Image source setter.
-   * @param {HTMLElement} newImageSource
+   * To be implemented by the extending class.
    */
-  setImageSource = newImageSource => {
-    this.image.src = newImageSource;
-  };
+  setImageSource = () => {};
 
   /**
    * Position setter.
@@ -241,9 +238,9 @@ class Entity {
   hasCollidedEntity = thisEntIdx => {
     let hasCollided = false;
     // Cycle through entity collection.
-    this.game.entities.forEach((entity, entIdx) => {
+    this.game.gameEntities.forEach((entity, entIdx) => {
       // Skip if it references itself.
-      if (thisEntIdx !== entIdx) {
+      if (thisEntIdx !== entIdx && !entity.respawnStatus) {
         if (
           this.position.x < entity.position.x + entity.size.width &&
           this.position.x + this.size.width > entity.position.x &&
@@ -329,7 +326,7 @@ class Entity {
    * @param {number|*=} dxRight
    * @param {number|*=} dyUp
    * @param {number|*=} dyDown
-   * @return {Promise<any>}
+   * @return {Promise<any>|*}
    */
   moveTo = (
     { x, y },
@@ -389,7 +386,7 @@ class Entity {
   /**
    * Move through a path of coordinates in the order given.
    * @param {Array.<{x: number, y: number}>} path
-   * @return {*}
+   * @return {Promise<any>|*}
    */
   movePath = path => {
     return path.reduce((previousPromise, currentPath) => {
@@ -433,6 +430,7 @@ class Entity {
    */
   disposeEntity = entIdx => {
     this.game.gameEntities.splice(entIdx, 1);
+    // console.log(this.game.gameEntities);
   };
 }
 
