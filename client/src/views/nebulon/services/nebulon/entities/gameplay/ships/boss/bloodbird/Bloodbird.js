@@ -38,8 +38,8 @@ class Bloodbird extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ width: 27, height: 18 });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ width: 27, height: 18 });
     this.setHitPoints(50);
     this.setFireBulletIntervalDelay(Game.speed * 500);
     this.setFiringStatus(true);

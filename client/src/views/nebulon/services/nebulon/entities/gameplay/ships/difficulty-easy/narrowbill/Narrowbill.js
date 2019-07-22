@@ -38,8 +38,8 @@ class Narrowbill extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFireBulletIntervalDelay(Game.speed * 2000);
     this.setFiringStatus(true);

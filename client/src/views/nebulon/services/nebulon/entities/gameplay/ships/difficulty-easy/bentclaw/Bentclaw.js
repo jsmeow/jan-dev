@@ -1,6 +1,6 @@
 import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 import enemyImageSrc from './assets/images/enemy-bentclaw.png';
 import alliedImageSrc from './assets/images/allied-bentclaw.png';
 import damagedImageSrc from './assets/images/damaged-bentclaw.png';
@@ -38,8 +38,8 @@ class Bentclaw extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFiringStatus(true);
   };
@@ -54,7 +54,7 @@ class Bentclaw extends ShipEntity {
   roamWildly = () => {
     const { x, y } = this.position;
     const originalSpeed = this.speed;
-    this.setSpeed(this.speed / 2);
+    this.setGameEntitySpeed(this.speed / 2);
     return this.movePath([
       { x: x + 25, y: y + 25 },
       { x: x - 25, y: y + 25 },
@@ -62,7 +62,7 @@ class Bentclaw extends ShipEntity {
       { x: x - 25, y: y - 25 },
       { x, y }
     ]).then(() => {
-      this.setSpeed(originalSpeed);
+      this.setGameEntitySpeed(originalSpeed);
       return Promise.resolve();
     });
   };
@@ -77,7 +77,7 @@ class Bentclaw extends ShipEntity {
   createBullets = () => {
     if (this.factionStatus === 0) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -92,7 +92,7 @@ class Bentclaw extends ShipEntity {
         )
       );
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -109,7 +109,7 @@ class Bentclaw extends ShipEntity {
     }
     if (this.factionStatus === 1) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -124,7 +124,7 @@ class Bentclaw extends ShipEntity {
         )
       );
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,

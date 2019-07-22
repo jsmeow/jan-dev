@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import starlingImage from './assets/images/chickadee.png';
 import ChickadeeBullet from './ChickadeeBullet';
 
 /**
  * A weak enemy.
  */
-class Chickadee extends Entity {
+class Chickadee extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Chickadee extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -78,7 +78,7 @@ class Chickadee extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

@@ -44,7 +44,7 @@ class GamePlayBombScore {
   }
 
   init = () => {
-    this.setImageSource();
+    this.setGameEntityImageSource();
   };
 
   // ==========================================================================
@@ -54,7 +54,7 @@ class GamePlayBombScore {
   /**
    * Image source setter.
    */
-  setImageSource = () => {
+  setGameEntityImageSource = () => {
     this.image.src = image;
   };
 

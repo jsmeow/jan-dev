@@ -23,7 +23,7 @@ class BackgroundStar {
      */
     this.image = new Image();
     /**
-     * @see Entity.position
+     * @see GameEntity.position
      * @type {{x: number, y: number}}
      */
     this.position = {
@@ -31,7 +31,7 @@ class BackgroundStar {
       y: 10
     };
     /**
-     * @see Entity.size
+     * @see GameEntity.size
      * @type {{width: number, height: number}}
      */
     this.size = {

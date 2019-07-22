@@ -1,6 +1,6 @@
 import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 import enemyImageSrc from './assets/images/enemy-hummingbird.png';
 import alliedImageSrc from './assets/images/allied-hummingbird.png';
 import damagedImageSrc from './assets/images/damaged-hummingbird.png';
@@ -38,8 +38,8 @@ class Hummingbird extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFiringStatus(true);
   };
@@ -54,7 +54,7 @@ class Hummingbird extends ShipEntity {
   roamWildly = () => {
     const { x, y } = this.position;
     const originalSpeed = this.speed;
-    this.setSpeed(this.speed / 2);
+    this.setGameEntitySpeed(this.speed / 2);
     return this.movePath([
       { x: x + 25, y: y + 25 },
       { x: x - 25, y: y + 25 },
@@ -62,7 +62,7 @@ class Hummingbird extends ShipEntity {
       { x: x - 25, y: y - 25 },
       { x, y }
     ]).then(() => {
-      this.setSpeed(originalSpeed);
+      this.setGameEntitySpeed(originalSpeed);
       return Promise.resolve();
     });
   };

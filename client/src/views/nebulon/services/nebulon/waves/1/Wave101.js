@@ -2,7 +2,7 @@ import Game from '../../game/Game';
 import Wave from '../Wave';
 import Narrowbill from '../../entities/gameplay/ships/difficulty-easy/narrowbill/Narrowbill';
 import Bentclaw from '../../entities/gameplay/ships/difficulty-easy/bentclaw/Bentclaw';
-import AsteroidSmall1 from '../../entities/gameplay/asteroids/small/1/AsteroidSmall1';
+import SmallAsteroid from '../../entities/gameplay/asteroids/small/SmallAsteroid';
 import Seekerbird from '../../entities/gameplay/ships/difficulty-easy/seekerbird/Seekerbird';
 import Sideroost from '../../entities/gameplay/ships/difficulty-easy/sideroost/Sideroost';
 import Sharpbeak from '../../entities/gameplay/ships/difficulty-easy/sharpbeak/Sharpbeak';

@@ -1,11 +1,11 @@
 import Game from '../../../../../game/Game';
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import { lightBlue, pink } from '../../../../../../../../../services/color/muiColors';
 
 /**
  * An enemy bullet.
  */
-class GreenfeatherBullet extends Entity {
+class GreenfeatherBullet extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -19,14 +19,14 @@ class GreenfeatherBullet extends Entity {
   constructor(game, x, y) {
     super(game, x, y);
     /**
-     * @see Entity.size
+     * @see GameEntity.size
      */
     this.size = {
       width: game.ship.size.width / 8,
       height: game.ship.size.height / 8
     };
     /**
-     * @see Entity.speed
+     * @see GameEntity.speed
      * @override
      */
     this.speed = Game.speed / 25;
@@ -34,7 +34,7 @@ class GreenfeatherBullet extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -47,7 +47,7 @@ class GreenfeatherBullet extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.draw
+   * @see GameEntity.draw
    * @override
    */
   draw = () => {
@@ -124,12 +124,12 @@ class GreenfeatherBullet extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.onTick
+   * @see GameEntity.onTick
    * @override
    */
   onTick = () => {
     this.draw();
-    if (this.hasCollidedBottomBoundary(this.moveStepSize)) {
+    if (this.hasGameEntityCollidedBottomBoundary(this.moveStepSize)) {
       this.setAliveStatus(false);
     }
   };

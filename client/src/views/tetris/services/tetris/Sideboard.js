@@ -110,7 +110,7 @@ Sideboard.prototype.padScore = function(score) {
 };
 
 /**
- * Player score value text label.
+ * GamePlayerEntity score value text label.
  */
 Sideboard.prototype.fillScoreValue = function() {
   this.canvas.fillTextCell({
@@ -128,7 +128,7 @@ Sideboard.prototype.fillLinesLabel = function() {
 };
 
 /**
- * Player lines scored value text label.
+ * GamePlayerEntity lines scored value text label.
  */
 Sideboard.prototype.fillLinesValue = function() {
   this.canvas.fillTextCell({
@@ -146,7 +146,7 @@ Sideboard.prototype.fillLevelLabel = function() {
 };
 
 /**
- * Player level value text label.
+ * GamePlayerEntity level value text label.
  */
 Sideboard.prototype.fillLevelValue = function() {
   this.canvas.fillTextCell({

@@ -1,9 +1,9 @@
 import Game from '../../../../game/Game';
 import BulletEntity from '../BulletEntity';
-import enemyImageSrc from './assets/images/enemy-homing-bullet.png';
-import alliedImageSrc from './assets/images/allied-homing-bullet.png';
+import gamePlayEntityEnemyImageSrc from '../standard/assets/images/enemy-standard-bullet.png';
+import gamePlayEntityAlliedImageSrc from '../standard/assets/images/allied-standard-bullet.png';
 
-class BulletHoming extends BulletEntity {
+class HomingBullet extends BulletEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -18,31 +18,21 @@ class BulletHoming extends BulletEntity {
    */
   constructor(game, bulletSpawnPosition, factionStatus, attackPoints, d) {
     super(game, bulletSpawnPosition, factionStatus, attackPoints, {});
-    /**
-     * @override
-     */
-    this.enemyImageSrc = enemyImageSrc;
-    /**
-     * @override
-     */
-    this.alliedImageSrc = alliedImageSrc;
+    this.loadAssets(gamePlayEntityEnemyImageSrc, gamePlayEntityAlliedImageSrc);
     this.init(bulletSpawnPosition, attackPoints, d);
   }
 
-  /**
-   * @override
-   */
-  init = (bulletSpawnPosition, attackPoints, d) => {
-    this.setImageSource();
-    this.setSize({
+  init = (attackPoints, d) => {
+    this.setEntityType('bullet');
+    this.setGameEntitySize({
       width: 1,
       height: 1
     });
-    this.setEntityType('bullet');
-    this.setSpeed(Game.speed / 30);
-    this.setHitPoints(1);
-    this.setAttackPoints(attackPoints);
-    this.moveDirection(bulletSpawnPosition, d);
+    this.setGameEntitySpeed(
+      Game.gameSpeed * BulletEntity.bulletEntitySpeedModifierDefault
+    );
+    this.setGamePlayEntityAttackPoints(attackPoints);
+    this.moveGameEntityDirection(d);
   };
 
   // ==========================================================================
@@ -115,7 +105,7 @@ class BulletHoming extends BulletEntity {
     console.log(dx);
     // Start move setInterval.
     this.moveInterval = setInterval(() => {
-      moveDirections.left && this.moveSpeedUnitLeft(dx);
+      moveDirections.left && this.moveGameEntitySpeedUnitLeft(dx);
       moveDirections.right && this.moveSpeedUnitRight(dx);
       moveDirections.up && this.moveSpeedUnitUp(dy);
       moveDirections.down && this.moveSpeedUnitDown(dy);
@@ -123,4 +113,4 @@ class BulletHoming extends BulletEntity {
   };
 }
 
-export default BulletHoming;
+export default HomingBullet;

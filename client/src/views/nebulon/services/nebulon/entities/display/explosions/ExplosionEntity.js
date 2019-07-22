@@ -1,7 +1,7 @@
 import Game from '../../../game/Game';
-import DisplayEntity from '../DisplayEntity';
+import GameDisplayEntity from '../GameDisplayEntity';
 
-class ExplosionEntity extends DisplayEntity {
+class ExplosionEntity extends GameDisplayEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -65,9 +65,9 @@ class ExplosionEntity extends DisplayEntity {
    * @override
    */
   init = (width, height) => {
-    this.setSize({
-      width: width || DisplayEntity.defaultSize.width,
-      height: height || DisplayEntity.defaultSize.height
+    this.setGameEntitySize({
+      width: width || GameDisplayEntity.defaultSize.width,
+      height: height || GameDisplayEntity.defaultSize.height
     });
     this.explosionImage1.src = this.explosionImage1Src;
     this.explosionImage2.src = this.explosionImage2Src;

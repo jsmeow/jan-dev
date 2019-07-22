@@ -1,7 +1,7 @@
 import GameCanvas from '../../../../../game/canvas/GameCanvas';
 import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 import enemyImageSrc from './assets/images/enemy-sideroost.png';
 import alliedImageSrc from './assets/images/allied-sideroost.png';
 import damagedImageSrc from './assets/images/damaged-sideroost.png';
@@ -39,8 +39,8 @@ class Sideroost extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFiringStatus(true);
   };
@@ -87,7 +87,7 @@ class Sideroost extends ShipEntity {
   createBullets = () => {
     if (this.factionStatus === 0) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -101,7 +101,7 @@ class Sideroost extends ShipEntity {
         )
       );
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -117,7 +117,7 @@ class Sideroost extends ShipEntity {
     }
     if (this.factionStatus === 1) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -131,7 +131,7 @@ class Sideroost extends ShipEntity {
         )
       );
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,

@@ -1,6 +1,6 @@
 import GamePlayEntity from '../../../GamePlayEntity';
 import ShipEntity from '../../ShipEntity';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 import enemyImageSrc from './assets/images/enemy-goldfinch.png';
 import alliedImageSrc from './assets/images/allied-goldfinch.png';
 import damagedImageSrc from './assets/images/damaged-goldfinch.png';
@@ -38,8 +38,8 @@ class Goldfinch extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(2);
     this.setFiringStatus(true);
   };
@@ -54,7 +54,7 @@ class Goldfinch extends ShipEntity {
   roamWildly = () => {
     const { x, y } = this.position;
     const originalSpeed = this.speed;
-    this.setSpeed(this.speed / 2);
+    this.setGameEntitySpeed(this.speed / 2);
     return this.movePath([
       { x: x + 25, y: y + 25 },
       { x: x - 25, y: y + 25 },
@@ -62,7 +62,7 @@ class Goldfinch extends ShipEntity {
       { x: x - 25, y: y - 25 },
       { x, y }
     ]).then(() => {
-      this.setSpeed(originalSpeed);
+      this.setGameEntitySpeed(originalSpeed);
       return Promise.resolve();
     });
   };
@@ -77,7 +77,7 @@ class Goldfinch extends ShipEntity {
   createBullets = () => {
     if (this.factionStatus === 0) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -96,7 +96,7 @@ class Goldfinch extends ShipEntity {
       }, this.fireBulletIntervalDelay / 3);
       setTimeout(() => {
         this.game.addToGameEntities(
-          new BulletStandard(
+          new StandardBullet(
             this.game,
             {
               x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -114,7 +114,7 @@ class Goldfinch extends ShipEntity {
     }
     if (this.factionStatus === 1) {
       this.game.addToGameEntities(
-        new BulletStandard(
+        new StandardBullet(
           this.game,
           {
             x: this.position.x + this.size.width / 2 - this.size.width / 16,
@@ -133,7 +133,7 @@ class Goldfinch extends ShipEntity {
       }, this.fireBulletIntervalDelay / 3);
       setTimeout(() => {
         this.game.addToGameEntities(
-          new BulletStandard(
+          new StandardBullet(
             this.game,
             {
               x: this.position.x + this.size.width / 2 - this.size.width / 16,

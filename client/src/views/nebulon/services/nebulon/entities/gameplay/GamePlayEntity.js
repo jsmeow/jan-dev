@@ -1,20 +1,88 @@
-import Entity from '../Entity';
+import GameEntity from '../GameEntity';
+import BulletEntity from './bullets/BulletEntity';
+import DamageExplosion from '../display/explosions/damage/DamageExplosion';
+import DestroyExplosion from '../display/explosions/destroy/DestroyExplosion';
+import Game from '../../game/Game';
 
 /**
- * A gameplay entity.
+ * @abstract
  */
-class GamePlayEntity extends Entity {
+class GamePlayEntity extends GameEntity {
   // ==========================================================================
   // Static properties
   // ==========================================================================
 
   /**
-   * Standard/default size of a gameplay entity.
-   * @type {{width: number, height: number}}
+   * @see GamePlayEntity.damagedImage
    */
-  static defaultSize = {
-    width: 9,
-    height: 9
+  static defaultDamagedImageDuration = {
+    timeout: 0,
+    timeoutDelayModifier: 200
+  };
+
+  /**
+   * @see GamePlayEntity.standardBullet
+   */
+  static defaultStandardBullet = {
+    interval: 0,
+    intervalDelayModifier: 500,
+    vectorMagnitudeModifier: 0.15
+  };
+
+  /**
+   * @see GamePlayEntity.homingBullet
+   */
+  static defaultHomingBullet = {
+    interval: 0,
+    intervalDelayModifier: 500,
+    vectorMagnitudeModifier: 0.15
+  };
+
+  /**
+   * @see GamePlayEntity.roaming
+   */
+  static defaultRoaming = {
+    timeout: 0,
+    timeoutDelayModifier: 1500,
+    vectorMagnitudeModifier: 0.15
+  };
+
+  /**
+   * @see GamePlayEntity.status
+   */
+  static defaultStatus = {
+    alive: true,
+    invincible: false,
+    firing: false,
+    idle: false,
+    roaming: false
+  };
+
+  /**
+   * @see GamePlayEntity.points
+   */
+  static defaultPoints = {
+    health: 1,
+    attack: 1,
+    score: 1
+  };
+
+  /**
+   * @see GamePlayEntity.factions
+   */
+  static factions = {
+    ENEMY: 0,
+    ALLIED: 1
+  };
+
+  /**
+   * @see GamePlayEntity.types
+   */
+  static types = {
+    SHIP: 0,
+    BULLET: 1,
+    BOMB: 2,
+    ASTEROID: 3
   };
 
   // ==========================================================================
@@ -23,137 +91,194 @@ class GamePlayEntity extends Entity {
 
   /**
    * @param game
-   * @param {number} x
-   * @param {number} y
-   * @param {number} factionStatus
+   * @param {number=} x
+   * @param {number=} y
+   * @param {number=} width
+   * @param {number=} height
+   * @param {number=} faction
+   * @param {number=} d
    * @constructor
    */
-  constructor(game, { x, y }, factionStatus) {
-    super(game, { x, y });
+  constructor(game, { x, y }, { width, height }, faction, d) {
+    super(game, { x, y }, { width, height }, d);
     /**
-     * GamePlayEntity faction status.
-     * Enemy entity = 0
-     * Allied entity = 1
-     * @type {number}
+     * GamePlayEntity factions types.
+     * @type {Object}
      */
-    this.factionStatus = factionStatus;
+    this.faction = faction || GamePlayEntity.factions.ENEMY;
     /**
-     * GamePlayEntity enemy image source.
-     * To be implemented by the extending class.
-     * @type {HTMLElement}
+     * Default GamePlayEntity image. The image source to be provided by the
+     * extending class.
+     * Damaged GamePlayEntity image. The image source to be provided by the
+     * extending class.
+     * @type {Object}
      */
-    this.enemyImageSrc = null;
+    this.images = {
+      defaultImage: new Image(),
+      damagedImage: new Image()
+    };
     /**
-     * GamePlayEntity allied image source.
-     * To be implemented by the extending class.
-     * @type {HTMLElement}
+     * Damaged GamePlayEntity image duration timeout.
+     * @type {Object}
      */
-    this.alliedImageSrc = null;
+    this.damagedImageDuration = {
+      timeout: GamePlayEntity.defaultDamagedImageDuration.timeout,
+      timeoutDelay:
+        Game.gameSpeed *
+        GamePlayEntity.defaultDamagedImageDuration.timeoutDelayModifier
+    };
     /**
-     * GamePlayEntity status flag if alive or dead.
-     * Defaults to true.
-     * @type {boolean}
+     * Standard bullet creation interval and vector magnitude.
+     * @type {Object}
      */
-    this.aliveStatus = true;
+    this.standardBullet = {
+      interval: GamePlayEntity.defaultStandardBullet.interval,
+      intervalDelay:
+        Game.gameSpeed *
+        GamePlayEntity.defaultStandardBullet.intervalDelayModifier,
+      vectorMagnitude:
+        Game.gameSpeed *
+        GamePlayEntity.defaultStandardBullet.vectorMagnitudeModifier
+    };
     /**
-     * GamePlayEntity status flag if immune to attack points.
-     * Defaults to false.
-     * @type {boolean}
+     * Homing bullet creation interval and vector magnitude.
+     * @type {Object}
      */
-    this.invincibleStatus = false;
+    this.homingBullet = {
+      interval: GamePlayEntity.defaultHomingBullet.interval,
+      intervalDelay:
+        Game.gameSpeed *
+        GamePlayEntity.defaultHomingBullet.intervalDelayModifier,
+      vectorMagnitude:
+        Game.gameSpeed *
+        GamePlayEntity.defaultHomingBullet.vectorMagnitudeModifier
+    };
     /**
-     * GamePlayEntity score worth.
-     * Defaults to 1.
-     * @type {number}
+     * GamePlayEntity roaming creation interval and vector magnitude.
+     * @type {Object}
      */
-    this.scorePoints = 1;
+    this.roaming = {
+      timeout: GamePlayEntity.defaultRoaming.timeout,
+      timeoutDelay:
+        Game.gameSpeed * GamePlayEntity.defaultRoaming.timeoutDelayModifier,
+      vectorMagnitude:
+        Game.gameSpeed * GamePlayEntity.defaultRoaming.vectorMagnitudeModifier
+    };
     /**
-     * GamePlayEntity hit points (hp) worth.
-     * Defaults to 1.
-     * @type {number}
+     * Types of statuses the GamePlayEntity can take.
+     * @type {Object}
      */
-    this.hitPoints = 1;
+    this.status = {
+      ...GamePlayEntity.defaultStatus
+    };
     /**
-     * GamePlayEntity attack points (ap) worth.
-     * Defaults to 1.
-     * @type {number}
+     * Types of resource points used by the GamePlayEntity.
+     * @type {Object}
      */
-    this.attackPoints = 1;
+    this.points = {
+      ...GamePlayEntity.defaultPoints
+    };
     /**
-     * GamePlayEntity type.
-     * To be implemented by the extending class.
-     * @type {string|*}
+     * Types of GamePlayEntity.
+     * @type {?string}
      */
-    this.entityType = null;
-    this.init();
+    this.type = null;
   }
+
+  /**
+   * Load assets.
+   * @param {{string}}
+   */
+  loadAssets = ({
+    enemyImageSource,
+    alliedImageSource,
+    damagedImageSource
+  }) => {
+    if (enemyImageSource && this.faction === 0) {
+      this.setDefaultImageSource(enemyImageSource);
+    }
+    if (alliedImageSource && this.faction === 1) {
+      this.setDefaultImageSource(alliedImageSource);
+    }
+    if (damagedImageSource) {
+      this.setDamagedImageSource(damagedImageSource);
+    }
+  };
 
   // ==========================================================================
   // Setter methods
   // ==========================================================================
 
   /**
-   * @override
+   * Image source setter.
+   * @param {string} newDefaultImage
    */
-  setImageSource = () => {
-    if (this.factionStatus === 0) {
-      this.image.src = this.enemyImageSrc;
-    }
-    if (this.factionStatus === 1) {
-      this.image.src = this.alliedImageSrc;
-    }
+  setDefaultImageSource = newDefaultImage => {
+    this.Images.defaultImage.src = newDefaultImage;
+  };
+
+  /**
+   * Damaged image source setter.
+   * @param {string} newDamagedImage
+   */
+  setDamagedImageSource = newDamagedImage => {
+    this.Images.damagedImage.src = newDamagedImage;
   };
 
   /**
    * Faction status setter.
-   * @param {number} newFactionStatus
+   * @param {number} newFaction
    */
-  setFactionStatus = newFactionStatus => {
-    this.factionStatus = newFactionStatus;
+  setFaction = newFaction => {
+    this.faction = newFaction;
   };
 
   /**
-   * Alive status setter.
+   * alive status setter.
    * @param {boolean} newAliveStatus
    */
   setAliveStatus = newAliveStatus => {
-    this.aliveStatus = newAliveStatus;
+    this.Status.alive = newAliveStatus;
   };
 
   /**
-   * Invincibility status setter.
+   * invincibility status setter.
    * @param {boolean} newInvincibleStatus
    */
   setInvincibleStatus = newInvincibleStatus => {
-    this.invincibleStatus = newInvincibleStatus;
+    this.Status.invincible = newInvincibleStatus;
   };
 
   /**
-   * Score points setter.
-   */
-  setScorePoints = newScorePoints => {
-    this.scorePoints = newScorePoints;
-  };
-
-  /**
-   * Hit points setter.
+   * hit points setter.
+   * @param {number} newHitPoints
    */
   setHitPoints = newHitPoints => {
-    this.hitPoints = newHitPoints;
+    this.Points.hitPoints = newHitPoints;
   };
 
   /**
-   * Attack points setter.
+   * attack points setter.
+   * @param {number} newAttackPoints
    */
   setAttackPoints = newAttackPoints => {
-    this.attackPoints = newAttackPoints;
+    this.Points.attackPoints = newAttackPoints;
   };
 
   /**
-   * Entity type setter.
+   * score points setter.
+   * @param {number} newScorePoints
    */
-  setEntityType = newEntityType => {
-    this.entityType = newEntityType;
+  setScorePoints = newScorePoints => {
+    this.Points.scorePoints = newScorePoints;
+  };
+
+  /**
+   * type setter.
+   * @param {string} newType
+   */
+  setType = newType => {
+    this.Type = newType;
   };
 
   // ==========================================================================
@@ -161,35 +286,103 @@ class GamePlayEntity extends Entity {
   // ==========================================================================
 
   /**
-   * @override
+   * actions to take on entity collision.
+   * @param {*} entity
    */
-  hasCollidedEntity = thisEntIdx => {
-    let hasCollided = false;
+  onGamePlayEntityCollision = entity => {
+    // Skip if this entity instance dead or invincible.
+    if (this.Status.alive && !this.Status.invincible) {
+      // Take damage on this entity instance.
+      this.Points.hitPoints -= entity.Points.attackPoints;
+      // Die if hit points <= 0 on this entity instance.
+      if (this.Points.hitPoints <= 0) {
+        this.Status.alive = false;
+      }
+    }
+    // Skip if entity instance dead or invincible.
+    if (entity.Status.alive && !entity.Status.invincible) {
+      // Do damage on entity instance.
+      entity.Points.hitPoints -= this.Points.attackPoints;
+      // Die if hit points <= 0 on entity instance.
+      if (entity.Points.hitPoints <= 0) {
+        entity.Status.alive = false;
+      }
+    }
+  };
+
+  /**
+   * collision detection algorithm.
+   * @param {number} thisEntIdx
+   */
+  hasGamePlayEntityCollidedGamePlayEntity = thisEntIdx => {
+    let hasEntityCollided = false;
     // Cycle through entity collection.
     this.game.gameEntities.forEach((entity, entIdx) => {
-      // Skip if it references itself.
       if (
+        // Skip if this entity instance faction is the same as entity faction.
+        this.faction !== entity.Faction &&
+        // Skip if this entity instance type is bullet.
+        !(this.Type instanceof BulletEntity) &&
+        // Skip if this entity instance is invincible status is true.
+        !this.Status.invincible &&
+        // Skip if entity references itself.
         thisEntIdx !== entIdx &&
-        !entity.respawnStatus &&
-        !this.invincibleStatus &&
-        entity.entityType &&
-        this.entityType !== 'bullet' &&
-        this.factionStatus !== entity.factionStatus
+        // Skip if entity is does not have an entity type.
+        !entity.Type &&
+        // Skip if entity is dead.
+        !entity.Status.alive
       ) {
+        // Perform collision check.
         if (
-          this.position.x < entity.position.x + entity.size.width &&
-          this.position.x + this.size.width > entity.position.x &&
-          this.position.y < entity.position.y + entity.size.height &&
-          this.position.y + this.size.height > entity.position.y
+          this.gameEntityPosition.x <
+            entity.gameEntityPosition.x + entity.gameEntitySize.width &&
+          this.gameEntityPosition.x + this.gameEntitySize.width >
+            entity.gameEntityPosition.x &&
+          this.gameEntityPosition.y <
+            entity.gameEntityPosition.y + entity.gameEntitySize.height &&
+          this.gameEntityPosition.y + this.gameEntitySize.height >
+            entity.gameEntityPosition.y
         ) {
           // Take action on collision.
-          this.onEntityCollision(entity);
+          this.onGamePlayEntityCollision(entity);
           // Set collided flag.
-          hasCollided = true;
+          hasEntityCollided = true;
         }
       }
     });
-    return hasCollided;
+    return hasEntityCollided;
+  };
+
+  // ==========================================================================
+  // Create explosion methods
+  // ==========================================================================
+
+  /**
+   * create a damage explosion.
+   * @param {{x: number, y: number}} position
+   * @param {{width: number, height: number}} size
+   */
+  addGamePlayEntityDamageExplosionToGameEntities = (
+    position = this.gameEntityPosition,
+    size = this.gameEntitySize
+  ) => {
+    this.game.addToGameEntities(
+      new DamageExplosion(this.game, { ...position }, { ...size })
+    );
+  };
+
+  /**
+   * create a destroy explosion.
+   * @param {{x: number, y: number}} position
+   * @param {{width: number, height: number}} size
+   */
+  addGamePlayEntityDestroyExplosionToGameEntities = (
+    position = this.gameEntityPosition,
+    size = this.gameEntitySize
+  ) => {
+    this.game.addToGameEntities(
+      new DestroyExplosion(this.game, { ...position }, { ...size })
+    );
   };
 
   // ==========================================================================
@@ -197,15 +390,76 @@ class GamePlayEntity extends Entity {
   // ==========================================================================
 
   /**
-   * Draw actions taken on a game tick.
+   * draw actions taken on a game tick.
+   * @param {HTMLElement=} image
+   * @param {{x: number, y: number}=} position
+   * @param {{width: number, height: number}=} size
+   * @param {number=} degrees
    */
-  onDrawImageTick = () => {
-    if (this.factionStatus === 0) {
-      this.drawRotatedImage(Math.PI);
+  onGamePlayEntityDrawImageTick = (
+    image = this.Images.default,
+    position = this.gameEntityPosition,
+    size = this.gameEntitySize,
+    degrees = Math.PI
+  ) => {
+    if (this.faction === 0) {
+      this.game.gameCanvas.drawGameCanvasRotatedImage(
+        image,
+        position,
+        size,
+        degrees
+      );
     }
-    if (this.factionStatus === 1) {
-      this.drawImage();
+    if (this.faction === 1) {
+      this.game.gameCanvas.drawGameCanvasImage(image, position, size);
     }
+  };
+
+  /**
+   * collision actions taken on a game tick.
+   * @param {number} entIdx
+   * @param {number=} DamagedImageDurationTimeoutDelay
+   */
+  onGamePlayEntityCollisionTick = (
+    entIdx,
+    DamagedImageDurationTimeoutDelay = this.DamagedImageDuration.timeoutDelay
+  ) => {
+    // On collision check true.
+    if (
+      !this.DamagedImageDuration.timeout &&
+      this.hasGamePlayEntityCollidedGamePlayEntity(entIdx)
+    ) {
+      // Create a damage explosion.
+      if (this.Status.alive) {
+        this.addGamePlayEntityDamageExplosionToGameEntities();
+      }
+      // Flash damage image.
+      this.setGameEntityImageSource(this.Images.damagedImage);
+      // Restore default image after timeout.
+      this.DamagedImageDuration.timeout = setTimeout(() => {
+        this.setGameEntityImageSource(this.Images.defaultImage);
+        this.disposeGamePlayEntityDamagedImageTimeout();
+      }, DamagedImageDurationTimeoutDelay);
+    }
+  };
+
+  /**
+   * score actions taken on a game tick.
+   */
+  onGamePlayEntityScoreTick = () => {
+    this.game.addToGameScore(this.Points.score);
+  };
+
+  // ==========================================================================
+  // Dispose methods
+  // ==========================================================================
+
+  /**
+   * dispose the damaged image timeout.
+   */
+  disposeGamePlayEntityDamagedImageTimeout = () => {
+    clearTimeout(this.DamagedImageDuration.timeout);
+    this.DamagedImageDuration.timeout = 0;
   };
 }
 

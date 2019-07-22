@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import greenfeatherImage from './assets/images/greenfeather.png';
 import GreenfeatherBullet from './GreenfeatherBullet';
 
 /**
  * A weak enemy.
  */
-class Greenfeather extends Entity {
+class Greenfeather extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Greenfeather extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -78,7 +78,7 @@ class Greenfeather extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

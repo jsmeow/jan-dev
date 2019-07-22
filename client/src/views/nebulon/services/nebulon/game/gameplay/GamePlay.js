@@ -1,5 +1,5 @@
 import Level from '../../levels/Level';
-import Player from '../../entities/gameplay/ships/player/Player';
+import GamePlayerEntity from '../../entities/gameplay/player/GamePlayerEntity';
 import GamePlayHitPointScore from './hit-point-score/GamePlayHitPointScore';
 import GamePlayShieldScore from './shield-score/GamePlayShieldScore';
 import GamePlayPointScore from './point-score/GamePlayPointScore';
@@ -144,7 +144,7 @@ class GamePlay {
 
   onRunningGameState = () => {
     this.game.gamePlayer.respawn();
-    this.game.setEntitiesIdleStatus(false);
+    this.game.setGameEntitiesIdleStatus(false);
   };
 
   // ==========================================================================
@@ -184,7 +184,7 @@ class GamePlay {
   };
 
   /**
-   * Entity actions taken on game tick.
+   * GameEntity actions taken on game tick.
    */
   onEntityTick = () => {
     this.game.gameEntities.forEach((entity, entIdx) => {
@@ -194,7 +194,7 @@ class GamePlay {
       !this.game.gamePlayer.aliveStatus &&
       !this.game.gamePlayer.respawnStatus
     ) {
-      this.game.setEntitiesIdleStatus(true);
+      this.game.setGameEntitiesIdleStatus(true);
       setTimeout(() => {
         if (this.game.gamePlayer.lifePoints === 0) {
           this.game.resetGame();

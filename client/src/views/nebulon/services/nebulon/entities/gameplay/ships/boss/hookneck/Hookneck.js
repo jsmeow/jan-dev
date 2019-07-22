@@ -38,10 +38,10 @@ class Hookneck extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setSize({ width: 27, height: 18 });
+    this.setGameEntitySize({ width: 27, height: 18 });
     this.setHitPoints(50);
     this.setFireBulletIntervalDelay(Game.speed * 500);
-    this.setImageSource();
+    this.setGameEntityImageSource();
     this.setDamagedImageSource();
     this.setFiringStatus(true);
   };

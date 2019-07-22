@@ -1,9 +1,22 @@
 import Game from '../../../game/Game';
 import GamePlayEntity from '../GamePlayEntity';
-import ExplosionDamage from '../../display/explosions/damage/ExplosionDamage';
-import ExplosionDestroy from '../../display/explosions/destroy/ExplosionDestroy';
+import ExplosionDamage from '../../display/explosions/damage/DamageExplosion';
+import DestroyExplosion from '../../display/explosions/destroy/DestroyExplosion';
 
+/**
+ * @abstract
+ */
 class AsteroidEntity extends GamePlayEntity {
+  // ==========================================================================
+  // Static properties
+  // ==========================================================================
+
+  /**
+   * AsteroidEntity damaged image timeout delay modifier value on initial spawn.
+   * @type {number}
+   */
+  static asteroidEntityDamagedImageTimeoutDelayModifierDefault = 200;
+
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -13,54 +26,32 @@ class AsteroidEntity extends GamePlayEntity {
    * @param {number} x
    * @param {number} y
    * @param {number} factionStatus
-   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
    * @constructor
    */
-  constructor(game, { x, y }, step) {
+  constructor(game, { x, y }) {
     super(game, { x, y }, 0);
     /**
-     * AsteroidEntity image source.
-     * To be implemented by the extending class.
-     * @type {HTMLElement}
-     */
-    this.enemyImageSrc = null;
-    /**
-     * AsteroidEntity damaged image source.
-     * To be implemented by the extending class.
-     * @type {HTMLElement}
-     */
-    this.damagedImageSrc = null;
-    /**
-     * AsteroidEntity damaged image timeout reference.
-     * Reverts the AsteroidEntity image back to the original image after a delay.
+     * AsteroidEntity damaged image timeout.
+     * Defaults to game speed * 50ms.
      * @type {number}
      */
-    this.damagedImageTimeout = 0;
+    this.asteroidEntityDamagedImageTimeout = 0;
     /**
      * AsteroidEntity damaged image timeout delay relative to the game speed.
      * Defaults to game speed * 50ms.
      * @type {number}
      */
-    this.damagedImageTimeoutDelay = Game.speed * 200;
-    this.init(step);
+    this.asteroidEntityDamagedImageTimeoutDelay =
+      Game.speed *
+      AsteroidEntity.asteroidEntityDamagedImageTimeoutDelayModifierDefault;
   }
 
   /**
    * @override
    */
-  init = step => {
-    this.setImageSource();
-    // this.setDamagedImageSource();
-    this.setSize({
-      width: GamePlayEntity.defaultSize.width,
-      height: GamePlayEntity.defaultSize.height
-    });
-    this.setEntityType('asteroid');
-    this.setSpeed(Game.speed / 3.125);
-    this.setHitPoints(5);
-    this.setAttackPoints(5);
-    this.setScorePoints(5);
-    this.moveDirection(step);
+  loadAssets = (gamePlayEntityEnemyImageSrc, shipEntityDamagedImageSrc) => {
+    this.setGamePlayEntityImageSource(gamePlayEntityEnemyImageSrc);
+    this.setAsteroidEntityDamagedImageSource(shipEntityDamagedImageSrc);
   };
 
   // ==========================================================================
@@ -68,58 +59,11 @@ class AsteroidEntity extends GamePlayEntity {
   // ==========================================================================
 
   /**
-   * Damaged image source setter.
+   * AsteroidEntity damaged image source setter.
+   * @param {HTMLElement} newAsteroidEntityDamagedImageSource
    */
-  setDamagedImageSource = () => {
-    this.damagedImage.src = this.damagedImageSrc;
-  };
-
-  // ==========================================================================
-  // Explosion methods
-  // ==========================================================================
-
-  /**
-   * Create a explosion on ShipEntity taking damage.
-   */
-  createDamageExplosion = () => {
-    this.game.addToGameEntities(
-      new ExplosionDamage(this.game, {
-        x: this.position.x,
-        y: this.position.y
-      })
-    );
-  };
-
-  /**
-   * Create a explosion on ShipEntity dispose.
-   */
-  createDestroyExplosion = () => {
-    this.game.addToGameEntities(
-      new ExplosionDestroy(this.game, {
-        x: this.position.x,
-        y: this.position.y
-      })
-    );
-  };
-
-  // ==========================================================================
-  // Entity collision detection methods
-  // ==========================================================================
-
-  /**
-   * @override
-   */
-  onEntityCollision = entity => {
-    if (entity.aliveStatus) {
-      this.hitPoints -= entity.attackPoints;
-      entity.hitPoints -= this.attackPoints;
-      if (this.hitPoints <= 0) {
-        this.aliveStatus = false;
-      }
-      if (entity.hitPoints <= 0) {
-        entity.aliveStatus = false;
-      }
-    }
+  setAsteroidEntityDamagedImageSource = newAsteroidEntityDamagedImageSource => {
+    this.asteroidEntityDamagedImage.src = newAsteroidEntityDamagedImageSource;
   };
 
   // ==========================================================================
@@ -127,45 +71,54 @@ class AsteroidEntity extends GamePlayEntity {
   // ==========================================================================
 
   /**
-   * Collision actions taken on a game tick.
+   * AsteroidEntity collision actions taken on a game tick.
    * @param {number} entIdx
    */
-  onCollisionTick = entIdx => {
-    if (!this.damagedImageTimeout && this.hasCollidedEntity(entIdx)) {
+  onAsteroidEntityCollisionTick = entIdx => {
+    // On collision check true.
+    if (
+      !this.asteroidEntityDamagedImageTimeout &&
+      this.hasGameEntityCollidedGameEntity(entIdx)
+    ) {
       // Create a damage explosion.
-      if (this.aliveStatus) {
-        this.createDamageExplosion();
+      if (this.gamePlayEntityAliveStatus) {
+        this.addGameEntityDamageExplosionToGameEntities();
       }
-      // Flash image on damage.
-      this.image.src = this.damagedImageSrc;
-      this.damagedImageTimeout = setTimeout(() => {
-        this.setImageSource();
-        this.disposeDamagedImageTimeout();
-      }, this.damagedImageTimeoutDelay);
+      // Flash damage image.
+      this.setGamePlayEntityImageSource(this.asteroidEntityDamagedImage);
+      // Restore original image after timeout.
+      this.asteroidEntityDamagedImageTimeout = setTimeout(() => {
+        this.setGamePlayEntityImageSource(this.gamePlayEntityEnemyImageSrc);
+        this.disposeAsteroidEntityDamagedImageTimeout();
+      }, this.asteroidEntityDamagedImageTimeoutDelay);
     }
   };
 
   /**
-   * Score actions taken on a game tick.
+   * AsteroidEntity score actions taken on a game tick.
    */
-  onScoreTick = () => {
-    this.game.addToGameScore(this.scorePoints);
+  onAsteroidEntityScoreTick = () => {
+    this.game.addToGameScore(this.gamePlayEntityScorePoints);
   };
 
   /**
    * @override
    */
   onTick = entIdx => {
-    if (this.aliveStatus) {
+    if (this.gamePlayEntityAliveStatus) {
       this.onDrawImageTick();
-      this.onCollisionTick(entIdx);
+      this.onAsteroidEntityCollisionTick(entIdx);
     } else {
-      this.onScoreTick();
-      this.disposeMoveInterval();
-      this.disposeDamagedImageTimeout();
+      // Dispose GameEntity intervals and timeouts.
+      this.disposeGameEntityMoveInterval();
+      // Dispose AsteroidEntity intervals and timeouts.
+      this.disposeAsteroidEntityDamagedImageTimeout();
+      // Add to Game score.
+      this.onAsteroidEntityScoreTick();
       // Create the destroy explosion.
-      this.createDestroyExplosion();
-      this.disposeEntity(entIdx);
+      this.addGameEntityDestroyExplosionToGameEntities();
+      // Dispose GameEntity.
+      this.disposeGameEntity(entIdx);
     }
   };
 
@@ -174,11 +127,11 @@ class AsteroidEntity extends GamePlayEntity {
   // ==========================================================================
 
   /**
-   * Dispose the damaged image timeout.
+   * AsteroidEntity dispose the damaged image timeout.
    */
-  disposeDamagedImageTimeout = () => {
-    clearTimeout(this.damagedImageTimeout);
-    this.damagedImageTimeout = 0;
+  disposeAsteroidEntityDamagedImageTimeout = () => {
+    clearTimeout(this.asteroidEntityDamagedImageTimeout);
+    this.asteroidEntityDamagedImageTimeout = 0;
   };
 }
 

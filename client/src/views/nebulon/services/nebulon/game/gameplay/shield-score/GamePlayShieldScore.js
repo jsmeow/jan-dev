@@ -37,14 +37,14 @@ class GamePlayShieldScore {
       height: 4.5
     };
     /**
-     * See Entity.draw
+     * See GameEntity.draw
      */
     this.image = new Image();
     this.init();
   }
 
   init = () => {
-    this.setImageSource();
+    this.setGameEntityImageSource();
   };
 
   // ==========================================================================
@@ -54,7 +54,7 @@ class GamePlayShieldScore {
   /**
    * Image source setter.
    */
-  setImageSource = () => {
+  setGameEntityImageSource = () => {
     this.image.src = image;
   };
 

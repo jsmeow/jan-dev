@@ -43,7 +43,7 @@ class SpaceBackgroundBlinkingStars {
      */
     this.background = background;
     /**
-     * @see Entity.size
+     * @see GameEntity.size
      * @type {{width: number, height: number}}
      */
     this.size = {
@@ -135,7 +135,7 @@ class SpaceBackgroundBlinkingStars {
   move = () => {
     this.blinkingStars.forEach(blinkingStar => {
       if (blinkingStar.position.y > GameCanvas.size.height) {
-        blinkingStar.position = { ...this.resetPosition() };
+        blinkingStar.position = { ...this.resetGameEntityPosition() };
       }
       blinkingStar.position.y += this.size.height;
     });
@@ -144,7 +144,7 @@ class SpaceBackgroundBlinkingStars {
   /**
    * Get new random position.
    */
-  resetPosition = () => {
+  resetGameEntityPosition = () => {
     return {
       x: Math.random() * GameCanvas.size.width,
       y: Math.random() * GameCanvas.size.height * -1.5

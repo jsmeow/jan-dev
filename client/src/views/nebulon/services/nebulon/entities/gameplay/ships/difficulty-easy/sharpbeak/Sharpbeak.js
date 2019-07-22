@@ -37,9 +37,9 @@ class Sharpbeak extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
-    this.setSpeed(this.speed * 2);
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntitySpeed(this.speed * 2);
     this.setRoamSpeed(this.roamSpeed * 2);
     this.setFireStandardBulletMagnitude(this.fireStandardBulletMagnitude * 4);
     this.setHitPoints(5);

@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import bluejayImage from './assets/images/bluejay.png';
 import BluejayBullet from './BluejayBullet';
 
 /**
  * A weak enemy.
  */
-class Bluejay extends Entity {
+class Bluejay extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Bluejay extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -78,7 +78,7 @@ class Bluejay extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

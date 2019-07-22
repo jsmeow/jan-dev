@@ -1,15 +1,12 @@
 import { grey } from '../../../../../../services/color/muiColors';
 
-/**
- * The game canvas that handles all drawing to the html5 canvas DOM element.
- */
 class GameCanvas {
   // ==========================================================================
   // Static properties
   // ==========================================================================
 
   /**
-   * Canvas size.
+   * GameCanvas size.
    * @type {{width: number, height: number}}
    */
   static size = {
@@ -18,7 +15,7 @@ class GameCanvas {
   };
 
   /**
-   * Canvas font.
+   * GameCanvas font.
    * Obtained from https://fonts.google.com/specimen/Press+Start+2P
    * @type {string}
    */
@@ -29,38 +26,37 @@ class GameCanvas {
   // ==========================================================================
 
   /**
-   * @param {HTMLElement} canvasRef - * The reference to the DOM element html5 canvas.
+   * @param {HTMLElement} canvasRef - The reference to the DOM element html5 canvas.
    * @constructor
    */
   constructor(canvasRef) {
     /**
-     * Canvas DOM element parent div.
+     * GameCanvas DOM element parent div.
      * @type {HTMLElement}
      */
-    this.container = document.getElementById('router--route-section--section');
+    this.gameCanvasContainer = document.getElementById(
+      'router--route-section--section'
+    );
     /**
-     * The unit represents the width and height of a cell in the canvas.
+     * GameCanvas unit represents the width and height of a cell in the canvas.
      * @type {number}
      */
-    this.unit =
+    this.gameCanvasUnit =
       window
-        .getComputedStyle(this.container)
+        .getComputedStyle(this.gameCanvasContainer)
         .getPropertyValue('height')
         .split('px')[0] / GameCanvas.size.height;
     /**
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/GameCanvasRenderingContext2D
      */
-    this.context = canvasRef.getContext('2d');
+    this.gameCanvasContext = canvasRef.getContext('2d');
     this.init(canvasRef);
   }
 
-  /**
-   * Initialize.
-   */
   init(canvasRef) {
     // Set the canvas width, height.
-    canvasRef.width = GameCanvas.size.width * this.unit;
-    canvasRef.height = GameCanvas.size.height * this.unit;
+    canvasRef.width = GameCanvas.size.width * this.gameCanvasUnit;
+    canvasRef.height = GameCanvas.size.height * this.gameCanvasUnit;
   }
 
   // ==========================================================================
@@ -68,7 +64,7 @@ class GameCanvas {
   // ==========================================================================
 
   /**
-   * Draw a canvas rectangle.
+   * GameCanvas draw a canvas rectangle.
    * @param {string=} fillStyle
    * @param {string=} strokeStyle
    * @param {number=} lineWidth
@@ -77,19 +73,29 @@ class GameCanvas {
    * @param {number} x
    * @param {number} y
    */
-  drawRect = ({ fillStyle, strokeStyle, lineWidth, width, height, x, y }) => {
-    const dimensions = [x, y, width, height].map(value => value * this.unit);
-    this.context.fillStyle = fillStyle || grey[50].light;
-    this.context.fillRect(
+  drawGameCanvasRect = ({
+    fillStyle,
+    strokeStyle,
+    lineWidth,
+    width,
+    height,
+    x,
+    y
+  }) => {
+    const dimensions = [x, y, width, height].map(
+      value => value * this.gameCanvasUnit
+    );
+    this.gameCanvasContext.fillStyle = fillStyle || grey[50].light;
+    this.gameCanvasContext.fillRect(
       dimensions[0],
       dimensions[1],
       dimensions[2],
       dimensions[3]
     );
     if (strokeStyle) {
-      this.context.strokeStyle = strokeStyle;
-      this.context.lineWidth = lineWidth || 5;
-      this.context.strokeRect(
+      this.gameCanvasContext.strokeStyle = strokeStyle;
+      this.gameCanvasContext.lineWidth = lineWidth || 5;
+      this.gameCanvasContext.strokeRect(
         dimensions[0],
         dimensions[1],
         dimensions[2],
@@ -99,7 +105,7 @@ class GameCanvas {
   };
 
   /**
-   * Draw a canvas triangle.
+   * GameCanvas draw a canvas triangle.
    * @param {string=} fillStyle
    * @param {number} x1
    * @param {number} y1
@@ -108,32 +114,81 @@ class GameCanvas {
    * @param {number} x3
    * @param {number} y3
    */
-  drawTriangle = ({ fillStyle, x1, y1, x2, y2, x3, y3 }) => {
-    const points = [x1, y1, x2, y2, x3, y3].map(value => value * this.unit);
-    this.context.fillStyle = fillStyle || grey[50].light;
-    this.context.fill();
-    this.context.beginPath();
-    this.context.moveTo(points[0], points[1]);
-    this.context.lineTo(points[2], points[3]);
-    this.context.lineTo(points[4], points[5]);
-    this.context.fill();
+  drawGameCanvasTriangle = ({ fillStyle, x1, y1, x2, y2, x3, y3 }) => {
+    const points = [x1, y1, x2, y2, x3, y3].map(
+      value => value * this.gameCanvasUnit
+    );
+    this.gameCanvasContext.fillStyle = fillStyle || grey[50].light;
+    this.gameCanvasContext.fill();
+    this.gameCanvasContext.beginPath();
+    this.gameCanvasContext.moveTo(points[0], points[1]);
+    this.gameCanvasContext.lineTo(points[2], points[3]);
+    this.gameCanvasContext.lineTo(points[4], points[5]);
+    this.gameCanvasContext.fill();
   };
 
   /**
-   * Draw canvas text.
+   * GameCanvas draw canvas text.
    * @param {string=} fillStyle
    * @param {string} text
    * @param {number=} size
    * @param {number} x
    * @param {number} y
    */
-  drawText = ({ fillStyle, text, size, x, y }) => {
-    x *= this.unit;
-    y *= this.unit;
-    size *= this.unit;
-    this.context.fillStyle = fillStyle || grey[50].light;
-    this.context.font = `${size || this.unit}px "${GameCanvas.font}"`;
-    this.context.fillText(text, x, y);
+  drawGameCanvasText = ({ fillStyle, text, size, x, y }) => {
+    x *= this.gameCanvasUnit;
+    y *= this.gameCanvasUnit;
+    size *= this.gameCanvasUnit;
+    this.gameCanvasContext.fillStyle = fillStyle || grey[50].light;
+    this.gameCanvasContext.font = `${size || this.gameCanvasUnit}px "${
+      GameCanvas.font
+    }"`;
+    this.gameCanvasContext.fillText(text, x, y);
+  };
+
+  /**
+   * GameCanvas draw canvas image.
+   * @param {HTMLElement} image
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   */
+  drawGameCanvasImage = (image, { x, y }, { width, height }) => {
+    this.gameCanvasContext.drawImage(
+      image,
+      x * this.gameCanvasUnit,
+      y * this.gameCanvasUnit,
+      width * this.gameCanvasUnit,
+      height * this.gameCanvasUnit
+    );
+  };
+
+  /**
+   * GameCanvas draw canvas rotated image.
+   * @param {HTMLElement} image
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {number} degrees
+   */
+  drawGameCanvasRotatedImage = (
+    image,
+    { x, y },
+    { width, height },
+    degrees
+  ) => {
+    this.game.gameCanvas.context.save();
+    this.game.gameCanvas.context.rotate(degrees);
+    this.gameCanvasContext.drawImage(
+      image,
+      -x * this.gameCanvasUnit,
+      -y * this.gameCanvasUnit,
+      -width * this.gameCanvasUnit,
+      -height * this.gameCanvasUnit
+    );
+    this.game.gameCanvas.context.restore();
   };
 }
 

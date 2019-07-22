@@ -23,7 +23,7 @@ class SpaceBackgroundPlanetFrozone {
      */
     this.image = new Image();
     /**
-     * @see Entity.position
+     * @see GameEntity.position
      * @type {{x: number, y: number}}
      */
     this.position = {
@@ -31,7 +31,7 @@ class SpaceBackgroundPlanetFrozone {
       y: 15
     };
     /**
-     * @see Entity.size
+     * @see GameEntity.size
      * @type {{width: number, height: number}}
      */
     this.size = {

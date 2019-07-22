@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import firebirdImage from './assets/images/firebird.png';
 import FirebirdBullet from './FirebirdBullet';
 
 /**
  * A weak enemy.
  */
-class Firebird extends Entity {
+class Firebird extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Firebird extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -78,7 +78,7 @@ class Firebird extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

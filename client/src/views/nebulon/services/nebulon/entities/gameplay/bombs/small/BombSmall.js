@@ -1,3 +1,4 @@
+import Game from '../../../../game/Game';
 import BombEntity from '../BombEntity';
 import bombImageSrc from './assets/images/small-bomb.png';
 
@@ -41,6 +42,22 @@ class BombSmall extends BombEntity {
     this.bombImageSrc = bombImageSrc;
     this.init(attackPoints, step);
   }
+
+  /**
+   * @override
+   */
+  init = (attackPoints, step) => {
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({
+      width: 4,
+      height: 4
+    });
+    this.setEntityType('bomb');
+    this.setGameEntitySpeed(Game.speed / 30);
+    this.setInvincibleStatus(true);
+    this.setAttackPoints(attackPoints * 2);
+    this.moveDirection(step);
+  };
 }
 
 export default BombSmall;

@@ -35,7 +35,7 @@ class SpaceBackgroundComets {
      */
     this.background = background;
     /**
-     * @see Entity.size
+     * @see GameEntity.size
      * @type {{width: number, height: number}}
      */
     this.size = {
@@ -107,7 +107,7 @@ class SpaceBackgroundComets {
     const bottomBoundary = GameCanvas.size.height + cometLength;
     this.comets.forEach(comet => {
       if (comet.position.y > bottomBoundary) {
-        comet.position = { ...this.resetPosition() };
+        comet.position = { ...this.resetGameEntityPosition() };
       }
       comet.position.y += this.size.height / 2;
     });
@@ -116,7 +116,7 @@ class SpaceBackgroundComets {
   /**
    * Get new random position.
    */
-  resetPosition = () => {
+  resetGameEntityPosition = () => {
     return {
       x: Math.random() * GameCanvas.size.width,
       y: Math.random() * GameCanvas.size.height * -1.5

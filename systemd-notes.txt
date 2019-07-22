@@ -12,7 +12,7 @@ ExecStart=/usr/bin/node /home/jan/jan-dev/api/sudo npm run start
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=propanel
+SyslogIdentifier=jan-dev
 User=root
 Group=root
 Environment=NODE_ENV=production
@@ -41,6 +41,7 @@ systemctl status nodeserver.service -l
 5. If you make any changes to the service file, you will need to do a
 
 systemctl daemon-reload
+
 
 Optional:
 

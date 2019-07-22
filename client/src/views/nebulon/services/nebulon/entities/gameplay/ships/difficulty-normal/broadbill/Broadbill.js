@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import broadbillImage from './assets/images/broadbill.png';
 import BroadbillBullet from './BroadbillBullet';
 
 /**
  * A weak enemy.
  */
-class Broadbill extends Entity {
+class Broadbill extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Broadbill extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -95,7 +95,7 @@ class Broadbill extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

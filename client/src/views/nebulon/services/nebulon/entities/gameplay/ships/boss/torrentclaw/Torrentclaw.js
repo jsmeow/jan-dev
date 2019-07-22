@@ -1,9 +1,9 @@
 import ShipEntity from '../../ShipEntity';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 import enemyImageSrc from './assets/images/enemy-torrentclaw.png';
 import alliedImageSrc from './assets/images/allied-torrentclaw.png';
 import damagedImageSrc from './assets/images/damaged-torrentclaw.png';
-import BulletHoming from '../../../bullets/homing/BulletHoming';
+import HomingBullet from '../../../bullets/homing/HomingBullet';
 
 class Torrentclaw extends ShipEntity {
   // ==========================================================================
@@ -38,8 +38,8 @@ class Torrentclaw extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ width: 45, height: 36 });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ width: 45, height: 36 });
     this.setHitPoints(150);
     this.setFireHomingBulletIntervalDelay(
       this.fireHomingBulletIntervalDelay * 4
@@ -57,7 +57,7 @@ class Torrentclaw extends ShipEntity {
   roamWildly = () => {
     const { x, y } = this.position;
     const originalSpeed = this.speed;
-    this.setSpeed(this.speed / 2);
+    this.setGameEntitySpeed(this.speed / 2);
     return this.movePath([
       { x: x + 25, y: y + 25 },
       { x: x - 25, y: y + 25 },
@@ -65,7 +65,7 @@ class Torrentclaw extends ShipEntity {
       { x: x - 25, y: y - 25 },
       { x, y }
     ]).then(() => {
-      this.setSpeed(originalSpeed);
+      this.setGameEntitySpeed(originalSpeed);
       return Promise.resolve();
     });
   };

@@ -1,9 +1,9 @@
 import Game from '../../../game/Game';
 import GamePlayEntity from '../GamePlayEntity';
-import ExplosionDestroy from '../../display/explosions/destroy/ExplosionDestroy';
+import DestroyExplosion from '../../display/explosions/destroy/DestroyExplosion';
 
 /**
- * A bullet entity.
+ * @abstract
  */
 class BombEntity extends GamePlayEntity {
   // ==========================================================================
@@ -15,122 +15,33 @@ class BombEntity extends GamePlayEntity {
    * @param {number} x
    * @param {number} y
    * @param {number} factionStatus
-   * @param {number} attackPoints
-   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
+   * @param {{width: number, height: number}} bombEntityExplosionSize
    * @constructor
    */
-  constructor(game, { x, y }, factionStatus, attackPoints, step) {
+  constructor(game, { x, y }, factionStatus, bombEntityExplosionSize) {
     super(game, { x, y }, factionStatus);
     /**
-     * BombEntity image source.
-     * To be implemented by the extending class.
+     * BombEntity damaged image.
      * @type {HTMLElement}
      */
-    this.bombImageSrc = null;
+    this.bombEntityDamagedImage = new Image();
     /**
      * BombEntity explosion size.
-     * @type {{width: number, height: number}}
+     * @type {{width: number, height: number}|*}
      */
-    this.explosionSize = {
-      width: 27,
-      height: 27
-    };
-    this.init(attackPoints, step);
+    this.bombEntityExplosionSize = bombEntityExplosionSize;
   }
-
-  /**
-   * @override
-   */
-  init = (attackPoints, step) => {
-    this.setImageSource();
-    this.setSize({
-      width: 4,
-      height: 4
-    });
-    this.setEntityType('bomb');
-    this.setSpeed(Game.speed / 30);
-    this.setInvincibleStatus(true);
-    this.setAttackPoints(attackPoints * 2);
-    this.moveDirection(step);
-  };
 
   // ==========================================================================
   // Setter methods
   // ==========================================================================
 
   /**
-   * @override
+   * BombEntity image source setter.
+   * @param {HTMLElement} newBombEntityDamagedImageSource
    */
-  setImageSource = () => {
-    this.image.src = this.bombImageSrc;
-  };
-
-  // ==========================================================================
-  // Explosion methods
-  // ==========================================================================
-
-  /**
-   * Create a explosion on ShipEntity dispose.
-   */
-  createDestroyExplosion = () => {
-    this.game.addToGameEntities(
-      new ExplosionDestroy(
-        this.game,
-        {
-          x: this.position.x,
-          y: this.position.y
-        },
-        this.explosionSize
-      )
-    );
-  };
-
-  // ==========================================================================
-  // Entity collision detection methods
-  // ==========================================================================
-
-  /**
-   * @override
-   */
-  onEntityCollision = entity => {
-    entity.hitPoints -= this.attackPoints;
-    if (entity.hitPoints <= 0) {
-      entity.aliveStatus = false;
-    }
-  };
-
-  /**
-   * @override
-   */
-  hasCollidedEntity = thisEntIdx => {
-    let hasCollided = false;
-    // Cycle through entity collection.
-    this.game.gameEntities.forEach((entity, entIdx) => {
-      // Skip if it references itself.
-      if (
-        thisEntIdx !== entIdx &&
-        !entity.respawnStatus &&
-        !entity.invincibleStatus &&
-        entity.entityType &&
-        entity.entityType !== 'bullet' &&
-        this.factionStatus !== entity.factionStatus
-      ) {
-        if (
-          this.position.x < entity.position.x + entity.size.width &&
-          this.position.x + this.size.width > entity.position.x &&
-          this.position.y < entity.position.y + entity.size.height &&
-          this.position.y + this.size.height > entity.position.y
-        ) {
-          // Set size to explosion size.
-          this.setSize(this.explosionSize);
-          // Take action on collision.
-          this.onEntityCollision(entity);
-          // Set collided flag.
-          hasCollided = true;
-        }
-      }
-    });
-    return hasCollided;
+  setBombEntityDamagedImageSource = newBombEntityDamagedImageSource => {
+    this.bombEntityDamagedImage.src = newBombEntityDamagedImageSource;
   };
 
   // ==========================================================================
@@ -151,8 +62,8 @@ class BombEntity extends GamePlayEntity {
   onCollisionTick = entIdx => {
     if (
       this.hasCollidedEntity(entIdx) ||
-      this.hasCollidedTopBoundary(this.moveStepSize) ||
-      this.hasCollidedBottomBoundary(this.moveStepSize)
+      this.hasGameEntityCollidedTopBoundary(this.moveStepSize) ||
+      this.hasGameEntityCollidedBottomBoundary(this.moveStepSize)
     ) {
       // Ready to dispose.
       this.setAliveStatus(false);

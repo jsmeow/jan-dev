@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import grosbeakImage from './assets/images/grosbeak.png';
 import GrosbeakBullet from './GrosbeakBullet';
 
 /**
  * A weak enemy.
  */
-class Grosbeak extends Entity {
+class Grosbeak extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -32,7 +32,7 @@ class Grosbeak extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -78,7 +78,7 @@ class Grosbeak extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

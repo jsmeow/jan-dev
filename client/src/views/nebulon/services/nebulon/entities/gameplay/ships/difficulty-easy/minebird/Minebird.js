@@ -5,7 +5,7 @@ import MineSmall from '../../../mines/small/MineSmall';
 import enemyImageSrc from './assets/images/enemy-minebird.png';
 import alliedImageSrc from './assets/images/allied-minebird.png';
 import damagedImageSrc from './assets/images/damaged-minebird.png';
-import BulletStandard from '../../../bullets/standard/BulletStandard';
+import StandardBullet from '../../../bullets/standard/StandardBullet';
 
 class Minebird extends ShipEntity {
   // ==========================================================================
@@ -40,8 +40,8 @@ class Minebird extends ShipEntity {
    * @override
    */
   init = () => {
-    this.setImageSource();
-    this.setSize({ ...GamePlayEntity.defaultSize });
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
     this.setHitPoints(5);
     this.setFiringStatus(true);
   };

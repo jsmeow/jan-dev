@@ -2,11 +2,10 @@ import GameLoop from './loop/GameLoop';
 import GameCanvas from './canvas/GameCanvas';
 import GameTitle from './title/GameTitle';
 import GameKeyHandler from './key-handler/GameKeyHandler';
-import Player from '../entities/gameplay/ships/player/Player';
+import GamePlayerEntity from '../entities/gameplay/player/GamePlayerEntity';
 import Level from '../levels/Level';
 import Level1 from '../levels/level1/Level1';
 import GamePlay from './gameplay/GamePlay';
-import GamePlayEntity from '../entities/gameplay/GamePlayEntity';
 import ShipEntity from '../entities/gameplay/ships/ShipEntity';
 
 /**
@@ -21,15 +20,15 @@ class Game {
    * Game speed.
    * @type {number}
    */
-  static speed = 1;
+  static gameSpeed = 1;
 
   /**
    * Game states.
    * @type {*}
    */
   static gameStates = {
-    title: 0,
-    playing: 1
+    TITLE: 0,
+    PLAYING: 1
   };
 
   // ==========================================================================
@@ -42,7 +41,7 @@ class Game {
    */
   constructor(canvasRef) {
     /**
-     * Game Entity collection.
+     * Game GameEntity collection.
      * @type {Array.<*>}
      */
     this.gameEntities = [];
@@ -85,18 +84,18 @@ class Game {
      */
     this.gamePlay = null;
     /**
-     * @see Player
+     * @see GamePlayerEntity
      */
     this.gamePlayer = null;
     this.init();
   }
 
   init = () => {
-    // Initialize after the canvas font is loaded.
-    document.fonts.load(`12px "${GameCanvas.font}"`).then(() => {
+    // Initialize after the game canvas font is loaded.
+    document.fonts.load(`12px "${GameCanvas.gameCanvasFont}"`).then(() => {
       // Add keyboard event listeners.
-      this.gameKeyHandler.addKeydownEventListener();
-      this.gameKeyHandler.addKeyupEventListener();
+      this.gameKeyHandler.addGameKeyHandlerKeydownEventListener();
+      this.gameKeyHandler.addGameKeyHandlerKeyupEventListener();
       // Set the game state to title screen.
       this.setGameState(0);
       // Start the main game loop.
@@ -139,15 +138,15 @@ class Game {
   };
 
   /**
-   * Entities idle status setter.
-   * @param {boolean} newEntitiesIdleStatus
+   * Game entities idle status setter.
+   * @param {boolean} newGameEntitiesIdleStatus
    */
-  setEntitiesIdleStatus = newEntitiesIdleStatus => {
+  setGameEntitiesIdleStatus = newGameEntitiesIdleStatus => {
     // Cycle through entity collection.
     this.gameEntities.forEach(entity => {
       if (entity instanceof ShipEntity) {
         console.log(entity);
-        entity.setIdleStatus(newEntitiesIdleStatus);
+        entity.setShipEntityIdleStatus(newGameEntitiesIdleStatus);
       }
     });
   };
@@ -160,7 +159,9 @@ class Game {
    * Game player creator.
    */
   createNewGamePlayer = () => {
-    this.gamePlayer = new Player(this, { ...Player.defaultSpawnPosition });
+    this.gamePlayer = new GamePlayerEntity(this, {
+      ...GamePlayerEntity.defaultSpawnPosition
+    });
     this.addToGameEntities(this.gamePlayer);
   };
 
@@ -196,25 +197,28 @@ class Game {
   // ==========================================================================
 
   /**
-   * Add a new entity to the entities collection.
-   * @param newEntity
+   * Game add a new entity to the entities collection.
+   * @param {*} newGameEntity
    */
-  addToGameEntities = newEntity => {
-    this.gameEntities.push(newEntity);
+  addToGameEntities = newGameEntity => {
+    this.gameEntities.push(newGameEntity);
   };
 
   /**
-   * Add a score to the total game score.
-   * @param score
+   * Game add a score to the total game score.
+   * @param {number} addToGameScore
    */
-  addToGameScore = score => {
-    this.gameScore = this.gameScore + score;
+  addToGameScore = addToGameScore => {
+    this.gameScore = this.gameScore + addToGameScore;
   };
 
   // ==========================================================================
   // Reset methods
   // ==========================================================================
 
+  /**
+   * Game reset.
+   */
   resetGame = () => {
     this.disposeGameEntities();
     this.disposeGameScore();
@@ -228,47 +232,56 @@ class Game {
   // ==========================================================================
 
   /**
-   * Dispose the game entities.
+   * Game dispose the game entity by removing from the game entities
+   * collection.
+   * @param {number} entIdx
+   */
+  disposeGameEntity = entIdx => {
+    this.gameEntities.splice(entIdx, 1);
+  };
+
+  /**
+   * Game dispose the game entities.
    */
   disposeGameEntities = () => {
     this.gameEntities = [];
   };
 
   /**
-   * Dispose the game score.
+   * Game dispose the game score.
    */
   disposeGameScore = () => {
     this.gameScore = 0;
   };
 
   /**
-   * Dispose the current running game.
+   * Game dispose the current running game.
    */
   disposeGamePlay = () => {
     this.gamePlay = null;
   };
 
   /**
-   * Dispose the current running game.
+   * Game dispose the current running game.
    */
   disposeGamePlayer = () => {
     this.gamePlayer = null;
   };
 
   /**
-   * Dispose the current running game level.
+   * Game dispose the current running game level.
    */
   disposeGameLevel = () => {
     this.gameLevel = null;
   };
 
   /**
-   * Dispose of running animation frames and running event listeners.
+   * Game dispose of running animation frames and running event listeners.
    */
   disposeGame = () => {
     this.gameLoop.disposeAnimationFrame();
-    this.gameKeyHandler.removeKeydownEventListener();
-    this.gameKeyHandler.removeKeyupEventListener();
+    this.gameKeyHandler.removeGameKeyHandlerKeydownEventListener();
+    this.gameKeyHandler.removeGameKeyHandlerKeyupEventListener();
   };
 }
 

@@ -1,5 +1,5 @@
 import GamePlayEntity from '../GamePlayEntity';
-import ExplosionDestroy from '../../display/explosions/destroy/ExplosionDestroy';
+import DestroyExplosion from '../../display/explosions/destroy/DestroyExplosion';
 
 class MineEntity extends GamePlayEntity {
   // ==========================================================================
@@ -38,8 +38,8 @@ class MineEntity extends GamePlayEntity {
    * @override
    */
   init = attackPoints => {
-    this.setImageSource();
-    this.setSize({
+    this.setGameEntityImageSource();
+    this.setGameEntitySize({
       width: 4,
       height: 4
     });
@@ -54,7 +54,7 @@ class MineEntity extends GamePlayEntity {
   /**
    * @override
    */
-  setImageSource = () => {
+  setGameEntityImageSource = () => {
     this.image.src = this.mineImageSrc;
   };
 
@@ -67,7 +67,7 @@ class MineEntity extends GamePlayEntity {
    */
   createDestroyExplosion = () => {
     this.game.addToGameEntities(
-      new ExplosionDestroy(
+      new DestroyExplosion(
         this.game,
         {
           x: this.position.x,
@@ -79,7 +79,7 @@ class MineEntity extends GamePlayEntity {
   };
 
   // ==========================================================================
-  // Entity collision detection methods
+  // GameEntity collision detection methods
   // ==========================================================================
 
   /**
@@ -114,7 +114,7 @@ class MineEntity extends GamePlayEntity {
           this.position.y + this.size.height > entity.position.y
         ) {
           // Set size to explosion size.
-          this.setSize(this.explosionSize);
+          this.setGameEntitySize(this.explosionSize);
           // Take action on collision.
           this.onEntityCollision(entity);
           // Set collided flag.
@@ -143,8 +143,8 @@ class MineEntity extends GamePlayEntity {
   onCollisionTick = entIdx => {
     if (
       this.hasCollidedEntity(entIdx) ||
-      this.hasCollidedTopBoundary(this.moveStepSize) ||
-      this.hasCollidedBottomBoundary(this.moveStepSize)
+      this.hasGameEntityCollidedTopBoundary(this.moveStepSize) ||
+      this.hasGameEntityCollidedBottomBoundary(this.moveStepSize)
     ) {
       // Ready to dispose.
       this.setAliveStatus(false);

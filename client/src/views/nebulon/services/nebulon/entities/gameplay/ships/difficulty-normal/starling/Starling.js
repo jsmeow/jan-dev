@@ -1,11 +1,11 @@
-import Entity from '../../../../Entity';
+import GameEntity from '../../../../GameEntity';
 import starlingImage from './assets/images/starling.png';
 import StarlingBullet from './StarlingBullet';
 
 /**
  * A weak enemy.
  */
-class Starling extends Entity {
+class Starling extends GameEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -38,7 +38,7 @@ class Starling extends Entity {
   }
 
   /**
-   * @see Entity.init
+   * @see GameEntity.init
    * @override
    */
   init = () => {
@@ -102,7 +102,7 @@ class Starling extends Entity {
   // ==========================================================================
 
   /**
-   * @see Entity.clearIntervals
+   * @see GameEntity.clearIntervals
    * @override
    */
   clearIntervals = () => {

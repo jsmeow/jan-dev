@@ -1,8 +1,8 @@
-import Game from '../../../game/Game';
 import GamePlayEntity from '../GamePlayEntity';
-import enemyImageSrc from './standard/assets/images/enemy-standard-bullet.png';
-import alliedImageSrc from './standard/assets/images/allied-standard-bullet.png';
 
+/**
+ * @abstract
+ */
 class BulletEntity extends GamePlayEntity {
   // ==========================================================================
   // Constructor and init methods
@@ -14,37 +14,13 @@ class BulletEntity extends GamePlayEntity {
    * @param {number} y
    * @param {number} factionStatus
    * @param {number} attackPoints
-   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
+   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} d
    * @constructor
+   * @abstract
    */
-  constructor(game, { x, y }, factionStatus, attackPoints, step) {
+  constructor(game, { x, y }, factionStatus) {
     super(game, { x, y }, factionStatus);
-    /**
-     * @override
-     */
-    this.enemyImageSrc = enemyImageSrc;
-    /**
-     * @override
-     */
-    this.alliedImageSrc = alliedImageSrc;
-    this.init(attackPoints, step);
   }
-
-  /**
-   * @override
-   */
-  init = (attackPoints, step) => {
-    this.setImageSource();
-    this.setSize({
-      width: 1,
-      height: 1
-    });
-    this.setEntityType('bullet');
-    this.setSpeed(Game.speed / 30);
-    this.setHitPoints(1);
-    this.setAttackPoints(attackPoints);
-    this.moveDirection(step);
-  };
 
   // ==========================================================================
   // Entity collision detection methods
@@ -53,10 +29,18 @@ class BulletEntity extends GamePlayEntity {
   /**
    * @override
    */
-  onEntityCollision = entity => {
-    entity.hitPoints -= this.attackPoints;
-    if (entity.hitPoints <= 0) {
-      entity.aliveStatus = false;
+  onGameEntityCollision = entity => {
+    // Skip if entity instance dead or invincible.
+    if (
+      entity.gamePlayEntityAliveStatus &&
+      !entity.gamePlayEntityInvincibleStatus
+    ) {
+      // Do damage on entity instance.
+      entity.gamePlayEntityHitPoints -= this.gamePlayEntityAttackPoints;
+      // Die if hit points <= 0 on entity instance.
+      if (entity.gamePlayEntityHitPoints <= 0) {
+        entity.gamePlayEntityAliveStatus = false;
+      }
     }
   };
 
@@ -65,16 +49,20 @@ class BulletEntity extends GamePlayEntity {
   // ==========================================================================
 
   /**
-   * Collision actions taken on a game tick.
+   * BulletEntity collision actions taken on a game tick.
    * @param {number} entIdx
    */
-  onCollisionTick = entIdx => {
+  onBulletEntityCollisionTick = entIdx => {
     if (
-      this.hasCollidedEntity(entIdx) ||
-      this.hasCollidedTopBoundary(this.speed) ||
-      this.hasCollidedBottomBoundary(this.speed)
+      this.hasGameEntityCollidedGameEntity(entIdx) ||
+      this.hasGameEntityCollidedTopBoundary(
+        this.gameEntityMoveVectorMagnitude
+      ) ||
+      this.hasGameEntityCollidedBottomBoundary(
+        this.gameEntityMoveVectorMagnitude
+      )
     ) {
-      this.setAliveStatus(false);
+      this.setGamePlayEntityAliveStatus(false);
     }
   };
 
@@ -82,12 +70,14 @@ class BulletEntity extends GamePlayEntity {
    * @override
    */
   onTick = entIdx => {
-    if (this.aliveStatus) {
-      this.onDrawImageTick();
-      this.onCollisionTick(entIdx);
+    if (this.gamePlayEntityAliveStatus) {
+      this.onGameEntityDrawImageTick();
+      this.onBulletEntityCollisionTick(entIdx);
     } else {
-      this.disposeMoveInterval();
-      this.disposeEntity(entIdx);
+      // Dispose GameEntity intervals and timeouts.
+      this.disposeGameEntityMoveInterval();
+      // Dispose GameEntity.
+      this.disposeGameEntity(entIdx);
     }
   };
 }

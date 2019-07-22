@@ -1,10 +1,10 @@
 import ExplosionEntity from '../ExplosionEntity';
-import explosionImage1Src from './assets/images/explosion-destroy1.png';
-import explosionImage2Src from './assets/images/explosion-destroy2.png';
-import explosionImage3Src from './assets/images/explosion-destroy3.png';
-import explosionImage4Src from './assets/images/explosion-destroy4.png';
+import explosionImage1Src from './assets/images/explosion-damage1.png';
+import explosionImage2Src from './assets/images/explosion-damage2.png';
+import explosionImage3Src from './assets/images/explosion-damage3.png';
+import explosionImage4Src from './assets/images/explosion-damage4.png';
 
-class ExplosionDestroy extends ExplosionEntity {
+class DamageExplosion extends ExplosionEntity {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -39,4 +39,4 @@ class ExplosionDestroy extends ExplosionEntity {
   }
 }
 
-export default ExplosionDestroy;
+export default DamageExplosion;

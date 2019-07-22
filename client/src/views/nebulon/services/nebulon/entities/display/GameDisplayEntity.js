@@ -1,9 +1,9 @@
-import Entity from '../Entity';
+import GameEntity from '../GameEntity';
 
 /**
  * A gameplay entity.
  */
-class DisplayEntity extends Entity {
+class GameDisplayEntity extends GameEntity {
   // ==========================================================================
   // Static properties
   // ==========================================================================
@@ -30,7 +30,7 @@ class DisplayEntity extends Entity {
   constructor(game, { x, y }) {
     super(game, { x, y });
     /**
-     * DisplayEntity status flag if immune to attack points.
+     * GameDisplayEntity status flag if immune to attack points.
      * Defaults to false.
      * @type {boolean}
      */
@@ -51,4 +51,4 @@ class DisplayEntity extends Entity {
   };
 }
 
-export default DisplayEntity;
+export default GameDisplayEntity;
