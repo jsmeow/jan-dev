@@ -28,25 +28,25 @@ class BombSmall extends BombEntity {
    * @param {number} x
    * @param {number} y
    * @param {number} factionStatus
-   * @param {number} attackPoints
+   * @param {number} attack
    * @param {*} step
    * @constructor
    */
-  constructor(game, { x, y }, factionStatus, attackPoints, step) {
-    super(game, { x, y }, factionStatus, attackPoints, step);
+  constructor(game, { x, y }, factionStatus, attack, step) {
+    super(game, { x, y }, factionStatus, attack, step);
     /**
      * BombEntity image source.
      * To be implemented by the extending class.
      * @type {HTMLElement}
      */
     this.bombImageSrc = bombImageSrc;
-    this.init(attackPoints, step);
+    this.init(attack, step);
   }
 
   /**
    * @override
    */
-  init = (attackPoints, step) => {
+  init = (attack, step) => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({
       width: 4,
@@ -55,7 +55,7 @@ class BombSmall extends BombEntity {
     this.setEntityType('bomb');
     this.setGameEntitySpeed(Game.speed / 30);
     this.setInvincibleStatus(true);
-    this.setAttackPoints(attackPoints * 2);
+    this.setAttackPoints(attack * 2);
     this.moveDirection(step);
   };
 }

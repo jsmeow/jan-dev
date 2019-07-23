@@ -1,7 +1,7 @@
 import image from './assets/images/hit-point.png';
 import { grey } from '../../../../../../../services/color/muiColors';
 
-class GamePlayHitPointScore {
+class GamePlayhealthcore {
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
@@ -79,7 +79,7 @@ class GamePlayHitPointScore {
    * Draw hit point images.
    */
   drawHitPointImages = () => {
-    for (let idx = 0; idx < this.game.gamePlayer.hitPoints; idx += 1) {
+    for (let idx = 0; idx < this.game.gamePlayer.health; idx += 1) {
       this.game.gameCanvas.context.drawImage(
         this.image,
         (this.imagePosition.x + idx * 6) * this.game.gameCanvas.unit,
@@ -103,4 +103,4 @@ class GamePlayHitPointScore {
   };
 }
 
-export default GamePlayHitPointScore;
+export default GamePlayhealthcore;

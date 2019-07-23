@@ -40,7 +40,7 @@ class Bloodbird extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ width: 27, height: 18 });
-    this.setHitPoints(50);
+    this.setHealthPoints(50);
     this.setFireBulletIntervalDelay(Game.speed * 500);
     this.setFiringStatus(true);
   };
@@ -76,7 +76,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireBulletMagnitude * -0.1,
             dyDown: this.fireBulletMagnitude
@@ -91,7 +91,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireBulletMagnitude * -0.5,
             dyDown: this.fireBulletMagnitude
@@ -106,7 +106,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireBulletMagnitude * -1,
             dyDown: this.fireBulletMagnitude
@@ -121,7 +121,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireBulletMagnitude * -1.5,
             dyDown: this.fireBulletMagnitude
@@ -136,7 +136,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireBulletMagnitude * -0.1,
             dyDown: this.fireBulletMagnitude
@@ -151,7 +151,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireBulletMagnitude * -0.5,
             dyDown: this.fireBulletMagnitude
@@ -166,7 +166,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireBulletMagnitude * -1,
             dyDown: this.fireBulletMagnitude
@@ -181,7 +181,7 @@ class Bloodbird extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireBulletMagnitude * -1.5,
             dyDown: this.fireBulletMagnitude

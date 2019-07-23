@@ -35,7 +35,7 @@ class Seekerbird extends ShipEntity {
      * Seekerbird player entity position reference.
      * @see GameEntity.position
      */
-    this.playerEntityPosition = null;
+    this.playerEntityEntityPosition = null;
     /**
      * Seekerbird status flag is player entity position is current.
      * @see GameEntity.position
@@ -49,7 +49,7 @@ class Seekerbird extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
-    this.setHitPoints(2);
+    this.setHealthPoints(2);
     this.setScorePoints(2);
     this.setFiringStatus(true);
   };
@@ -74,7 +74,7 @@ class Seekerbird extends ShipEntity {
    * Get the current player entity position.
    */
   getPlayerEntityPosition = () => {
-    this.playerEntityPosition = { ...this.game.gamePlayer.position };
+    this.playerEntityEntityPosition = { ...this.game.gamePlayer.position };
   };
 
   // ==========================================================================
@@ -88,8 +88,8 @@ class Seekerbird extends ShipEntity {
     this.setFiringStatus(false);
     return this.movePath([
       {
-        x: this.playerEntityPosition.x,
-        y: this.playerEntityPosition.y
+        x: this.playerEntityEntityPosition.x,
+        y: this.playerEntityEntityPosition.y
       }
     ]).then(() => {
       this.setFiringStatus(true);

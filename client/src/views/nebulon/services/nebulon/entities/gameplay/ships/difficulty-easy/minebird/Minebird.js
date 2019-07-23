@@ -42,7 +42,7 @@ class Minebird extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
-    this.setHitPoints(5);
+    this.setHealthPoints(5);
     this.setFiringStatus(true);
   };
 
@@ -97,7 +97,7 @@ class Minebird extends ShipEntity {
           y: this.position.y + this.size.height + 1
         },
         this.factionStatus,
-        this.attackPoints
+        this.attack
       )
     );
   };

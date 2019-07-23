@@ -11,17 +11,17 @@ class MineSmall extends MineEntity {
    * @param {number} x
    * @param {number} y
    * @param {number} factionStatus
-   * @param {number} attackPoints
+   * @param {number} attack
    * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
    * @constructor
    */
-  constructor(game, { x, y }, factionStatus, attackPoints) {
-    super(game, { x, y }, factionStatus, attackPoints);
+  constructor(game, { x, y }, factionStatus, attack) {
+    super(game, { x, y }, factionStatus, attack);
     /**
      * @override
      */
     this.mineImageSrc = mineImageSrc;
-    this.init(attackPoints);
+    this.init(attack);
   }
 }
 

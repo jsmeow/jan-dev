@@ -36,7 +36,7 @@ class SmallAsteroid extends AsteroidEntity {
     this.setGameEntitySpeed(
       Game.speed * AsteroidEntity.asteroidEntitySpeedModifierDefault
     );
-    this.setHitPoints(5);
+    this.setHealthPoints(5);
     this.setAttackPoints(5);
     this.setScorePoints(5);
     this.moveDirection(step);

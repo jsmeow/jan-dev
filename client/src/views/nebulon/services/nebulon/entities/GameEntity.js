@@ -10,28 +10,22 @@ class GameEntity {
   // ==========================================================================
 
   /**
-   * @see GameEntity.position
+   * @see GameEntity.vector
    */
-  static defaultPosition = {
-    x: 0,
-    y: 0
-  };
-
-  /**
-   * @see GameEntity.size
-   */
-  static defaultSize = {
-    width: 0,
-    height: 0
-  };
-
-  /**
-   * @see GameEntity.moveVector
-   */
-  static defaultMoveVector = {
+  static defaultVector = {
     interval: 0,
-    intervalDelayModifier: 10,
-    magnitudeModifier: 0
+    intervalDelay: 10
+  };
+
+  /**
+   * @see GameEntity.type
+   */
+  static types = {
+    SHIP: 0,
+    BULLET: 1,
+    BOMB: 2,
+    ASTEROID: 3,
+    EXPLOSION: 4
   };
 
   // ==========================================================================
@@ -40,51 +34,47 @@ class GameEntity {
 
   /**
    * @param game
-   * @param {number=} x
-   * @param {number=} y
-   * @param {number=} width
-   * @param {number=} height
-   * @param {number=} d
+   * @param {Object=}
    * @constructor
    */
-  constructor(game, { x, y }, { width, height }, d) {
+  constructor(game, { x, y, width, height, vector }) {
     /**
      * @see Game
      */
     this.game = game;
     /**
-     * GameEntity position.
+     * Entity position.
      * @type {Object}
      */
     this.position = {
-      x: x || GameEntity.defaultPosition.x,
-      y: y || GameEntity.defaultPosition.y
+      x,
+      y
     };
     /**
-     * GameEntity size.
+     * Entity size.
      * @type {Object}
      */
     this.size = {
-      width: width || GameEntity.defaultSize.width,
-      height: height || GameEntity.defaultSize.height
+      width,
+      height
     };
     /**
-     * GameEntity move vector interval reference.
-     * GameEntity move interval delay modifier value.
-     * GameEntity move vector magnitude value.
+     * Vector interval, interval delay, magnitude and direction.
      * @type {Object}
      */
-    this.moveVector = {
-      interval: GameEntity.defaultMoveVector.interval,
-      intervalDelay:
-        Game.speed * GameEntity.defaultMoveVector.intervalDelayModifier,
-      magnitude:
-        d || Game.speed * GameEntity.defaultMoveVector.magnitudeModifier
+    this.vector = {
+      ...GameEntity.defaultVector,
+      ...vector
     };
+    /**
+     * Type of entity.
+     * @type {?string}
+     */
+    this.type = null;
   }
 
   /**
-   * Initializer to be implemented by the extending class.
+   * To be implemented by the extending class.
    */
   init = () => {
     // Implementation.
@@ -97,29 +87,29 @@ class GameEntity {
   /**
    * @see GameEntity.position
    */
-  setPosition = ({ x = this.position.x, y = this.position.y }) => {
-    this.position = { x, y };
+  setPosition = newPosition => {
+    this.position = newPosition;
   };
 
   /**
    * @see GameEntity.size
    */
-  setSize = ({ width = this.size.width, height = this.size.height }) => {
-    this.size = { width, height };
+  setSize = newSize => {
+    this.size = newSize;
   };
 
   /**
-   * @see GameEntity.moveVector.intervalDelay
+   * @see GameEntity.vector.intervalDelay
    */
-  setMoveVectorIntervalDelay = intervalDelayModifier => {
-    this.moveVector.intervalDelay = Game.speed * intervalDelayModifier;
+  setVectorIntervalDelay = newIntervalDelay => {
+    this.vector.intervalDelay = newIntervalDelay;
   };
 
   /**
-   * @see GameEntity.moveVector.magnitude
+   * @see GameEntity.vector
    */
-  setMoveVectorMagnitude = magnitudeModifier => {
-    this.moveVector.magnitude = Game.speed * magnitudeModifier;
+  setVector = newVector => {
+    this.vector = { ...newVector };
   };
 
   // ==========================================================================
@@ -127,199 +117,171 @@ class GameEntity {
   // ==========================================================================
 
   /**
-   * GameEntity left boundary collision detection.
-   * @param {number=} dx
+   * Entity left boundary collision detection.
    * @returns {boolean}
    */
-  hasCollidedLeftBoundary = (dx = 0) => {
-    return this.position.x + dx <= 0;
+  willCollideLeftBoundary = () => {
+    if (this.vector.left) {
+      return this.position.x + this.vector.left <= 0;
+    }
+    return false;
   };
 
   /**
-   * GameEntity right boundary collision detection.
-   * @param {number=} dx
+   * Entity right boundary collision detection.
    * @returns {boolean}
    */
-  hasCollidedRightBoundary = (dx = 0) => {
-    return this.position.x + dx >= GameCanvas.size.width - this.size.width;
+  willCollideRightBoundary = () => {
+    if (this.vector.right) {
+      return (
+        this.position.x + this.vector.right >=
+        GameCanvas.size.width - this.size.width
+      );
+    }
+    return false;
   };
 
   /**
-   * GameEntity top boundary collision detection.
-   * @param {number=} dy
+   * Entity top boundary collision detection.
    * @returns {boolean}
    */
-  hasCollidedTopBoundary = (dy = 0) => {
-    return this.position.y + dy <= 0;
+  willCollideTopBoundary = () => {
+    if (this.vector.up) {
+      return this.position.y + this.vector.up <= 0;
+    }
+    return false;
   };
 
   /**
-   * GameEntity bottom boundary collision detection.
-   * @param {number=} dy
+   * Entity bottom boundary collision detection.
    * @returns {boolean}
    */
-  hasCollidedBottomBoundary = (dy = 0) => {
-    return this.position.y + dy >= GameCanvas.size.height - this.size.height;
+  willCollideBottomBoundary = () => {
+    if (this.vector.down) {
+      return (
+        this.position.y + this.vector.down >=
+        GameCanvas.size.height - this.size.height
+      );
+    }
+    return false;
   };
 
   // ==========================================================================
-  // Move vector methods
+  // Move in vector methods
   // ==========================================================================
 
   /**
-   * Move GameEntity in a left vector + change in x.
-   * @param {number=} dx
+   * Move entity in a left vector.
    */
-  moveVectorLeft = (dx = 0) => {
-    this.position.x = this.position.x - this.moveVector.magnitude - dx;
+  moveInLeftVector = (vectorMagnitude = 0) => {
+    this.position.x = this.position.x - Game.speed * vectorMagnitude;
   };
 
   /**
-   * Move GameEntity in a right vector + change in x.
-   * @param {number=} dx
+   * Move entity in a right vector.
    */
-  moveVectorRight = (dx = 0) => {
-    this.position.x = this.position.x + this.moveVector.magnitude + dx;
+  moveInRightVector = (vectorMagnitude = 0) => {
+    this.position.x = this.position.x + Game.speed * vectorMagnitude;
   };
 
   /**
-   * Move GameEntity in a up vector + change in y.
-   * @param {number=} dy
+   * Move entity in an up vector.
    */
-  moveVectorUp = (dy = 0) => {
-    this.position.y = this.position.y - this.moveVector.magnitude - dy;
+  moveInUpVector = (vectorMagnitude = 0) => {
+    this.position.y = this.position.y - Game.speed * vectorMagnitude;
   };
 
   /**
-   * Move GameEntity in a down vector + change in y.
-   * @param {number=} dy
+   * Move entity in a down vector.
    */
-  moveVectorDown = (dy = 0) => {
-    this.position.y = this.position.y + this.moveVector.magnitude + dy;
+  moveInDownVector = (vectorMagnitude = 0) => {
+    this.position.y = this.position.y + Game.speed * vectorMagnitude;
   };
 
   /**
-   * Move GameEntity in a vector, modified by a change in d.
-   * @param {Object=}
-   * @param {number=} moveVectorIntervalDelay
+   * Move entity in a vector.
+   * @param {Object} vector
+   * @param {number=} vectorIntervalDelay
    */
-  moveVector = (
-    { leftDx = 0, rightDx = 0, upDy = 0, downDy = 0 },
-    moveVectorIntervalDelay = this.moveVector.intervalDelay
+  moveInVector = (
+    vector = this.vector,
+    vectorIntervalDelay = this.vector.intervalDelay
   ) => {
-    // Start move in a vector interval.
-    this.moveVector.interval = setInterval(() => {
-      if (leftDx) {
-        this.moveVectorLeft(leftDx);
-      }
-      if (rightDx) {
-        this.moveVectorRight(rightDx);
-      }
-      if (upDy) {
-        this.moveVectorUp(upDy);
-      }
-      if (downDy) {
-        this.moveVectorDown(downDy);
-      }
-    }, moveVectorIntervalDelay);
+    // Start moving in a vector at an interval.
+    this.vector.interval = setInterval(() => {
+      this.moveInLeftVector(vector.left);
+      this.moveInRightVector(vector.right);
+      this.moveInUpVector(vector.up);
+      this.moveInDownVector(vector.down);
+    }, Game.speed * vectorIntervalDelay);
   };
 
-  // ==========================================================================
-  // Move vector to a point methods
-  // ==========================================================================
-
   /**
-   * Move GameEntity in a vector to a point, modified by a change in d.
+   * Move entity in a vector to a point.
    * @param {Object}
-   * @param {Object=}
-   * @param {number=} moveVectorIntervalDelay
+   * @param {Object} vector
+   * @param {number=} vectorIntervalDelay
    * @return {Promise}
    */
-  moveVectorTo = (
+  moveInVectorToPoint = (
     { x, y },
-    { leftDx = 0, rightDx = 0, upDy = 0, downDy = 0 } = {},
-    moveVectorIntervalDelay = this.moveVector.intervalDelay
+    vector = this.vector,
+    vectorIntervalDelay = this.vector.intervalDelay
   ) => {
-    // Flags if vector has magnitude in a cardinal direction.
-    let willMoveVectorLeft = false;
-    let willMoveVectorRight = false;
-    let willMoveVectorUp = false;
-    let willMoveVectorDown = false;
-    // Stop move left vector validation.
-    const stopMoveLeftVector = () => {
-      return x > this.position.x - 0.1;
-    };
-    // Stop move right vector validation.
-    const stopMoveRightVector = () => {
-      return x < this.position.x + 0.1;
-    };
-    // Stop move up vector validation.
-    const stopMoveUpVector = () => {
-      return y > this.position.y - 0.1;
-    };
-    // Stop move down vector validation.
-    const stopMoveDownVector = () => {
-      return y < this.position.y + 0.1;
-    };
-    // Begin moving in a vector.
-    const startMoveVectorTo = resolve => {
-      this.moveVector.interval = setInterval(() => {
-        if (!willMoveVectorLeft && !stopMoveLeftVector()) {
-          this.moveVectorLeft(leftDx);
-        } else {
-          willMoveVectorLeft = true;
-        }
-        if (!willMoveVectorRight && !stopMoveRightVector()) {
-          this.moveVectorRight(rightDx);
-        } else {
-          willMoveVectorRight = true;
-        }
-        if (!willMoveVectorUp && !stopMoveUpVector()) {
-          this.moveVectorUp(upDy);
-        } else {
-          willMoveVectorUp = true;
-        }
-        if (!willMoveVectorDown && !stopMoveDownVector()) {
-          this.moveVectorDown(downDy);
-        } else {
-          willMoveVectorDown = true;
-        }
-        if (
-          willMoveVectorLeft &&
-          willMoveVectorRight &&
-          willMoveVectorUp &&
-          willMoveVectorDown
-        ) {
-          this.disposeMoveVectorInterval();
-          resolve();
-        }
-      }, moveVectorIntervalDelay);
-    };
     return new Promise(resolve => {
-      if (!this.moveVector.interval) {
-        startMoveVectorTo(resolve);
+      if (!this.vector.interval) {
+        // Flags if vector has magnitude in a cardinal direction.
+        let willMoveInLeftVector = true;
+        let willMoveInRightVector = true;
+        let willMoveInUpVector = true;
+        let willMoveInDownVector = true;
+        // Begin moving in a vector.
+        this.vector.interval = setInterval(() => {
+          if (x < this.position.x) {
+            this.moveInLeftVector(vector.left);
+          } else {
+            willMoveInLeftVector = false;
+          }
+          if (x > this.position.x) {
+            this.moveInRightVector(vector.right);
+          } else {
+            willMoveInRightVector = false;
+          }
+          if (y < this.position.y) {
+            this.moveInUpVector(vector.up);
+          } else {
+            willMoveInUpVector = false;
+          }
+          if (y > this.position.y) {
+            this.moveInDownVector(vector.down);
+          } else {
+            willMoveInDownVector = false;
+          }
+          if (
+            !willMoveInLeftVector &&
+            !willMoveInRightVector &&
+            !willMoveInUpVector &&
+            !willMoveInDownVector
+          ) {
+            resolve();
+          }
+        }, Game.speed * vectorIntervalDelay);
       }
     }).then(() => {
-      this.disposeMoveVectorInterval();
+      this.disposeVectorInterval();
       return Promise.resolve();
     });
   };
 
-  // ==========================================================================
-  // Move through a vector path methods
-  // ==========================================================================
-
   /**
-   * Move GameEntity through a vector path of in the order given.
-   * @param {Object[]} path
-   * @param {Object=} d
+   * Move entity in a vector to a path.
+   * @param {Array} path
    * @return {Promise}
    */
-  moveVectorPath = (path, d) => {
+  moveInVectorPath = path => {
     return path.reduce((previousPromise, currentPath) => {
       return previousPromise.then(() => {
-        const { x, y } = currentPath;
-        return this.moveVectorTo({ x, y }, d);
+        return this.moveInVectorToPoint({ ...currentPath });
       });
     }, Promise.resolve());
   };
@@ -329,10 +291,18 @@ class GameEntity {
   // ==========================================================================
 
   /**
-   * GameEntity actions taken on a game tick.
+   * Dispose action taken on a game tick.
    * To be implemented by the extending class.
    * @param {number} entIdx
-   * @return {*}
+   */
+  onDisposeTick = entIdx => {
+    // Implementation.
+  };
+
+  /**
+   * Entity actions taken on a game tick.
+   * To be implemented by the extending class.
+   * @param {number} entIdx
    */
   onTick = entIdx => {
     // Implementation.
@@ -343,11 +313,11 @@ class GameEntity {
   // ==========================================================================
 
   /**
-   * Dispose GameEntity move vector interval.
+   * Dispose entity move vector interval.
    */
-  disposeMoveVectorInterval = () => {
-    clearInterval(this.moveVector.interval);
-    this.moveVector.interval = 0;
+  disposeVectorInterval = () => {
+    clearInterval(this.vector.interval);
+    this.vector.interval = 0;
   };
 }
 

@@ -6,17 +6,17 @@ class GameKeyHandler {
   // ==========================================================================
 
   /**
-   * GameKeyHandler keyboard keys used.
-   * @type {*}
+   * Keyboard keys used.
+   * @type {Object}
    */
-  static gameKeyHandlerKeys = {
-    start: 'Enter',
-    left: 'a',
-    right: 'd',
-    up: 'w',
-    down: 's',
-    action1: ' ',
-    action2: 'q'
+  static keys = {
+    START: 'Enter',
+    LEFT: 'a',
+    RIGHT: 'd',
+    UP: 'w',
+    DOWN: 's',
+    ACTION1: ' ',
+    ACTION2: 'q'
   };
 
   /**
@@ -29,10 +29,10 @@ class GameKeyHandler {
      */
     this.game = game;
     /**
-     * GameKeyHandler status flag whether a key has been fired/pressed.
+     * Status flag whether a key has been fired/pressed.
      * @type {boolean}
      */
-    this.gameKeyHandlerKeypressStatus = false;
+    this.keyHandlerKeypressStatus = false;
   }
 
   // ==========================================================================
@@ -40,11 +40,11 @@ class GameKeyHandler {
   // ==========================================================================
 
   /**
-   * GameKeyHandler key pressed status flag setter.
-   * @param {boolean} newGameKeyHandlerKeypressStatus
+   * Key pressed status flag setter.
+   * @param {boolean} newKeypressStatus
    */
-  setGameKeyHandlerKeypressStatus = newGameKeyHandlerKeypressStatus => {
-    this.gameKeyHandlerKeypressStatus = newGameKeyHandlerKeypressStatus;
+  setKeypressStatus = newKeypressStatus => {
+    this.keyHandlerKeypressStatus = newKeypressStatus;
   };
 
   // ==========================================================================
@@ -52,91 +52,88 @@ class GameKeyHandler {
   // ==========================================================================
 
   /**
-   * GameKeyHandler add keydown event listener.
+   * add keydown event listener.
    */
-  addGameKeyHandlerKeydownEventListener = () => {
-    document.body.addEventListener(
-      'keydown',
-      this.handleGameKeyHandlerOnKeyDown.bind(this)
-    );
+  addKeydownEventListener = () => {
+    document.body.addEventListener('keydown', this.handleOnKeyDown.bind(this));
   };
 
   /**
-   * GameKeyHandler add keyup event listener.
+   * Add keyup event listener.
    */
-  addGameKeyHandlerKeyupEventListener = () => {
+  addKeyupEventListener = () => {
     document.body.addEventListener('keyup', this.handleOnKeyUp.bind(this));
   };
 
   // ==========================================================================
-  // Event handler methods
+  // Key event handler methods
   // ==========================================================================
 
   /**
-   * GameKeyHandler keydown event handler.
+   * Keydown event handler.
    * @param {string} key
    * @returns {*}
    */
-  handleGameKeyHandlerOnKeyDown = ({ key }) => {
-    this.setGameKeyHandlerKeypressStatus(true);
+  handleOnKeyDown = ({ key }) => {
+    this.setKeypressStatus(true);
     const keyEvents = {
-      [GameKeyHandler.gameKeyHandlerKeys.start]() {
+      [GameKeyHandler.keys.START]() {
         // Start the game if in title screen state and not running.
-        if (this.game.gameState === Game.gameStates.title) {
-          this.game.setGameState(Game.gameStates.playing);
+        if (this.game.state === Game.states.TITLE) {
+          this.game.setState(Game.states.PLAYING);
         }
       },
       // Move game player entity left.
-      [GameKeyHandler.gameKeyHandlerKeys.left]() {
-        this.game.gamePlayer.moveGameEntityDirection('left');
+      [GameKeyHandler.keys.LEFT]() {
+        this.game.playerEntity.moveInVector('left');
       },
       // Move game player entity right.
-      [GameKeyHandler.gameKeyHandlerKeys.right]() {
-        this.game.gamePlayer.moveGameEntityDirection('right');
+      [GameKeyHandler.keys.RIGHT]() {
+        this.game.playerEntity.moveInVector('right');
       },
       // Move game player entity up.
-      [GameKeyHandler.gameKeyHandlerKeys.up]() {
-        this.game.gamePlayer.moveGameEntityDirection('up');
+      [GameKeyHandler.keys.UP]() {
+        this.game.playerEntity.moveInVector('up');
       },
       // Move game player entity down.
-      [GameKeyHandler.gameKeyHandlerKeys.down]() {
-        this.game.gamePlayer.moveGameEntityDirection('down');
+      [GameKeyHandler.keys.DOWN]() {
+        this.game.playerEntity.moveInVector('down');
       },
       // Fire a game player entity bomb.
-      [GameKeyHandler.gameKeyHandlerKeys.action1]() {
-        this.game.gamePlayer.addPlayerEntitySmallBombToGameEntities();
+      [GameKeyHandler.keys.ACTION1]() {
+        this.game.playerEntity.addPlayerEntitySmallBombToGameEntities();
       },
       // Use game player entity power.
-      [GameKeyHandler.gameKeyHandlerKeys.action2]() {
-        this.game.gamePlayer.usePlayerPower();
+      [GameKeyHandler.keys.ACTION2]() {
+        this.game.playerEntity.usePlayerPower();
       }
     };
     return keyEvents.hasOwnProperty(key) && keyEvents[key].call(this);
   };
 
   /**
-   * GameKeyHandler keyup event handler.
+   * keyup event handler.
    * @param {string} key
    * @returns {*}
    */
-  handleGameKeyHandlerOnKeyUp = ({ key }) => {
-    this.setGameKeyHandlerKeypressStatus(false);
+  handleOnKeyUp = ({ key }) => {
+    this.setKeypressStatus(false);
     const keyEvents = {
       // Clear move player entity move left interval.
-      [GameKeyHandler.gameKeyHandlerKeys.left]() {
-        this.game.gamePlayer.disposePlayerMoveLeftInterval();
+      [GameKeyHandler.keys.left]() {
+        this.game.playerEntity.disposePlayerEntityMoveLeftInterval();
       },
       // Clear move player entity move right interval.
-      [GameKeyHandler.gameKeyHandlerKeys.right]() {
-        this.game.gamePlayer.disposePlayerMoveRightInterval();
+      [GameKeyHandler.keys.right]() {
+        this.game.playerEntity.disposePlayerEntityMoveRightInterval();
       },
       // Clear move player entity move up interval.
-      [GameKeyHandler.gameKeyHandlerKeys.up]() {
-        this.game.gamePlayer.disposePlayerMoveUpInterval();
+      [GameKeyHandler.keys.up]() {
+        this.game.playerEntity.disposePlayerEntityMoveUpInterval();
       },
       // Clear move player entity move down interval.
-      [GameKeyHandler.gameKeyHandlerKeys.down]() {
-        this.game.gamePlayer.disposePlayerMoveDownInterval();
+      [GameKeyHandler.keys.down]() {
+        this.game.playerEntity.disposePlayerEntityMoveDownInterval();
       }
     };
     return keyEvents.hasOwnProperty(key) && keyEvents[key].call(this);
@@ -147,23 +144,20 @@ class GameKeyHandler {
   // ==========================================================================
 
   /**
-   * GameKeyHandler remove keydown event listener.
+   * remove keydown event listener.
    */
-  removeGameKeyHandlerKeydownEventListener = () => {
+  removeKeydownEventListener = () => {
     document.body.removeEventListener(
       'keydown',
-      this.handleGameKeyHandlerOnKeyDown.bind(this)
+      this.handleOnKeyDown.bind(this)
     );
   };
 
   /**
-   * GameKeyHandler remove keyup event listener.
+   * remove keyup event listener.
    */
-  removeGameKeyHandlerKeyupEventListener = () => {
-    document.body.removeEventListener(
-      'keyup',
-      this.handleGameKeyHandlerOnKeyUp.bind(this)
-    );
+  removKeyupEventListener = () => {
+    document.body.removeEventListener('keyup', this.handleOnKeyUp.bind(this));
   };
 }
 

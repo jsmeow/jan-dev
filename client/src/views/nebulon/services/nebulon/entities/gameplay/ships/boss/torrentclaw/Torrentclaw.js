@@ -40,7 +40,7 @@ class Torrentclaw extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ width: 45, height: 36 });
-    this.setHitPoints(150);
+    this.setHealthPoints(150);
     this.setFireHomingBulletIntervalDelay(
       this.fireHomingBulletIntervalDelay * 4
     );

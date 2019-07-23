@@ -40,7 +40,7 @@ class Hummingbird extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
-    this.setHitPoints(2);
+    this.setHealthPoints(2);
     this.setFiringStatus(true);
   };
 

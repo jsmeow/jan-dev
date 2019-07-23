@@ -40,7 +40,7 @@ class Bentclaw extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
-    this.setHitPoints(2);
+    this.setHealthPoints(2);
     this.setFiringStatus(true);
   };
 
@@ -84,7 +84,7 @@ class Bentclaw extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireStandardBulletMagnitude,
             dyDown: this.fireStandardBulletMagnitude
@@ -99,7 +99,7 @@ class Bentclaw extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireStandardBulletMagnitude,
             dyDown: this.fireStandardBulletMagnitude
@@ -116,7 +116,7 @@ class Bentclaw extends ShipEntity {
             y: this.position.y - 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireStandardBulletMagnitude,
             dyUp: this.fireStandardBulletMagnitude
@@ -131,7 +131,7 @@ class Bentclaw extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireStandardBulletMagnitude,
             dyUp: this.fireStandardBulletMagnitude

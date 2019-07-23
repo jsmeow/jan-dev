@@ -78,7 +78,7 @@ class AsteroidEntity extends GamePlayEntity {
     // On collision check true.
     if (
       !this.asteroidEntityDamagedImageTimeout &&
-      this.hasGameEntityCollidedGameEntity(entIdx)
+      this.hasEntityCollidedEntity(entIdx)
     ) {
       // Create a damage explosion.
       if (this.gamePlayEntityAliveStatus) {

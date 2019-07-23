@@ -1,86 +1,116 @@
-import Game from '../../../../game/Game';
+import GamePlayEntity from '../../GamePlayEntity';
 import BulletEntity from '../BulletEntity';
-import gamePlayEntityEnemyImageSrc from '../standard/assets/images/enemy-standard-bullet.png';
-import gamePlayEntityAlliedImageSrc from '../standard/assets/images/allied-standard-bullet.png';
+import enemyImageSource from './assets/images/enemy-homing-bullet.png';
+import alliedImageSource from './assets/images/allied-homing-bullet.png';
 
 class HomingBullet extends BulletEntity {
+  // ==========================================================================
+  // Static properties
+  // ==========================================================================
+
+  /**
+   * @see GameEntity.size
+   */
+  static defaultSize = {
+    width: 1,
+    height: 1
+  };
+
+  static defaultMoveVectorMagnitudeModifier = 0.1;
+
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
 
   /**
    * @param game
-   * @param {{x: number, y: number}} bulletSpawnPosition
-   * @param {number} factionStatus
-   * @param {number} attackPoints
-   * @param {number=} d
+   * @param {Object}
    * @constructor
+   * @abstract
    */
-  constructor(game, bulletSpawnPosition, factionStatus, attackPoints, d) {
-    super(game, bulletSpawnPosition, factionStatus, attackPoints, {});
-    this.loadAssets(gamePlayEntityEnemyImageSrc, gamePlayEntityAlliedImageSrc);
-    this.init(bulletSpawnPosition, attackPoints, d);
+  constructor(game, { position, size, faction, attackPoints, d }) {
+    super(game, { position, size, faction, attackPoints, d });
+    this.loadAssets({
+      enemyImageSource,
+      alliedImageSource
+    });
+    this.init(position, size, faction, attackPoints, d);
   }
 
-  init = (attackPoints, d) => {
-    this.setEntityType('bullet');
-    this.setGameEntitySize({
-      width: 1,
-      height: 1
-    });
-    this.setGameEntitySpeed(
-      Game.gameSpeed * BulletEntity.bulletEntitySpeedModifierDefault
+  /**
+   * @override
+   */
+  init = (
+    position,
+    size = HomingBullet.defaultSize,
+    faction,
+    attackPoints,
+    d
+  ) => {
+    // Set position.
+    this.setPosition({ ...position });
+    // Set size.
+    this.setSize({ ...size });
+    // Set faction
+    this.setFaction(faction);
+    // Set move vector magnitude.
+    this.setMoveVectorMagnitude(
+      HomingBullet.defaultMoveVectorMagnitudeModifier
     );
-    this.setGamePlayEntityAttackPoints(attackPoints);
-    this.moveGameEntityDirection(d);
+    // Set attack points.
+    this.setAttackPoints(attackPoints);
+    // Set type.
+    this.setType(GamePlayEntity.types.BULLET);
+    // Move in vector.
+    this.moveInVector(d);
   };
 
   // ==========================================================================
-  // Get methods
+  // Move vector methods
   // ==========================================================================
 
   /**
-   * Determine which cardinal direction positions the bullet vector will travel.
-   * @param {{x: number, y: number}} playerEntityPosition
-   * @param {{x: number, y: number}} bulletSpawnPosition
-   * @return {{left: boolean, right: boolean, up: boolean, down: boolean}}
+   * Determine which vector direction the bullet vector will travel.
+   * @param {Object} entityPosition
+   * @param {Object} bulletPosition
+   * @return {Object}
    */
-  getMoveDirections = (playerEntityPosition, bulletSpawnPosition) => {
+  getMoveDirections = (entityPosition, bulletPosition) => {
     return {
-      left: playerEntityPosition.x < bulletSpawnPosition.x,
-      right: playerEntityPosition.x > bulletSpawnPosition.x,
-      up: playerEntityPosition.y < bulletSpawnPosition.y,
-      down: playerEntityPosition.y > bulletSpawnPosition.y
+      left: entityPosition.x < bulletPosition.x,
+      right: entityPosition.x > bulletPosition.x,
+      up: entityPosition.y < bulletPosition.y,
+      down: entityPosition.y > bulletPosition.y
     };
   };
 
   /**
    * Get the movement change in x.
-   * @param {{x: number, y: number}} playerEntityPosition
-   * @param {{x: number, y: number}} bulletSpawnPosition
+   * @param {{x: number, y: number}} entityPosition
+   * @param {{x: number, y: number}} bulletPosition
    * @param d {number}
    * @return {number}
    */
-  getMoveDx = (playerEntityPosition, bulletSpawnPosition, d) => {
-    const constant = Game.speed * d;
+  getMoveDx = (entityPosition, bulletPosition, d) => {
+    const moveVectorMagnitude = Game.speed * d;
     return (
-      (constant - Math.abs(bulletSpawnPosition.y - playerEntityPosition.x)) /
-      (constant - Math.abs(playerEntityPosition.y + bulletSpawnPosition.x))
+      (moveVectorMagnitude - Math.abs(bulletPosition.y - entityPosition.x)) /
+      (moveVectorMagnitude - Math.abs(entityPosition.y + bulletPosition.x))
     );
   };
 
   /**
    * Get the movement change in y.
-   * @param {{x: number, y: number}} playerEntityPosition
-   * @param {{x: number, y: number}} bulletSpawnPosition
+   * @param {{x: number, y: number}} entityPosition
+   * @param {{x: number, y: number}} bulletPosition
    * @param d {number}
    * @return {number}
    */
-  getMoveDy = (playerEntityPosition, bulletSpawnPosition, d) => {
+  getMoveDy = (entityPosition, bulletPosition, d) => {
     const constant = Game.speed * d;
     return (
-      (constant - Math.abs(playerEntityPosition.y - bulletSpawnPosition.x)) /
-      (constant - Math.abs(playerEntityPosition.y + bulletSpawnPosition.x))
+      (constant - Math.abs(entityPosition.y - bulletPosition.x)) /
+      (constant - Math.abs(entityPosition.y + bulletPosition.x))
     );
   };
 
@@ -91,17 +121,17 @@ class HomingBullet extends BulletEntity {
   /**
    * @override
    */
-  moveDirection = (bulletSpawnPosition, d) => {
+  moveDirection = (bulletPosition, d) => {
     /**
-     * @type  {{x: number, y: number}} playerEntityPosition
+     * @type  {{x: number, y: number}} entityPosition
      */
-    const playerEntityPosition = { ...this.game.gamePlayer.position };
+    const entityPosition = { ...this.game.gamePlayer.position };
     const moveDirections = this.getMoveDirections(
-      playerEntityPosition,
-      bulletSpawnPosition
+      entityPosition,
+      bulletPosition
     );
-    const dx = this.getMoveDx(playerEntityPosition, bulletSpawnPosition, d);
-    const dy = this.getMoveDy(playerEntityPosition, bulletSpawnPosition, d);
+    const dx = this.getMoveDx(entityPosition, bulletPosition, d);
+    const dy = this.getMoveDy(entityPosition, bulletPosition, d);
     console.log(dx);
     // Start move setInterval.
     this.moveInterval = setInterval(() => {

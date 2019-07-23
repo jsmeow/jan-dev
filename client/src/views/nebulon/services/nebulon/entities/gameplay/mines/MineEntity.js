@@ -11,11 +11,11 @@ class MineEntity extends GamePlayEntity {
    * @param {number} x
    * @param {number} y
    * @param {number} factionStatus
-   * @param {number} attackPoints
+   * @param {number} attack
    * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} step
    * @constructor
    */
-  constructor(game, { x, y }, factionStatus, attackPoints) {
+  constructor(game, { x, y }, factionStatus, attack) {
     super(game, { x, y }, factionStatus);
     /**
      * MineEntity image source.
@@ -31,20 +31,20 @@ class MineEntity extends GamePlayEntity {
       width: 27,
       height: 27
     };
-    this.init(attackPoints);
+    this.init(attack);
   }
 
   /**
    * @override
    */
-  init = attackPoints => {
+  init = attack => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({
       width: 4,
       height: 4
     });
     this.setEntityType('mine');
-    this.setAttackPoints(attackPoints * 2);
+    this.setAttackPoints(attack * 2);
   };
 
   // ==========================================================================
@@ -86,8 +86,8 @@ class MineEntity extends GamePlayEntity {
    * @override
    */
   onEntityCollision = entity => {
-    entity.hitPoints -= this.attackPoints;
-    if (entity.hitPoints <= 0) {
+    entity.health -= this.attack;
+    if (entity.health <= 0) {
       entity.aliveStatus = false;
     }
   };

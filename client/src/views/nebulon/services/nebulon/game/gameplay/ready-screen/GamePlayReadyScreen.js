@@ -1,7 +1,7 @@
 import Game from '../../Game';
 import GameCanvas from '../../canvas/GameCanvas';
 import { grey } from '../../../../../../../services/color/muiColors';
-import GamePlay from '../GamePlay';
+import GameLogic from '../GameLogic';
 import Level from '../../../levels/Level';
 
 class GamePlayReadyScreen {
@@ -138,7 +138,7 @@ class GamePlayReadyScreen {
       this.setNewBlinkTextLabelCounter(0);
       this.disposeBlinkTextLabelInterval();
       this.setDoneBlinkingTextLabelStatus(false);
-      this.game.gamePlay.setGamePlayState(GamePlay.gamePlayStates.handleLevel);
+      this.game.gamePlay.setGamePlayState(GameLogic.gamePlayStates.handleLevel);
     }
   };
 

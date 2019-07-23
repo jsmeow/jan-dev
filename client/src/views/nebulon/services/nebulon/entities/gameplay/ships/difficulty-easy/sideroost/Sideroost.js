@@ -41,7 +41,7 @@ class Sideroost extends ShipEntity {
   init = () => {
     this.setGameEntityImageSource();
     this.setGameEntitySize({ ...GamePlayEntity.defaultSize });
-    this.setHitPoints(2);
+    this.setHealthPoints(2);
     this.setFiringStatus(true);
   };
 
@@ -94,7 +94,7 @@ class Sideroost extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireStandardBulletMagnitude
           }
@@ -108,7 +108,7 @@ class Sideroost extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireStandardBulletMagnitude
           }
@@ -124,7 +124,7 @@ class Sideroost extends ShipEntity {
             y: this.position.y - 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxLeft: this.fireStandardBulletMagnitude
           }
@@ -138,7 +138,7 @@ class Sideroost extends ShipEntity {
             y: this.position.y + this.size.height + 1
           },
           this.factionStatus,
-          this.attackPoints,
+          this.attack,
           {
             dxRight: this.fireStandardBulletMagnitude
           }

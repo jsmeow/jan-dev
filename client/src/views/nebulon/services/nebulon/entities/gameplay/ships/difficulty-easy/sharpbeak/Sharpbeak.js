@@ -42,7 +42,7 @@ class Sharpbeak extends ShipEntity {
     this.setGameEntitySpeed(this.speed * 2);
     this.setRoamSpeed(this.roamSpeed * 2);
     this.setFireStandardBulletMagnitude(this.fireStandardBulletMagnitude * 4);
-    this.setHitPoints(5);
+    this.setHealthPoints(5);
     this.setFiringStatus(true);
   };
 

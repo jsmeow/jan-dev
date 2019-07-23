@@ -1,39 +1,66 @@
-import Game from '../../../../game/Game';
+import GamePlayEntity from '../../GamePlayEntity';
 import BulletEntity from '../BulletEntity';
-import gamePlayEntityEnemyImageSrc from './assets/images/enemy-standard-bullet.png';
-import gamePlayEntityAlliedImageSrc from './assets/images/allied-standard-bullet.png';
+import enemyImageSource from './assets/images/enemy-standard-bullet.png';
+import alliedImageSource from './assets/images/allied-standard-bullet.png';
 
 class StandardBullet extends BulletEntity {
+  // ==========================================================================
+  // Static properties
+  // ==========================================================================
+
+  /**
+   * @see GameEntity.size
+   */
+  static defaultSize = {
+    width: 1,
+    height: 1
+  };
+
   // ==========================================================================
   // Constructor and init methods
   // ==========================================================================
 
   /**
    * @param game
-   * @param {number} x
-   * @param {number} y
-   * @param {number} factionStatus
-   * @param {number} attackPoints
-   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} d
+   * @param {Object}
    * @constructor
+   * @abstract
    */
-  constructor(game, { x, y }, factionStatus, attackPoints, d) {
-    super(game, { x, y }, factionStatus);
-    this.loadAssets(gamePlayEntityEnemyImageSrc, gamePlayEntityAlliedImageSrc);
-    this.init(attackPoints, d);
+  constructor(game, { position, size, faction, attackPoints, d }) {
+    super(game, { position, size, faction, attackPoints, d });
+    this.loadAssets({
+      enemyImageSource,
+      alliedImageSource
+    });
+    this.init(position, size, faction, attackPoints, d);
   }
 
-  init = (attackPoints, d) => {
-    this.setEntityType('bullet');
-    this.setGameEntitySize({
-      width: 1,
-      height: 1
-    });
-    this.setGameEntitySpeed(
-      Game.gameSpeed * BulletEntity.bulletEntitySpeedModifierDefault
+  /**
+   * @override
+   */
+  init = (
+    position,
+    size = StandardBullet.defaultSize,
+    faction,
+    attackPoints,
+    d
+  ) => {
+    // Set position.
+    this.setPosition({ ...position });
+    // Set size.
+    this.setSize(size ? { ...size } : { ...BulletEntity.defaultSize });
+    // Set faction
+    this.setFaction(faction);
+    // Set move vector magnitude.
+    this.setMoveVectorMagnitude(
+      StandardBullet.defaultMoveVectorMagnitudeModifier
     );
-    this.setGamePlayEntityAttackPoints(attackPoints);
-    this.moveGameEntityDirection(d);
+    // Set attack points.
+    this.setAttackPoints(attackPoints);
+    // Set type.
+    this.setType(GamePlayEntity.types.BULLET);
+    // Move in vector.
+    this.moveInVector(d);
   };
 }
 

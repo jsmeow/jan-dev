@@ -10,16 +10,15 @@ class BulletEntity extends GamePlayEntity {
 
   /**
    * @param game
-   * @param {number} x
-   * @param {number} y
-   * @param {number} factionStatus
-   * @param {number} attackPoints
-   * @param {{dxLeft: number=, dxRight: number=, dyUp: number=, dyDown: number=}=} d
+   * @param {Object}
    * @constructor
    * @abstract
    */
-  constructor(game, { x, y }, factionStatus) {
-    super(game, { x, y }, factionStatus);
+  constructor(
+    game,
+    { position, size, faction, attackPoints, vectorMagnitude, d }
+  ) {
+    super(game, { position, size, faction, attackPoints, d });
   }
 
   // ==========================================================================
@@ -29,17 +28,14 @@ class BulletEntity extends GamePlayEntity {
   /**
    * @override
    */
-  onGameEntityCollision = entity => {
+  onCollisionEvent = entity => {
     // Skip if entity instance dead or invincible.
-    if (
-      entity.gamePlayEntityAliveStatus &&
-      !entity.gamePlayEntityInvincibleStatus
-    ) {
+    if (entity.status.alive && !entity.status.invincible) {
       // Do damage on entity instance.
-      entity.gamePlayEntityHitPoints -= this.gamePlayEntityAttackPoints;
+      entity.points.health -= this.points.attack;
       // Die if hit points <= 0 on entity instance.
-      if (entity.gamePlayEntityHitPoints <= 0) {
-        entity.gamePlayEntityAliveStatus = false;
+      if (entity.points.health <= 0) {
+        entity.status.alive = false;
       }
     }
   };
@@ -49,35 +45,42 @@ class BulletEntity extends GamePlayEntity {
   // ==========================================================================
 
   /**
-   * BulletEntity collision actions taken on a game tick.
-   * @param {number} entIdx
+   * @override
    */
-  onBulletEntityCollisionTick = entIdx => {
+  onCollisionTick = entIdx => {
+    // Check collision and collision boundaries.
     if (
-      this.hasGameEntityCollidedGameEntity(entIdx) ||
-      this.hasGameEntityCollidedTopBoundary(
-        this.gameEntityMoveVectorMagnitude
-      ) ||
-      this.hasGameEntityCollidedBottomBoundary(
-        this.gameEntityMoveVectorMagnitude
-      )
+      this.hasEntityCollidedEntity(entIdx) ||
+      this.hasCollidedLeftBoundary(this.moveVector.magnitude) ||
+      this.hasCollidedRightBoundary(this.moveVector.magnitude) ||
+      this.hasCollidedTopBoundary(this.moveVector.magnitude) ||
+      this.hasCollidedBottomBoundary(this.moveVector.magnitude)
     ) {
-      this.setGamePlayEntityAliveStatus(false);
+      this.setAliveStatus(false);
     }
   };
 
   /**
    * @override
    */
+  onDisposeTick = entIdx => {
+    // Dispose GameEntity resources.
+    this.disposeMoveVectorInterval();
+    // Dispose GamePlayEntity resources.
+    this.disposeDamagedImageDurationTimeout();
+    // Dispose entity.
+    this.disposeEntity(entIdx);
+  };
+
+  /**
+   * @override
+   */
   onTick = entIdx => {
-    if (this.gamePlayEntityAliveStatus) {
-      this.onGameEntityDrawImageTick();
-      this.onBulletEntityCollisionTick(entIdx);
+    if (this.status.aliveStatus) {
+      this.onDrawImageTick();
+      this.onCollisionTick(entIdx);
     } else {
-      // Dispose GameEntity intervals and timeouts.
-      this.disposeGameEntityMoveInterval();
-      // Dispose GameEntity.
-      this.disposeGameEntity(entIdx);
+      this.onDisposeTick(entIdx);
     }
   };
 }
